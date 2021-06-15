@@ -7,7 +7,7 @@ set number relativenumber                           " line numbers (relative to 
 set nowrap                                          " text doesn't wrap
 set ignorecase                                      " case insensitive search
 set smartcase                                       " turns off the above with a mixed case search string.
-set splitbelow                                      " horizontal splits below not above
+set splitbelow splitright                           " split mor intuitively
 set incsearch                                       " shows search results while still searching
 set undofile                                        " saves undo history to a file
 set noswapfile                                      " doesn't create a swap file when switching buffers
@@ -20,6 +20,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'morhetz/gruvbox'
     Plug 'mbbill/undotree'
     Plug 'preservim/nerdtree'
+    Plug 'Shougo/deoplete.nvim'
 call plug#end()
 
 " Commands
@@ -27,24 +28,27 @@ command! Prose inoremap <buffer> . .<C-G>u|
             \ inoremap <buffer> ! !<C-G>u|
             \ inoremap <buffer> ? ?<C-G>u|
             \ setlocal spell spelllang=en nolist wrap linebreak fo=t1 fdm=manual|
+            \ call deoplete#disable()
 
 command! Code silent! iunmap <buffer> .|
             \ silent! iunmap <buffer> !|
             \ silent! iunmap <buffer> ?|
             \ setlocal nospell nolist nowrap tw=0 fo=tcq fo-=a fdm=indent|
-            \ silent! autocmd! PROSE * <buffer>
+            \ call deoplete#enable()
 
 " Leader Shortcuts
 let mapleader =" "
 
     map <leader>f :Goyo \| set linebreak<CR>
-    map <leader>c :Code<CR> 
-    map <leader>p :Prose<CR> 
+    map <leader>c :Code<CR>
+    map <leader>p :Prose<CR>
     map <leader>n :NERDTreeToggle<CR>
     map <leader>u :UndotreeToggle<CR>
 
 " Mappings
 nnoremap <s-tab> zA
+map K <Nop>
+map Q <Nop>
 
 " Auto Commands
 autocmd vimenter * ++nested colorscheme gruvbox
@@ -63,7 +67,32 @@ autocmd BufNewFile *.mom 0put =\".PAPER A4\<nl>     " adds formatting header to 
             \.START\<nl>
             \\<nl>
             \\"|$
+autocmd BufWritePost ~/.config/nvim/init.vim        " source init.vim every time its written to
+            \source ~/.config/nvim/init.vim
 
 " Plugin Specific Settings
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
+let g:deoplete#enable_at_startup = 1
+
+" Statusline
+let g:currentmode={
+       \ 'n'  : 'NORMAL ',
+       \ 'v'  : 'VISUAL ',
+       \ 'V'  : 'V·Line ',
+       \ "\<C-V>" : 'V·Block ',
+       \ 'i'  : 'INSERT ',
+       \ 'R'  : 'Replace ',
+       \ 'Rv' : 'V·Replace ',
+       \ 'c'  : 'Command ',
+       \}
+
+set statusline=
+set statusline+=\ %-10.10{toupper(g:currentmode[mode()])}
+set statusline+=%t
+set statusline+=%{&modified?'[+]':''}
+set statusline+=\ (%F)
+set statusline+=%=
+set statusline+=\ %10.10Y
+set statusline+=\ %15.15(%v,%l/%Lℓ%)
+set statusline+=\ %4.4p%%
