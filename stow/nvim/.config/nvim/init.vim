@@ -20,6 +20,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'mbbill/undotree'
     Plug 'preservim/nerdtree'
     Plug 'Shougo/deoplete.nvim'
+    Plug 'tpope/vim-fugitive'
 call plug#end()
 
 "Colourscheme
@@ -75,4 +76,3 @@ autocmd BufWritePost ~/.config/nvim/init.vim source ~/.config/nvim/init.vim
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let g:deoplete#enable_at_startup = 1
-
