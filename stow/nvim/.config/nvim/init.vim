@@ -12,7 +12,6 @@ set incsearch                                       " shows search results while
 set undofile                                        " saves undo history to a file
 set noswapfile                                      " doesn't create a swap file when switching buffers
 set colorcolumn=80                                  " sets colour colomn width
-set background=dark                                 " required by gruvbox for dark mode
 
 " Vim Plugged
 call plug#begin('~/.local/share/nvim/plugged')
@@ -23,6 +22,9 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'Shougo/deoplete.nvim'
 call plug#end()
 
+"Colourscheme
+set background=dark                                 " required by gruvbox for dark mode
+colorscheme gruvbox
 " Commands
 command! Prose inoremap <buffer> . .<C-G>u|
             \ inoremap <buffer> ! !<C-G>u|
@@ -51,7 +53,6 @@ map K <Nop>
 map Q <Nop>
 
 " Auto Commands
-autocmd vimenter * ++nested colorscheme gruvbox
 autocmd VimResized * wincmd =                       " automatically resize splits when vim is resized
 autocmd BufWritePre * %s/\s\+$//e                   " delete trailing whitespace
 autocmd BufNewFile *.mom 0put =\".PAPER A4\<nl>     " adds formatting header to .mom files
@@ -67,32 +68,11 @@ autocmd BufNewFile *.mom 0put =\".PAPER A4\<nl>     " adds formatting header to 
             \.START\<nl>
             \\<nl>
             \\"|$
-autocmd BufWritePost ~/.config/nvim/init.vim        " source init.vim every time its written to
-            \source ~/.config/nvim/init.vim
+autocmd BufWritePost ~/.config/nvim/init.vim source ~/.config/nvim/init.vim
+                                                    " source init.vim every time its written to
 
 " Plugin Specific Settings
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let g:deoplete#enable_at_startup = 1
 
-" Statusline
-let g:currentmode={
-       \ 'n'  : 'NORMAL ',
-       \ 'v'  : 'VISUAL ',
-       \ 'V'  : 'V·Line ',
-       \ "\<C-V>" : 'V·Block ',
-       \ 'i'  : 'INSERT ',
-       \ 'R'  : 'Replace ',
-       \ 'Rv' : 'V·Replace ',
-       \ 'c'  : 'Command ',
-       \}
-
-set statusline=
-set statusline+=\ %-10.10{toupper(g:currentmode[mode()])}
-set statusline+=%t
-set statusline+=%{&modified?'[+]':''}
-set statusline+=\ (%F)
-set statusline+=%=
-set statusline+=\ %10.10Y
-set statusline+=\ %15.15(%v,%l/%Lℓ%)
-set statusline+=\ %4.4p%%
