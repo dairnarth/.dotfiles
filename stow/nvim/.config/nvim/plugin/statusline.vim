@@ -17,6 +17,7 @@ function! statusline#gutterpadding() abort
     let l:padding=repeat(' ', l:gutterWidth - 2)
     return l:padding
 endfunction
+
 " Focus functions
 function! statusline#focus() abort
     setlocal statusline=
@@ -115,6 +116,7 @@ highlight statusline ctermbg=15 ctermfg=0 cterm=NONE
         highlight SLPercentDim ctermbg=239 ctermfg=7 cterm=NONE |
 
 " Focus autocmds
+        " TODO: Prevent running on NERDTree/UndoTree
 autocmd BufEnter,FocusGained,VimEnter,WinEnter * call statusline#focus()
 autocmd FocusLost,WinLeave * call statusline#dim()
 
