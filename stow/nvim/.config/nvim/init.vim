@@ -40,12 +40,6 @@ command! Code silent! iunmap <buffer> .|
             \ setlocal nospell nolist nowrap tw=0 fo=tcq fo-=a fdm=indent|
             \ call deoplete#enable()
 
-" Mappings
-nnoremap <s-tab> zA
-nnoremap K <Nop>
-nnoremap Q <Nop>
-nnoremap Y y$
-
 " Auto Commands
 autocmd VimResized * wincmd =                       " automatically resize splits when vim is resized
 autocmd BufWritePre * %s/\s\+$//e                   " delete trailing whitespace
