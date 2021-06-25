@@ -26,6 +26,7 @@ call plug#end()
 "Colourscheme
 set background=dark                                 " required by gruvbox for dark mode
 colorscheme gruvbox
+
 " Commands
 command! Prose inoremap <buffer> . .<C-G>u|
             \ inoremap <buffer> ! !<C-G>u|
@@ -38,18 +39,6 @@ command! Code silent! iunmap <buffer> .|
             \ silent! iunmap <buffer> ?|
             \ setlocal nospell nolist nowrap tw=0 fo=tcq fo-=a fdm=indent|
             \ call deoplete#enable()
-
-" Leader Mappings
-let mapleader =" "
-
-    map <leader>f :Goyo \| set linebreak<CR>
-    map <leader>c :Code<CR>
-    map <leader>p :Prose<CR>
-    map <leader>n :NERDTreeToggle<CR>
-    map <leader>u :UndotreeToggle<CR>
-    " vim-fugitive
-    map <leader>gs :G<CR>
-    map <leader>gp :G push<CR>
 
 " Mappings
 nnoremap <s-tab> zA
@@ -73,8 +62,6 @@ autocmd BufNewFile *.mom 0put =\".PAPER A4\<nl>     " adds formatting header to 
             \.START\<nl>
             \\<nl>
             \\"|$
-autocmd BufWritePost ~/.config/nvim/init.vim source ~/.config/nvim/init.vim
-                                                    " source init.vim every time its written to
 
 " Plugin Specific Settings
 let NERDTreeMinimalUI = 1
