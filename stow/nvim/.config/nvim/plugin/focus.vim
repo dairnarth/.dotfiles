@@ -3,11 +3,13 @@
 function! focus#focus() abort
         call statusline#focus()
         call colorcolumn#focus()
-        setlocal relativenumber
+        setlocal number relativenumber
 endfunction
 
 function! focus#dim() abort
         call statusline#dim()
-        call colorcolumn#dim()
-        setlocal norelativenumber
+        if winnr('$') > 2
+            call colorcolumn#dim()
+        endif
+        setlocal number norelativenumber
 endfunction
