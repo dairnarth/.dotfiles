@@ -53,8 +53,9 @@ let mapleader =" "
 
 " Mappings
 nnoremap <s-tab> zA
-map K <Nop>
-map Q <Nop>
+nnoremap K <Nop>
+nnoremap Q <Nop>
+nnoremap Y y$
 
 " Auto Commands
 autocmd VimResized * wincmd =                       " automatically resize splits when vim is resized
