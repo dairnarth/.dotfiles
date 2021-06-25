@@ -39,7 +39,7 @@ command! Code silent! iunmap <buffer> .|
             \ setlocal nospell nolist nowrap tw=0 fo=tcq fo-=a fdm=indent|
             \ call deoplete#enable()
 
-" Leader Shortcuts
+" Leader Mappings
 let mapleader =" "
 
     map <leader>f :Goyo \| set linebreak<CR>
@@ -47,6 +47,9 @@ let mapleader =" "
     map <leader>p :Prose<CR>
     map <leader>n :NERDTreeToggle<CR>
     map <leader>u :UndotreeToggle<CR>
+    " vim-fugitive
+    map <leader>gs :G<CR>
+    map <leader>gp :G push<CR>
 
 " Mappings
 nnoremap <s-tab> zA
