@@ -14,7 +14,7 @@ set noswapfile              " doesn't create a swap file when switching buffers
 set colorcolumn=80          " sets colour colomn width
 
 " Vim Plugged
-call plug#begin('~/.local/share/nvim/plugged')
+call plug#begin('~/.config/nvim/plugged')
     Plug 'junegunn/goyo.vim'
     Plug 'morhetz/gruvbox'
     Plug 'mbbill/undotree'
