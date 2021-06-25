@@ -1,14 +1,4 @@
 " Statusline
-let g:currentmode={
-       \ 'n'  : 'NORMAL ',
-       \ 'v'  : 'VISUAL ',
-       \ 'V'  : 'V·Line ',
-       \ "\<C-V>" : 'V·Block ',
-       \ 'i'  : 'INSERT ',
-       \ 'R'  : 'Replace ',
-       \ 'Rv' : 'V·Replace ',
-       \ 'c'  : 'Command ',
-       \}
 
 " This function shamelessly stolen from Greg Hurrell (wincent).
 function! statusline#gutterpadding() abort
@@ -28,9 +18,9 @@ function! statusline#focus() abort
     setlocal statusline+=▏
     setlocal statusline+=%#SLFileName#
     setlocal statusline+=%t
+    setlocal statusline+=%<
     setlocal statusline+=\ %#SLSeperator2#
     setlocal statusline+=▏
-    setlocal statusline+=%<
     setlocal statusline+=%#SLFilePath#
     setlocal statusline+=%F
     setlocal statusline+=\ %#SLMid#
@@ -63,9 +53,9 @@ function! statusline#dim() abort
     setlocal statusline+=▏
     setlocal statusline+=%#SLFileNameDim#
     setlocal statusline+=%t
+    setlocal statusline+=%<
     setlocal statusline+=\ %#SLSeperator2Dim#
     setlocal statusline+=▏
-    setlocal statusline+=%<
     setlocal statusline+=%#SLFilePathDim#
     setlocal statusline+=%F
     setlocal statusline+=\ %#SLMidDim#
@@ -75,15 +65,15 @@ function! statusline#dim() abort
     setlocal statusline+=▏
     setlocal statusline+=%#SLFileTypeDim#
     setlocal statusline+=%Y
-    setlocal statusline+=\ %#SLSeperatorDim#
+    setlocal statusline+=\ %#SLSeperator2Dim#
     setlocal statusline+=▏
     setlocal statusline+=%#SLLineColDim#
     setlocal statusline+=%2lℓ
-    setlocal statusline+=%#SLSeperatorDim#
+    setlocal statusline+=%#SLSeperator2Dim#
     setlocal statusline+=│
     setlocal statusline+=%#SLLineColDim#
     setlocal statusline+=%2v𝒸
-    setlocal statusline+=%#SLSeperatorDim#
+    setlocal statusline+=%#SLSeperator2Dim#
     setlocal statusline+=│
     setlocal statusline+=%#SLPercentDim#
     setlocal statusline+=%3.3p%%
@@ -104,21 +94,16 @@ highlight statusline ctermbg=15 ctermfg=0 cterm=NONE
         highlight SLPercent ctermbg=15 ctermfg=0 cterm=bold |
 
     " Dim
-        highlight SLModeDim ctermbg=239 ctermfg=9 cterm=NONE |
+        highlight SLModeDim ctermbg=237 ctermfg=9 cterm=NONE |
         highlight SLSeperatorDim ctermbg=239 ctermfg=0 cterm=NONE |
         highlight SLFileNameDim ctermbg=239 ctermfg=15 cterm=NONE |
-        highlight SLSeperator2Dim ctermbg=239 ctermfg=0 cterm=NONE |
-        highlight SLFilePathDim ctermbg=239 ctermfg=7 cterm=italic |
-        highlight SLMidDim ctermbg=239 ctermfg=0 cterm=NONE |
-        highlight SLSeperator3Dim ctermbg=239 ctermfg=0 cterm=NONE |
-        highlight SLFileTypeDim ctermbg=239 ctermfg=7 cterm=NONE |
-        highlight SLLineColDim ctermbg=239 ctermfg=7 cterm=italic |
-        highlight SLPercentDim ctermbg=239 ctermfg=7 cterm=NONE |
-
-" Focus autocmds
-        " TODO: Prevent running on NERDTree/UndoTree
-autocmd BufEnter,FocusGained,VimEnter,WinEnter * call statusline#focus()
-autocmd FocusLost,WinLeave * call statusline#dim()
+        highlight SLSeperator2Dim ctermbg=237 ctermfg=0 cterm=NONE |
+        highlight SLFilePathDim ctermbg=237 ctermfg=7 cterm=italic |
+        highlight SLMidDim ctermbg=237 ctermfg=0 cterm=NONE |
+        highlight SLSeperator3Dim ctermbg=237 ctermfg=0 cterm=NONE |
+        highlight SLFileTypeDim ctermbg=237 ctermfg=7 cterm=NONE |
+        highlight SLLineColDim ctermbg=237 ctermfg=7 cterm=italic |
+        highlight SLPercentDim ctermbg=237 ctermfg=7 cterm=NONE |
 
 " Mode autocmds
 autocmd InsertEnter * highlight SLMode ctermbg=3 ctermfg=0
