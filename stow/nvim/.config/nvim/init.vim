@@ -27,23 +27,6 @@ call plug#end()
 set background=dark                                 " required by gruvbox for dark mode
 colorscheme gruvbox
 
-" Auto Commands
-autocmd VimResized * wincmd =                       " automatically resize splits when vim is resized
-autocmd BufWritePre * %s/\s\+$//e                   " delete trailing whitespace
-autocmd BufNewFile *.mom 0put =\".PAPER A4\<nl>     " adds formatting header to .mom files
-            \.PRINTSTYLE TYPESET\<nl>
-            \.L_MARGIN 2.5cm\<nl>
-            \.R_MARGIN 2.5cm\<nl>
-            \.DOCTYPE ___
-            \\\#\<nl>
-            \.FAMILY T\<nl>
-            \.PT_SIZE 11\<nl>
-            \.AUTOLEAD 1\<nl>
-            \\\#\<nl>
-            \.START\<nl>
-            \\<nl>
-            \\"|$
-
 " Plugin Specific Settings
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
