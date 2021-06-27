@@ -1,4 +1,4 @@
 " Terminal Mappings
 
-" Easier exiting terminal mode. Didn't use just ESC to allow for shell vi mode.
-tnoremap <C-q> <C-\><C-N>
+" Easier exiting terminal window
+tnoremap <C-w> <C-\><C-N><C-w>
