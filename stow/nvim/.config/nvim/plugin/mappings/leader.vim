@@ -16,6 +16,7 @@ map <leader>f :Goyo \| set linebreak<CR>
 " vim-fugitive
 map <leader>gs :G<CR>
 map <leader>gp :G push<CR>
+map <leader>gl :G log<CR>
 
 " NERDTree
 map <leader>n :NERDTreeToggle<CR>
