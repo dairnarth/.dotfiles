@@ -21,6 +21,7 @@ function! statusline#focus() abort
     setlocal statusline+=%<
     setlocal statusline+=\ %#SLSeperator2#
     setlocal statusline+=▏
+    setlocal statusline+=%<
     setlocal statusline+=%#SLFilePath#
     setlocal statusline+=%F
     setlocal statusline+=\ %#SLMid#
@@ -53,9 +54,9 @@ function! statusline#dim() abort
     setlocal statusline+=▏
     setlocal statusline+=%#SLFileNameDim#
     setlocal statusline+=%t
-    setlocal statusline+=%<
     setlocal statusline+=\ %#SLSeperator2Dim#
     setlocal statusline+=▏
+    setlocal statusline+=%<
     setlocal statusline+=%#SLFilePathDim#
     setlocal statusline+=%F
     setlocal statusline+=\ %#SLMidDim#
