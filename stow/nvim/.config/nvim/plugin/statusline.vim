@@ -18,7 +18,6 @@ function! statusline#focus() abort
     setlocal statusline+=▏
     setlocal statusline+=%#SLFileName#
     setlocal statusline+=%t
-    setlocal statusline+=%<
     setlocal statusline+=\ %#SLSeperator2#
     setlocal statusline+=▏
     setlocal statusline+=%<
