@@ -106,5 +106,8 @@ highlight statusline ctermbg=15 ctermfg=0 cterm=NONE
         highlight SLPercentDim ctermbg=237 ctermfg=7 cterm=NONE |
 
 " Mode autocmds
-autocmd InsertEnter * highlight SLMode ctermbg=3 ctermfg=0
-autocmd InsertLeave * highlight SLMode ctermbg=15 ctermfg=0
+augroup statusline#modecolour
+    au!
+    autocmd InsertEnter * highlight SLMode ctermbg=3 ctermfg=0
+    autocmd InsertLeave * highlight SLMode ctermbg=15 ctermfg=0
+augroup END
