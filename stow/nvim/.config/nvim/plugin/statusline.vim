@@ -79,8 +79,28 @@ function! statusline#dim() abort
     setlocal statusline+=%3.3p%%
 endfunction
 
+function! statusline#specialfocus() abort
+    setlocal statusline=
+    setlocal statusline+=▏
+    setlocal statusline+=%#SLFileName#
+    setlocal statusline+=%t
+    setlocal statusline+=\ %#SLMid#
+    setlocal statusline+=▏
+    setlocal statusline+=%<
+endfunction
+
+function! statusline#specialdim() abort
+    setlocal statusline=
+    setlocal statusline+=▏
+    setlocal statusline+=%#SLFileNameDim#
+    setlocal statusline+=%t
+    setlocal statusline+=\ %#SLMidDim#
+    setlocal statusline+=▏
+    setlocal statusline+=%<
+endfunction
+
 " Statusline Colours
-highlight statusline ctermbg=15 ctermfg=0 cterm=NONE
+highlight statusline ctermbg=237 ctermfg=0 cterm=NONE
     " Normal
         highlight SLMode ctermbg=15 ctermfg=0 cterm=NONE |
         highlight SLSeperator ctermbg=15 ctermfg=0 cterm=NONE |
