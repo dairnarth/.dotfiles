@@ -33,7 +33,6 @@ augroup END
 
 
 " Focus autocmds
-        " TODO: Prevent running on NERDTree/UndoTree
 augroup autocmds#focus
     au!
     autocmd BufEnter,FocusGained,VimEnter,WinEnter * call focus#focus()
