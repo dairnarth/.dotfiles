@@ -102,7 +102,8 @@ endfunction
 
 function! statusline#specialfocus() abort
     setlocal statusline=
-    setlocal statusline+=%#SLSeperator#
+    setlocal statusline+=%#SLSeperator2#
+    setlocal statusline+=\ \ %#SLSeperator#
     setlocal statusline+=▏
     setlocal statusline+=%#SLFileName#
     setlocal statusline+=%t
@@ -113,7 +114,8 @@ endfunction
 
 function! statusline#specialdim() abort
     setlocal statusline=
-    setlocal statusline+=%#SLSeperatorDim#
+    setlocal statusline+=%#SLMidDim#
+    setlocal statusline+=\ \ %#SLSeperatorDim#
     setlocal statusline+=▏
     setlocal statusline+=%#SLFileNameDim#
     setlocal statusline+=%t
