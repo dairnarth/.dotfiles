@@ -23,7 +23,7 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'tpope/vim-fugitive'
 call plug#end()
 
-"Colourscheme
+" Colourscheme
 set background=dark         " required by gruvbox for dark mode
 colorscheme gruvbox
 
