@@ -153,6 +153,6 @@ hi statusline ctermbg=237 ctermfg=0 cterm=NONE
         hi SLInsertColour ctermbg=3 ctermfg=0 cterm=NONE
         hi SLReplaceColour ctermbg=166 ctermfg=0 cterm=NONE
         hi SLVisualColour ctermbg=4 ctermfg=0 cterm=NONE
-        hi SLCommandColour ctermbg=237 ctermfg=0 cterm=NONE
+        hi SLCommandColour ctermbg=235 ctermfg=0 cterm=NONE
         hi SLTerminalColour ctermbg=15 ctermfg=0 cterm=NONE
         hi SLModified ctermbg=1 ctermfg=0 cterm=NONE
