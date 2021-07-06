@@ -55,11 +55,15 @@ function! statusline#focus() abort
     setlocal statusline+=\ %#SLSeperator#
     setlocal statusline+=▏
     setlocal statusline+=%#SLLineCol#
-    setlocal statusline+=%2lℓ
+    setlocal statusline+=%2l
+    setlocal statusline+=%#SLLineColText#
+    setlocal statusline+=ℓ
     setlocal statusline+=%#SLSeperator#
     setlocal statusline+=│
     setlocal statusline+=%#SLLineCol#
-    setlocal statusline+=%2v𝒸
+    setlocal statusline+=%2v
+    setlocal statusline+=%#SLLineColText#
+    setlocal statusline+=𝒸
     setlocal statusline+=%#SLSeperator#
     setlocal statusline+=│
     setlocal statusline+=%#SLPercent#
@@ -89,11 +93,15 @@ function! statusline#dim() abort
     setlocal statusline+=\ %#SLSeperator2Dim#
     setlocal statusline+=▏
     setlocal statusline+=%#SLLineColDim#
-    setlocal statusline+=%2lℓ
+    setlocal statusline+=%2l
+    setlocal statusline+=%#SLLineColTextDim#
+    setlocal statusline+=ℓ
     setlocal statusline+=%#SLSeperator2Dim#
     setlocal statusline+=│
     setlocal statusline+=%#SLLineColDim#
-    setlocal statusline+=%2v𝒸
+    setlocal statusline+=%2v
+    setlocal statusline+=%#SLLineColTextDim#
+    setlocal statusline+=𝒸
     setlocal statusline+=%#SLSeperator2Dim#
     setlocal statusline+=│
     setlocal statusline+=%#SLPercentDim#
@@ -135,6 +143,7 @@ hi statusline ctermbg=237 ctermfg=0 cterm=NONE
         hi SLSeperator3 ctermbg=7 ctermfg=0 cterm=NONE |
         hi SLFileType ctermbg=7 ctermfg=0 cterm=NONE |
         hi SLLineCol ctermbg=15 ctermfg=0 cterm=italic |
+        hi SLLineColText ctermbg=15 ctermfg=0 cterm=NONE |
         hi SLPercent ctermbg=15 ctermfg=0 cterm=bold |
 
     " Dim
@@ -147,6 +156,7 @@ hi statusline ctermbg=237 ctermfg=0 cterm=NONE
         hi SLSeperator3Dim ctermbg=237 ctermfg=0 cterm=NONE |
         hi SLFileTypeDim ctermbg=237 ctermfg=7 cterm=NONE |
         hi SLLineColDim ctermbg=237 ctermfg=7 cterm=italic |
+        hi SLLineColTextDim ctermbg=237 ctermfg=7 cterm=NONE |
         hi SLPercentDim ctermbg=237 ctermfg=7 cterm=NONE |
 
     " Variable
