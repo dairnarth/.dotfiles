@@ -6,6 +6,9 @@ let mapleader =" "
 map <leader>c :Code<CR>
 map <leader>p :Prose<CR>
 
+" Unhighlight search
+map <leader>/ :nohlsearch<CR>
+
 " Terminal
 map <leader>tj :sp +te<CR>
 map <leader>tl :vs +te<CR>
