@@ -1,5 +1,8 @@
 " Colours
 
+" Command bar
+hi ErrorMsg cterm=bold ctermfg=9 ctermbg=235
+
 " Search
 hi Search ctermfg=208 ctermbg=235 cterm=bold,italic,underline
 hi IncSearch ctermfg=208 ctermbg=235 cterm=bold,italic,reverse
