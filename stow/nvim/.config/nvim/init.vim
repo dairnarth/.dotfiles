@@ -12,6 +12,7 @@ set incsearch               " shows search results while still searching
 set undofile                " saves undo history to a file
 set noswapfile              " doesn't create a swap file when switching buffers
 set colorcolumn=80          " sets colour colomn width
+set scl=no                  " turns off sign column
 
 " Vim Plugged
 call plug#begin('~/.config/nvim/plugged')
@@ -19,7 +20,9 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'morhetz/gruvbox'
     Plug 'mbbill/undotree'
     Plug 'preservim/nerdtree'
+    Plug 'neovim/nvim-lspconfig'
     Plug 'Shougo/deoplete.nvim'
+    Plug 'deoplete-plugins/deoplete-lsp'
     Plug 'tpope/vim-fugitive'
 call plug#end()
 
