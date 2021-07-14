@@ -11,8 +11,10 @@ This is currently more of a preventative measure, given the size of the files, b
 
 The plugins that I have installed, in alphabetical order:
 - [Shougo/deoplete.nvim](https://github.com/Shougo/deoplete.nvim)
+- [deoplete-plugins/deoplete-lsp](https://github.com/deoplete-plugins/deoplete-lsp)
 - [tpope/vim-fugitive](https://github.com/tpope/vim-fugitive)
 - [junegunn/goyo.vim](https://github.com/junegunn/goyo.vim)
 - [morhetz/gruvbox](https://github.com/morhetz/gruvbox)
+- [neovim/nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)
 - [preservim/nerdtree](https://github.com/preservim/nerdtree)
 - [mbbill/undotree](https://github.com/mbbill/undotree)
