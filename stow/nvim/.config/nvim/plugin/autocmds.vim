@@ -14,7 +14,7 @@ augroup END
 
 " adds formatting header to .mom files
         " TODO: Fix this...
-augroup autocmds#newfile
+augroup autocmds#groff
     au!
     autocmd BufNewFile *.mom 0put =\".PAPER A4\<nl>
         \.PRINTSTYLE TYPESET\<nl>
@@ -29,8 +29,20 @@ augroup autocmds#newfile
         \.START\<nl>
         \\<nl>
         \\"|$
+    autocmd BufWritePost *.mom silent! !pdfmom % > %:r.pdf
 augroup END
 
+augroup autocmds#latex
+    au!
+    autocmd BufNewFile *.tex 0put =\"\\documentclass{}\<nl>\<nl>
+        \\\author{}\<nl>
+        \\\title{}\<nl>
+        \\<nl>
+        \\\begin{document}\<nl>\<nl>\<nl>\<nl>
+        \\\end{document}\"
+        \| 1 | normal f}
+    autocmd BufWritePost *.tex silent! !pdflatex "%"
+augroup END
 
 " Focus autocmds
 augroup autocmds#focus
