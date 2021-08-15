@@ -9,6 +9,9 @@ map <leader>p :Prose<CR>
 " Unhighlight search
 map <leader>/ :nohlsearch<CR>
 
+" Telescope
+map <leader>sf :Telescope find_files<CR>
+
 " Terminal
 map <leader>tj :sp +te<CR>
 map <leader>tl :vs +te<CR>
