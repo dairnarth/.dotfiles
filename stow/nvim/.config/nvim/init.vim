@@ -23,6 +23,8 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'neovim/nvim-lspconfig'
     Plug 'Shougo/deoplete.nvim'
     Plug 'deoplete-plugins/deoplete-lsp'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
     Plug 'tpope/vim-fugitive'
 call plug#end()
 
