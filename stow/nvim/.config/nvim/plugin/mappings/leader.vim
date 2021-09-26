@@ -10,7 +10,8 @@ map <leader>p :Prose<CR>
 map <leader>/ :nohlsearch<CR>
 
 " Telescope
-map <leader>sf :Telescope find_files<CR>
+map <leader>sf :lua require('telescope.builtin').find_files({hidden = true})<CR>
+map <leader>sb :lua require('telescope.builtin').file_browser({hidden = true})<CR>
 
 " Terminal
 map <leader>tj :sp +te<CR>
