@@ -17,6 +17,14 @@ nnoremap ss :w<CR>
 nnoremap sa :w <C-r>%
 nnoremap so :w \| source % \| echo 'Sourced'expand("%")<CR>
 
+" Better Movement
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap { {zz
+nnoremap } }zz
+nnoremap [[ [[zz
+nnoremap ]] ]]zz
+
 " wincmd bindings
 nnoremap <silent> <C-h> :wincmd h<CR>
 nnoremap <silent> <C-j> :wincmd j<CR>
