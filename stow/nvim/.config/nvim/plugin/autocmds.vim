@@ -12,7 +12,7 @@ augroup autocmd#trailing
     autocmd BufWritePre * %s/\s\+$//e
 augroup END
 
-" adds formatting header to .mom files
+" adds formatting headers
         " TODO: Fix this...
 augroup autocmds#groff
     au!
@@ -49,4 +49,10 @@ augroup autocmds#focus
     au!
     autocmd BufEnter,FocusGained,VimEnter,WinEnter * call focus#focus()
     autocmd FocusLost,WinLeave * call focus#dim()
+augroup END
+
+augroup autocmds#insert
+    au!
+    autocmd InsertEnter * set cursorline
+    autocmd InsertLeave * set nocursorline
 augroup END
