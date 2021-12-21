@@ -16,16 +16,26 @@ set scl=no                  " turns off sign column
 
 " Vim Plugged
 call plug#begin('~/.config/nvim/plugged')
-    Plug 'junegunn/goyo.vim'
+    " Colourscheme
     Plug 'morhetz/gruvbox'
+    " Completion
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/cmp-cmdline'
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'saadparwaiz1/cmp_luasnip'
+    Plug 'L3MON4D3/LuaSnip'
+    " Focus
+    Plug 'folke/zen-mode.nvim'
+    " Git
+    Plug 'tpope/vim-fugitive'
+    " Navigation
     Plug 'mbbill/undotree'
     Plug 'preservim/nerdtree'
-    Plug 'neovim/nvim-lspconfig'
-    Plug 'Shougo/deoplete.nvim'
-    Plug 'deoplete-plugins/deoplete-lsp'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
-    Plug 'tpope/vim-fugitive'
 call plug#end()
 
 " Colourscheme
@@ -35,4 +45,3 @@ colorscheme gruvbox
 " Plugin Specific Settings
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
-let g:deoplete#enable_at_startup = 1
