@@ -18,19 +18,29 @@ map <leader>tj :sp +te<CR>
 map <leader>tl :vs +te<CR>
 
 " Focus
+let g:zenOn=0
 function! leader#focustoggle()
-    let l:zenWidth=max([strlen(line('$')) + 1, &numberwidth]) + 80
-    let l:zenHeight=&lines - 5
-    exec "lua require('zen-mode').toggle({ "
-                \ . "window = { "
-                \ . "width = "  . l:zenWidth . ", "
-                \ . "height = " . l:zenHeight . ", "
-                \ . "options = {"
-                \ . "number = true, "
-                \ . "relativenumber = false, "
-                \ . "wrap = true, "
-                \ . "colorcolumn = ''"
-                \ . " } } })"
+    if g:zenOn==1
+        lua require('zen-mode').close()
+        lua vim.fn.system([[tmux set status on]])
+        let g:zenOn=0
+    else
+        let l:zenWidth=max([strlen(line('$')) + 1, &numberwidth]) + 80
+        let l:zenHeight=&lines - 3
+        exec "lua require('zen-mode').open({ "
+                    \ . "window = { "
+                    \ .     "width = "  . l:zenWidth . ", "
+                    \ .     "height = " . l:zenHeight . ", "
+                    \ .     "options = {"
+                    \ .     "number = true, "
+                    \ .     "relativenumber = false, "
+                    \ .     "wrap = true, "
+                    \ .     "colorcolumn = '' "
+                    \ . "} }, "
+                    \ . "})"
+        lua vim.fn.system([[tmux set status off]])
+        let g:zenOn=1
+        endif
 endfunction
 
 map <silent> <leader>z :call leader#focustoggle()<CR>
