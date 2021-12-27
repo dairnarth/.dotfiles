@@ -56,3 +56,9 @@ augroup autocmds#insert
     autocmd InsertEnter * set cursorline
     autocmd InsertLeave * set nocursorline
 augroup END
+
+" Exit autocmds
+augroup autocmds#exit
+    au!
+    autocmd VimLeave * lua vim.fn.system([[tmux set status on]])
+augroup END
