@@ -13,10 +13,6 @@ map <leader>/ :nohlsearch<CR>
 map <leader>ff :lua require('telescope.builtin').find_files({hidden = true})<CR>
 map <leader>fb :lua require('telescope.builtin').file_browser({hidden = true})<CR>
 
-" Terminal
-map <leader>tj :sp +te<CR>
-map <leader>tl :vs +te<CR>
-
 " Focus
 let g:zenOn=0
 function! leader#focustoggle()
