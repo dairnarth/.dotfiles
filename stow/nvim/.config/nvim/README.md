@@ -26,6 +26,7 @@ The plugins that I currently have installed:
   - [hrsh7th/cmp-path](https://github.com/hrsh7th/cmp-path)
   - [hrsh7th/cmp-cmdline](https://github.com/hrsh7th/cmp-cmdline)
   - [hrsh7th/nvim-cmp](https://github.com/hrsh7th/nvim-cmp)
+  - [uga-rosa/cmp-dictionary](https://github.com/uga-rosa/cmp-dictionary)
   - [saadparawaiz1/cmp\_luasnip](https://github.com/saadparawaiz1/cmp_luasnip)
   - [L3MON4D3/LuaSnip](https://github.com/L3MON4D3/LuaSnip)
 
