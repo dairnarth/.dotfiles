@@ -13,6 +13,13 @@ set undofile                " saves undo history to a file
 set noswapfile              " doesn't create a swap file when switching buffers
 set colorcolumn=80          " sets colour colomn width
 set scl=no                  " turns off sign column
+set nospell
+set nolist
+set nowrap
+set tw=0
+set fo=tcq
+set fo-=a
+set fdm=indent
 
 " Vim Plugged
 call plug#begin('~/.config/nvim/plugged')
@@ -36,6 +43,8 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'preservim/nerdtree'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
+    " Prettyify
+    Plug 'godlygeek/tabular'
 call plug#end()
 
 " Colourscheme

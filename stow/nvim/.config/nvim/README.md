@@ -40,3 +40,6 @@ The plugins that I currently have installed:
 - [mbbill/undotree](https://github.com/mbbill/undotree)
 - [nvim-lua/plenary.nvim](https://github.com/nvim-lua/plenary.nvim)
 - [nvim-telescope/telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
+
+### Prettyify
+  - [godlygeek/tabular](https://github.com/godlygeek/tabular)
