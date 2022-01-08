@@ -3,7 +3,7 @@
 " FUNCTIONS "
 " abc#getNotes takes text input and returns an array of abc notes, each split
 " into an array containing their note value and length value.
-function abc#getNotes(input)
+function! abc#getNotes(input)
     let l:notes=[]
     let l:noteParts=[]
     call substitute(a:input,
@@ -39,17 +39,13 @@ function! abc#getNotation(original, new)
     let l:abcNotation=a:original
     let l:abcReturn=''
     for l:note in range(0, len(l:originalNotes) - 1)
-        echo '1. ' . l:originalNotes[l:note]
-        echo '2. ' . l:wholeNotes[l:note]
         let l:abcNotation = substitute(l:abcNotation,
                     \ '\V' . l:originalNotes[l:note],
                     \ l:wholeNotes[l:note],
                     \ '')
-        echo '3. ' . l:abcNotation
         let l:split = matchend(l:abcNotation, '\V' . l:wholeNotes[l:note])
         let l:abcReturn = l:abcReturn . l:abcNotation[0:l:split - 1]
         let abcNotation = l:abcNotation[l:split:strlen(l:abcNotation) - 1]
-        echo '4. ' . l:abcNotation
     endfor
     return l:abcReturn
 endfunction
@@ -92,13 +88,10 @@ function! abc#transposeOctaveDown(input)
     let l:notes = abc#getNotes(a:input)
     for l:note in range(0, len(l:notes) - 1)
         if l:notes[l:note][0] =~ "'$"
-            echo '1. ' . l:notes[l:note][0]
             let l:notes[l:note][0] = l:notes[l:note][0][0:-2]
         elseif l:notes[l:note][0] =~ '\l'
-            echo '2. ' . l:notes[l:note][0]
             let l:notes[l:note][0] = toupper(l:notes[l:note][0])
         else
-            echo '3. ' . l:notes[l:note][0]
             let l:notes[l:note][0] = l:notes[l:note][0] . ","
         endif
     endfor
