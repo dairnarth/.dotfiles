@@ -10,6 +10,13 @@ function! abc#run(abcInput, abcFunc, count = 1) abort
     return abc#getNotation(a:abcInput, l:notes)
 endfunction
 
+function! abc#selection(abcFunc, count = 1) range
+    for i in range(a:firstline, a:lastline)
+        let l:replacement = abc#run(getline(i), a:abcFunc, a:count)
+        exec "s/" . getline(i) . "/" . l:replacement . "/"
+    endfor
+endfunction
+
 " abc#getNotes takes text input and returns an array of abc notes, each split
 " into an array containing their note value and length value.
 function! abc#getNotes(abcInput)
