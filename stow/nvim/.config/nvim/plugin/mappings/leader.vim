@@ -31,6 +31,7 @@ function! leader#focustoggle()
                     \ .     "number = true, "
                     \ .     "relativenumber = false, "
                     \ .     "wrap = true, "
+                    \ .     "linebreak = true, "
                     \ .     "colorcolumn = '' "
                     \ . "} }, "
                     \ . "})"
