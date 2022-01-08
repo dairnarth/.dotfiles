@@ -1,12 +1,17 @@
 " ftplugin/abc.vim
 
 " FUNCTIONS "
+function! abc#run(abcInput, abcFunc) abort
+    let l:Func = function(a:abcFunc)
+    return abc#getNotation(a:abcInput, l:Func(abc#getNotes(a:abcInput)))
+endfunction
+
 " abc#getNotes takes text input and returns an array of abc notes, each split
 " into an array containing their note value and length value.
-function! abc#getNotes(input)
+function! abc#getNotes(abcInput)
     let l:notes=[]
     let l:noteParts=[]
-    call substitute(a:input,
+    call substitute(a:abcInput,
                 \ '\([_=\^]\)\{,2}\a\([,'']\)*\/\?\([0-9]\)*',
                 \ '\=add(l:notes, submatch(0))',
                 \ 'g')
@@ -25,22 +30,22 @@ function! abc#getNotes(input)
     return l:noteParts
 endfunction
 
-function! abc#getNotation(original, new)
+function! abc#getNotation(abcInput, notelist)
     let l:wholeNotes=[]
-    for l:note in range(0, len(a:new) - 1)
-         let l:wholeNoteTmp = a:new[l:note][0] . a:new[l:note][1]
+    for l:note in range(0, len(a:notelist) - 1)
+         let l:wholeNoteTmp = a:notelist[l:note][0] . a:notelist[l:note][1]
          call add(l:wholeNotes, l:wholeNoteTmp)
     endfor
-    let l:originalNotes=[]
-    call substitute(a:original,
+    let l:abcInputNotes=[]
+    call substitute(a:abcInput,
                 \ '\([_=\^]\)\{,2}\a\([,'']\)*\/\?\([0-9]\)*',
-                \ '\=add(l:originalNotes, submatch(0))',
+                \ '\=add(l:abcInputNotes, submatch(0))',
                 \ 'g')
-    let l:abcNotation=a:original
+    let l:abcNotation=a:abcInput
     let l:abcReturn=''
-    for l:note in range(0, len(l:originalNotes) - 1)
+    for l:note in range(0, len(l:abcInputNotes) - 1)
         let l:abcNotation = substitute(l:abcNotation,
-                    \ '\V' . l:originalNotes[l:note],
+                    \ '\V' . l:abcInputNotes[l:note],
                     \ l:wholeNotes[l:note],
                     \ '')
         let l:split = matchend(l:abcNotation, '\V' . l:wholeNotes[l:note])
@@ -50,8 +55,8 @@ function! abc#getNotation(original, new)
     return l:abcReturn
 endfunction
 
-function! abc#lengthDouble(input)
-    let l:notes = abc#getNotes(a:input)
+function! abc#lengthDouble(notelist)
+    let l:notes = a:notelist
     for l:note in range(0, len(l:notes) - 1)
         if (l:notes[l:note][1] =~ '^/') " TODO: Fix this regex
             if (l:notes[l:note][1] == '/')
@@ -67,11 +72,11 @@ function! abc#lengthDouble(input)
             let l:notes[l:note][1] = l:notes[l:note][1] * 2
         endif
     endfor
-    return abc#getNotation(a:input, l:notes)
+    return l:notes
 endfunction
 
-function! abc#transposeOctaveUp(input)
-    let l:notes = abc#getNotes(a:input)
+function! abc#transposeOctaveUp(notelist)
+    let l:notes = a:notelist
     for l:note in range(0, len(l:notes) - 1)
         if l:notes[l:note][0] =~ ",$"
             let l:notes[l:note][0] = l:notes[l:note][0][0:-2]
@@ -81,11 +86,11 @@ function! abc#transposeOctaveUp(input)
             let l:notes[l:note][0] = l:notes[l:note][0] . "'"
         endif
     endfor
-    return abc#getNotation(a:input, l:notes)
+    return l:notes
 endfunction
 
-function! abc#transposeOctaveDown(input)
-    let l:notes = abc#getNotes(a:input)
+function! abc#transposeOctaveDown(notelist)
+    let l:notes = a:notelist
     for l:note in range(0, len(l:notes) - 1)
         if l:notes[l:note][0] =~ "'$"
             let l:notes[l:note][0] = l:notes[l:note][0][0:-2]
@@ -95,7 +100,7 @@ function! abc#transposeOctaveDown(input)
             let l:notes[l:note][0] = l:notes[l:note][0] . ","
         endif
     endfor
-    return abc#getNotation(a:input, l:notes)
+    return l:notes
 endfunction
 
 " MAPPINGS "
