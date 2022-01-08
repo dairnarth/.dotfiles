@@ -1,9 +1,13 @@
 " ftplugin/abc.vim
 
 " FUNCTIONS "
-function! abc#run(abcInput, abcFunc) abort
+function! abc#run(abcInput, abcFunc, count = 1) abort
     let l:Func = function(a:abcFunc)
-    return abc#getNotation(a:abcInput, l:Func(abc#getNotes(a:abcInput)))
+    let l:notes = abc#getNotes(a:abcInput)
+    for i in range(1, a:count)
+        let l:notes = l:Func(l:notes)
+    endfor
+    return abc#getNotation(a:abcInput, l:notes)
 endfunction
 
 " abc#getNotes takes text input and returns an array of abc notes, each split
