@@ -7,17 +7,17 @@ function abc#getNotes(input)
     let l:notes=[]
     let l:noteParts=[]
     call substitute(a:input,
-                \ '\([_=\^]\)\?\a\([,'']\)*\/\?\([0-9]\)*',
+                \ '\([_=\^]\)\{,2}\a\([,'']\)*\/\?\([0-9]\)*',
                 \ '\=add(l:notes, submatch(0))',
                 \ 'g')
     for l:note in range(0, len(l:notes) - 1)
         let l:noteTmp=[]
         call substitute(l:notes[l:note],
-                    \ '\zs\([_=\^]\)\?\a\([,'']\)*\ze\/\?\([0-9]\)*',
+                    \ '\zs\([_=\^]\)\{,2}\a\([,'']\)*\ze\/\?\([0-9]\)*',
                     \ '\=add(l:noteTmp, submatch(0))',
                     \ 'g')
         call substitute(l:notes[l:note],
-                    \ '\([_=\^]\)\?\a\([,'']\)*\zs\/\?\([0-9]\)*\ze',
+                    \ '\([_=\^]\)\{,2}\a\([,'']\)*\zs\/\?\([0-9]\)*\ze',
                     \ '\=add(l:noteTmp, submatch(0))',
                     \ 'g')
         call add(l:noteParts, l:noteTmp)
@@ -33,19 +33,23 @@ function! abc#getNotation(original, new)
     endfor
     let l:originalNotes=[]
     call substitute(a:original,
-                \ '\([_=\^]\)\?\a\([,'']\)*\/\?\([0-9]\)*',
+                \ '\([_=\^]\)\{,2}\a\([,'']\)*\/\?\([0-9]\)*',
                 \ '\=add(l:originalNotes, submatch(0))',
                 \ 'g')
     let l:abcNotation=a:original
     let l:abcReturn=''
     for l:note in range(0, len(l:originalNotes) - 1)
+        echo '1. ' . l:originalNotes[l:note]
+        echo '2. ' . l:wholeNotes[l:note]
         let l:abcNotation = substitute(l:abcNotation,
-                    \ l:originalNotes[l:note],
+                    \ '\V' . l:originalNotes[l:note],
                     \ l:wholeNotes[l:note],
                     \ '')
-        let l:split = matchend(l:abcNotation, l:wholeNotes[l:note])
+        echo '3. ' . l:abcNotation
+        let l:split = matchend(l:abcNotation, '\V' . l:wholeNotes[l:note])
         let l:abcReturn = l:abcReturn . l:abcNotation[0:l:split - 1]
         let abcNotation = l:abcNotation[l:split:strlen(l:abcNotation) - 1]
+        echo '4. ' . l:abcNotation
     endfor
     return l:abcReturn
 endfunction
@@ -53,7 +57,7 @@ endfunction
 function! abc#lengthDouble(input)
     let l:notes = abc#getNotes(a:input)
     for l:note in range(0, len(l:notes) - 1)
-        if (l:notes[l:note][1] == '^/*') " TODO: Fix this regex
+        if (l:notes[l:note][1] =~ '^/') " TODO: Fix this regex
             if (l:notes[l:note][1] == '/')
                 let l:notes[l:note][1] = ''
             elseif (l:notes[l:note][1] == '/'[0-9])
@@ -65,6 +69,37 @@ function! abc#lengthDouble(input)
             let l:notes[l:note][1] = 2
         else
             let l:notes[l:note][1] = l:notes[l:note][1] * 2
+        endif
+    endfor
+    return abc#getNotation(a:input, l:notes)
+endfunction
+
+function! abc#transposeOctaveUp(input)
+    let l:notes = abc#getNotes(a:input)
+    for l:note in range(0, len(l:notes) - 1)
+        if l:notes[l:note][0] =~ ",$"
+            let l:notes[l:note][0] = l:notes[l:note][0][0:-2]
+        elseif l:notes[l:note][0] =~ '\u'
+            let l:notes[l:note][0] = tolower(l:notes[l:note][0])
+        else
+            let l:notes[l:note][0] = l:notes[l:note][0] . "'"
+        endif
+    endfor
+    return abc#getNotation(a:input, l:notes)
+endfunction
+
+function! abc#transposeOctaveDown(input)
+    let l:notes = abc#getNotes(a:input)
+    for l:note in range(0, len(l:notes) - 1)
+        if l:notes[l:note][0] =~ "'$"
+            echo '1. ' . l:notes[l:note][0]
+            let l:notes[l:note][0] = l:notes[l:note][0][0:-2]
+        elseif l:notes[l:note][0] =~ '\l'
+            echo '2. ' . l:notes[l:note][0]
+            let l:notes[l:note][0] = toupper(l:notes[l:note][0])
+        else
+            echo '3. ' . l:notes[l:note][0]
+            let l:notes[l:note][0] = l:notes[l:note][0] . ","
         endif
     endfor
     return abc#getNotation(a:input, l:notes)
