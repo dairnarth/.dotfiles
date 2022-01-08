@@ -61,6 +61,8 @@ cmp.setup {
     { name = 'luasnip' },
     { name = 'buffer' },
     { name = 'path' },
+    { name = "dictionary",
+      keyword_length = 2, },
   },
 }
 
@@ -76,4 +78,10 @@ cmp.setup.cmdline(':', {
     { name = 'buffer' },
     { name = 'cmdline' }
   }
+})
+
+require("cmp_dictionary").setup({
+    dic = {
+        ["*"] = "~/.local/share/dict/ukenglish.txt",
+    },
 })
