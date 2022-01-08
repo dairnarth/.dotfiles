@@ -86,6 +86,19 @@ function! abc#lengthDouble(notelist)
     return l:notes
 endfunction
 
+function! abc#transpose(number = 12) range
+    let l:range = a:firstline . "," . a:lastline
+    if a:number > 0
+        if a:number == 12
+            exec l:range . "call abc#selection('abc#transposeOctaveUp')"
+        endif
+    elseif a:number < 0
+        if a:number == -12
+            exec l:range . "call abc#selection('abc#transposeOctaveDown')"
+        endif
+    endif
+endfunction
+
 function! abc#transposeOctaveUp(notelist)
     let l:notes = a:notelist
     for l:note in range(0, len(l:notes) - 1)
@@ -116,6 +129,14 @@ function! abc#transposeOctaveDown(notelist)
     return l:notes
 endfunction
 
+" COMMANDS "
+command! -range -nargs=? Transpose <count>call abc#transpose(<args>)
+
 " MAPPINGS "
 map <buffer> <silent> <leader>vv :!abcm2ps -O - "%" \| ps2pdf - \| zathura -<CR><CR>
 map <buffer> <silent> <leader>vl :!abcm2ps -lO - "%" \| ps2pdf - \| zathura -<CR><CR>
+for i in range(-12, 12)
+    exec "vnoremap t" . i . " :Transpose " . i . "<CR>"
+endfor
+vnoremap to :Transpose 12<CR>
+vnoremap tO :Transpose -12<CR>
