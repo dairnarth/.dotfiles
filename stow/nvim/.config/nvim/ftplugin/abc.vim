@@ -89,7 +89,8 @@ endfunction
 function! abc#transposeOctaveUp(notelist)
     let l:notes = a:notelist
     for l:note in range(0, len(l:notes) - 1)
-        if l:notes[l:note][0] =~ ",$"
+        if l:notes[l:note][0] =~ "z"
+        elseif l:notes[l:note][0] =~ ",$"
             let l:notes[l:note][0] = l:notes[l:note][0][0:-2]
         elseif l:notes[l:note][0] =~ '\u'
             let l:notes[l:note][0] = tolower(l:notes[l:note][0])
@@ -103,7 +104,8 @@ endfunction
 function! abc#transposeOctaveDown(notelist)
     let l:notes = a:notelist
     for l:note in range(0, len(l:notes) - 1)
-        if l:notes[l:note][0] =~ "'$"
+        if l:notes[l:note][0] =~ "z"
+        elseif l:notes[l:note][0] =~ "'$"
             let l:notes[l:note][0] = l:notes[l:note][0][0:-2]
         elseif l:notes[l:note][0] =~ '\l'
             let l:notes[l:note][0] = toupper(l:notes[l:note][0])
