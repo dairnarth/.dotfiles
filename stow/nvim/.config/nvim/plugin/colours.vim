@@ -1,5 +1,8 @@
 " Colours
 
+" Background
+hi Normal ctermfg=15 ctermbg=0
+
 " Command bar
 hi ErrorMsg cterm=bold ctermfg=9 ctermbg=235
 
