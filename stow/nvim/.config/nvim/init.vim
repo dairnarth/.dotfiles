@@ -21,6 +21,8 @@ set fo=tcq
 set fo-=a
 set fdm=indent
 
+let $BASH_ENV = "~/.config/bash/aliases"
+
 " Vim Plugged
 call plug#begin('~/.config/nvim/plugged')
     " Colourscheme
