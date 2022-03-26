@@ -6,10 +6,18 @@ augroup autocmd#window
     autocmd VimResized * wincmd =
 augroup END
 
-" delete trailing whitespace
+" delete trailing lines and whitespace
+function autocmds#trailfunc() abort
+    let l:curpos = getpos(".")
+    silent! %s/\s\+$//e
+    silent! v/\_s*\S/d
+    nohlsearch
+    call setpos(".", l:curpos)
+endfunction
+
 augroup autocmd#trailing
     au!
-    autocmd BufWritePre * %s/\s\+$//e
+    autocmd BufWritePre * call autocmds#trailfunc()
 augroup END
 
 " adds formatting headers
