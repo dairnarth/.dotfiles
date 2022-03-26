@@ -41,6 +41,7 @@ function! abc#getNotes(abcInput)
     return l:noteParts
 endfunction
 
+" TODO: this currently deletes everything after the last match. fix.
 function! abc#getNotation(abcInput, notelist)
     let l:wholeNotes=[]
     for l:note in range(0, len(a:notelist) - 1)
