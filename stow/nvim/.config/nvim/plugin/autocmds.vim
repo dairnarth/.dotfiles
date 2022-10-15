@@ -49,7 +49,7 @@ augroup autocmds#latex
         \\\begin{document}\<nl>\<nl>\<nl>\<nl>
         \\\end{document}\"
         \| 1 | normal f}
-    autocmd BufWritePost *.tex !pdflatex "%"
+    " autocmd BufWritePost *.tex !pdflatex "%"
 augroup END
 
 " Focus autocmds

@@ -20,6 +20,7 @@ set tw=0
 set fo=tcq
 set fo-=a
 set fdm=indent
+set termguicolors
 
 let $BASH_ENV = "~/.config/bash/aliases"
 
@@ -37,6 +38,7 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'uga-rosa/cmp-dictionary'
     Plug 'saadparwaiz1/cmp_luasnip'
     Plug 'L3MON4D3/LuaSnip'
+    Plug 'lervag/vimtex'
     " Focus
     Plug 'folke/zen-mode.nvim'
     " Git
