@@ -1,143 +1,35 @@
 " ftplugin/abc.vim
 
 " FUNCTIONS "
-function! abc#run(abcInput, abcFunc, count = 1) abort
-    let l:Func = function(a:abcFunc)
-    let l:notes = abc#getNotes(a:abcInput)
-    for i in range(1, a:count)
-        let l:notes = l:Func(l:notes)
-    endfor
-    return abc#getNotation(a:abcInput, l:notes)
+function abc#all(landscape=0, chord=0) abort
+    let l:viewcmd = a:landscape ?
+      \ 'abcm2ps -lO - "' . expand("%") . '" | ps2pdf - | zathura -' :
+      \ 'abcm2ps -O - "' .  expand("%") . '" | ps2pdf - | zathura -'
+    let l:viewjob = jobstart(l:viewcmd)
+    call abc#play(a:chord)
+    call jobstop(l:viewjob)
 endfunction
 
-function! abc#selection(abcFunc, count = 1) range
-    for i in range(a:firstline, a:lastline)
-        let l:replacement = abc#run(getline(i), a:abcFunc, a:count)
-        exec "s/" . getline(i) . "/" . l:replacement . "/"
-    endfor
+function! abc#play(chord=0) abort
+    let l:charg = a:chord ? '' : '-NGUI'
+    let l:fn    = '"' . expand("%:p:r") . '.mid"'
+    exec '!abc2midi "' . expand("%") . '" ' . l:charg . ' -silent -o ' . l:fn
+    exec 'silent !yes "player_tempo_int 1.8player_loop -1" | fluidsynth ' . l:fn . ' &>/dev/null'
+    exec '!rm ' . l:fn
 endfunction
 
-" abc#getNotes takes text input and returns an array of abc notes, each split
-" into an array containing their note value and length value.
-function! abc#getNotes(abcInput)
-    let l:notes=[]
-    let l:noteParts=[]
-    call substitute(a:abcInput,
-                \ '\([_=\^]\)\{,2}\a\([,'']\)*\/\?\([0-9]\)*',
-                \ '\=add(l:notes, submatch(0))',
-                \ 'g')
-    for l:note in range(0, len(l:notes) - 1)
-        let l:noteTmp=[]
-        call substitute(l:notes[l:note],
-                    \ '\zs\([_=\^]\)\{,2}\a\([,'']\)*\ze\/\?\([0-9]\)*',
-                    \ '\=add(l:noteTmp, submatch(0))',
-                    \ 'g')
-        call substitute(l:notes[l:note],
-                    \ '\([_=\^]\)\{,2}\a\([,'']\)*\zs\/\?\([0-9]\)*\ze',
-                    \ '\=add(l:noteTmp, submatch(0))',
-                    \ 'g')
-        call add(l:noteParts, l:noteTmp)
-    endfor
-    return l:noteParts
+function! abc#view(landscape=0) abort
+    exec a:landscape ?
+      \ '!abcm2ps -lO - "' . expand("%") . '" | ps2pdf - | zathura -' :
+      \ '!abcm2ps -O - "' .  expand("%") . '" | ps2pdf - | zathura -'
 endfunction
-
-" TODO: this currently deletes everything after the last match. fix.
-function! abc#getNotation(abcInput, notelist)
-    let l:wholeNotes=[]
-    for l:note in range(0, len(a:notelist) - 1)
-         let l:wholeNoteTmp = a:notelist[l:note][0] . a:notelist[l:note][1]
-         call add(l:wholeNotes, l:wholeNoteTmp)
-    endfor
-    let l:abcInputNotes=[]
-    call substitute(a:abcInput,
-                \ '\([_=\^]\)\{,2}\a\([,'']\)*\/\?\([0-9]\)*',
-                \ '\=add(l:abcInputNotes, submatch(0))',
-                \ 'g')
-    let l:abcNotation=a:abcInput
-    let l:abcReturn=''
-    for l:note in range(0, len(l:abcInputNotes) - 1)
-        let l:abcNotation = substitute(l:abcNotation,
-                    \ '\V' . l:abcInputNotes[l:note],
-                    \ l:wholeNotes[l:note],
-                    \ '')
-        let l:split = matchend(l:abcNotation, '\V' . l:wholeNotes[l:note])
-        let l:abcReturn = l:abcReturn . l:abcNotation[0:l:split - 1]
-        let abcNotation = l:abcNotation[l:split:strlen(l:abcNotation) - 1]
-    endfor
-    return l:abcReturn
-endfunction
-
-function! abc#lengthDouble(notelist)
-    let l:notes = a:notelist
-    for l:note in range(0, len(l:notes) - 1)
-        if (l:notes[l:note][1] =~ '^/') " TODO: Fix this regex
-            if (l:notes[l:note][1] == '/')
-                let l:notes[l:note][1] = ''
-            elseif (l:notes[l:note][1] == '/'[0-9])
-                let l:notes[l:note][1] = ''
-            else
-                let l:notes[l:note][1] = l:notes[l:note][1] / 2
-            endif
-        elseif (l:notes[l:note][1] == '')
-            let l:notes[l:note][1] = 2
-        else
-            let l:notes[l:note][1] = l:notes[l:note][1] * 2
-        endif
-    endfor
-    return l:notes
-endfunction
-
-function! abc#transpose(number = 12) range
-    let l:range = a:firstline . "," . a:lastline
-    if a:number > 0
-        if a:number == 12
-            exec l:range . "call abc#selection('abc#transposeOctaveUp')"
-        endif
-    elseif a:number < 0
-        if a:number == -12
-            exec l:range . "call abc#selection('abc#transposeOctaveDown')"
-        endif
-    endif
-endfunction
-
-function! abc#transposeOctaveUp(notelist)
-    let l:notes = a:notelist
-    for l:note in range(0, len(l:notes) - 1)
-        if l:notes[l:note][0] =~ "z"
-        elseif l:notes[l:note][0] =~ ",$"
-            let l:notes[l:note][0] = l:notes[l:note][0][0:-2]
-        elseif l:notes[l:note][0] =~ '\u'
-            let l:notes[l:note][0] = tolower(l:notes[l:note][0])
-        else
-            let l:notes[l:note][0] = l:notes[l:note][0] . "'"
-        endif
-    endfor
-    return l:notes
-endfunction
-
-function! abc#transposeOctaveDown(notelist)
-    let l:notes = a:notelist
-    for l:note in range(0, len(l:notes) - 1)
-        if l:notes[l:note][0] =~ "z"
-        elseif l:notes[l:note][0] =~ "'$"
-            let l:notes[l:note][0] = l:notes[l:note][0][0:-2]
-        elseif l:notes[l:note][0] =~ '\l'
-            let l:notes[l:note][0] = toupper(l:notes[l:note][0])
-        else
-            let l:notes[l:note][0] = l:notes[l:note][0] . ","
-        endif
-    endfor
-    return l:notes
-endfunction
-
-" COMMANDS "
-command! -range -nargs=? Transpose <count>call abc#transpose(<args>)
 
 " MAPPINGS "
-map <buffer> <silent> <leader>vv :!abcm2ps -O - "%" \| ps2pdf - \| zathura -<CR><CR>
-map <buffer> <silent> <leader>vl :!abcm2ps -lO - "%" \| ps2pdf - \| zathura -<CR><CR>
-for i in range(-12, 12)
-    exec "vnoremap t" . i . " :Transpose " . i . "<CR>"
-endfor
-vnoremap to :Transpose 12<CR>
-vnoremap tO :Transpose -12<CR>
+map <buffer> <silent> <leader>vv :call abc#view()<CR><CR>
+map <buffer> <silent> <leader>vl :call abc#view(1)<CR><CR>
+map <buffer> <silent> <leader>vpp :call abc#play()<CR>
+map <buffer> <silent> <leader>vpc :call abc#play(1)<CR>
+map <buffer> <silent> <leader>vaa :call abc#all()<CR>
+map <buffer> <silent> <leader>val :call abc#all(1)<CR>
+map <buffer> <silent> <leader>vaac :call abc#all(0,1)<CR>
+map <buffer> <silent> <leader>valc :call abc#all(1,1)<CR>
