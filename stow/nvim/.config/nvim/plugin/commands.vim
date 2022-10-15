@@ -16,8 +16,3 @@ command! Code silent! iunmap <buffer> .|
             \ silent! iunmap <buffer> :|
             \ silent! iunmap <buffer> ;|
             \ setlocal nospell nolist nowrap tw=0 fo=tcq fo-=a fdm=indent
-
-command! Colour set termguicolors |
-            \ lua require'colorizer'.setup()
-
-command! NoColour set notermguicolors
