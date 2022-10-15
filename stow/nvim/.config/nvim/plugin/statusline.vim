@@ -133,38 +133,38 @@ function! statusline#specialdim() abort
 endfunction
 
 " Statusline Colours
-hi statusline ctermbg=237 ctermfg=0 cterm=NONE
+hi statusline                ctermbg=237 ctermfg=0  cterm=NONE   guibg=#3a3a3a guifg=#282828 gui=NONE
     " Normal
-        hi SLSeperator ctermbg=15 ctermfg=0 cterm=NONE |
-        hi SLFileName ctermbg=15 ctermfg=0 cterm=bold |
-        hi SLSeperator2 ctermbg=7 ctermfg=0 cterm=NONE |
-        hi SLFilePath ctermbg=7 ctermfg=0 cterm=italic |
-        hi SLMid ctermbg=239 ctermfg=0 cterm=NONE |
-        hi SLSeperator3 ctermbg=7 ctermfg=0 cterm=NONE |
-        hi SLFileType ctermbg=7 ctermfg=0 cterm=NONE |
-        hi SLLineCol ctermbg=15 ctermfg=0 cterm=italic |
-        hi SLLineColText ctermbg=15 ctermfg=0 cterm=NONE |
-        hi SLPercent ctermbg=15 ctermfg=0 cterm=bold |
+        hi SLSeperator       ctermbg=15  ctermfg=0  cterm=NONE   guibg=#ebdbb2 guifg=#282828 gui=NONE
+        hi SLFileName        ctermbg=15  ctermfg=0  cterm=bold   guibg=#ebdbb2 guifg=#282828 gui=bold
+        hi SLSeperator2      ctermbg=7   ctermfg=0  cterm=NONE   guibg=#a89984 guifg=#282828 gui=NONE
+        hi SLFilePath        ctermbg=7   ctermfg=0  cterm=italic guibg=#a89984 guifg=#282828 gui=italic
+        hi SLMid             ctermbg=239 ctermfg=0  cterm=NONE   guibg=#4e4e4e guifg=#282828 gui=NONE
+        hi SLSeperator3      ctermbg=7   ctermfg=0  cterm=NONE   guibg=#a89984 guifg=#282828 gui=NONE
+        hi SLFileType        ctermbg=7   ctermfg=0  cterm=NONE   guibg=#a89984 guifg=#282828 gui=NONE
+        hi SLLineCol         ctermbg=15  ctermfg=0  cterm=italic guibg=#ebdbb2 guifg=#282828 gui=italic
+        hi SLLineColText     ctermbg=15  ctermfg=0  cterm=NONE   guibg=#ebdbb2 guifg=#282828 gui=NONE
+        hi SLPercent         ctermbg=15  ctermfg=0  cterm=bold   guibg=#ebdbb2 guifg=#282828 gui=bold
 
     " Dim
-        hi SLModeDim ctermbg=237 ctermfg=9 cterm=NONE |
-        hi SLSeperatorDim ctermbg=239 ctermfg=0 cterm=NONE |
-        hi SLFileNameDim ctermbg=239 ctermfg=15 cterm=NONE |
-        hi SLSeperator2Dim ctermbg=237 ctermfg=0 cterm=NONE |
-        hi SLFilePathDim ctermbg=237 ctermfg=7 cterm=italic |
-        hi SLMidDim ctermbg=237 ctermfg=0 cterm=NONE |
-        hi SLSeperator3Dim ctermbg=237 ctermfg=0 cterm=NONE |
-        hi SLFileTypeDim ctermbg=237 ctermfg=7 cterm=NONE |
-        hi SLLineColDim ctermbg=237 ctermfg=7 cterm=italic |
-        hi SLLineColTextDim ctermbg=237 ctermfg=7 cterm=NONE |
-        hi SLPercentDim ctermbg=237 ctermfg=7 cterm=NONE |
+        hi SLModeDim         ctermbg=237 ctermfg=9  cterm=NONE   guibg=#3a3a3a guifg=#fb4934 gui=NONE
+        hi SLSeperatorDim    ctermbg=239 ctermfg=0  cterm=NONE   guibg=#4e4e4e guifg=#282828 gui=NONE
+        hi SLFileNameDim     ctermbg=239 ctermfg=15 cterm=NONE   guibg=#4e4e4e guifg=#ebdbb2 gui=NONE
+        hi SLSeperator2Dim   ctermbg=237 ctermfg=0  cterm=NONE   guibg=#3a3a3a guifg=#282828 gui=NONE
+        hi SLFilePathDim     ctermbg=237 ctermfg=7  cterm=italic guibg=#3a3a3a guifg=#a89984 gui=italic
+        hi SLMidDim          ctermbg=237 ctermfg=0  cterm=NONE   guibg=#3a3a3a guifg=#282828 gui=NONE
+        hi SLSeperator3Dim   ctermbg=237 ctermfg=0  cterm=NONE   guibg=#3a3a3a guifg=#282828 gui=NONE
+        hi SLFileTypeDim     ctermbg=237 ctermfg=7  cterm=NONE   guibg=#3a3a3a guifg=#a89984 gui=NONE
+        hi SLLineColDim      ctermbg=237 ctermfg=7  cterm=italic guibg=#3a3a3a guifg=#a89984 gui=italic
+        hi SLLineColTextDim  ctermbg=237 ctermfg=7  cterm=NONE   guibg=#3a3a3a guifg=#a89984 gui=NONE
+        hi SLPercentDim      ctermbg=237 ctermfg=7  cterm=NONE   guibg=#3a3a3a guifg=#a89984 gui=NONE
 
     " Variable
-        hi SLNormalColour ctermbg=15 ctermfg=0 cterm=NONE
-        hi SLNormalColourDim ctermbg=237 ctermfg=0 cterm=NONE
-        hi SLInsertColour ctermbg=3 ctermfg=0 cterm=NONE
-        hi SLReplaceColour ctermbg=166 ctermfg=0 cterm=NONE
-        hi SLVisualColour ctermbg=4 ctermfg=0 cterm=NONE
-        hi SLCommandColour ctermbg=235 ctermfg=0 cterm=NONE
-        hi SLTerminalColour ctermbg=15 ctermfg=0 cterm=NONE
-        hi SLModified ctermbg=1 ctermfg=0 cterm=NONE
+        hi SLNormalColour    ctermbg=15  ctermfg=0  cterm=NONE   guibg=#ebdbb2 guifg=#282828 gui=NONE
+        hi SLNormalColourDim ctermbg=237 ctermfg=0  cterm=NONE   guibg=#3a3a3a guifg=#282828 gui=NONE
+        hi SLInsertColour    ctermbg=3   ctermfg=0  cterm=NONE   guibg=#d79921 guifg=#282828 gui=NONE
+        hi SLReplaceColour   ctermbg=166 ctermfg=0  cterm=NONE   guibg=#d75f00 guifg=#282828 gui=NONE
+        hi SLVisualColour    ctermbg=4   ctermfg=0  cterm=NONE   guibg=#458588 guifg=#282828 gui=NONE
+        hi SLCommandColour   ctermbg=0   ctermfg=0  cterm=NONE   guibg=#282828 guifg=#282828 gui=NONE
+        hi SLTerminalColour  ctermbg=15  ctermfg=0  cterm=NONE   guibg=#ebdbb2 guifg=#282828 gui=NONE
+        hi SLModified        ctermbg=1   ctermfg=0  cterm=NONE   guibg=#cc241d guifg=#282828 gui=NONE
