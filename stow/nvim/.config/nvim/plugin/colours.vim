@@ -1,5 +1,9 @@
 " Colours
 
+" Colourscheme
+set background=dark
+colorscheme gruvbox
+
 " Background
 hi Normal                             ctermfg=15  ctermbg=0   cterm=NONE                  guifg=#ebdbb2 guibg=#282828 gui=NONE
 

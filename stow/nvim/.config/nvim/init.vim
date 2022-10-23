@@ -50,10 +50,6 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'godlygeek/tabular'
 call plug#end()
 
-" Colourscheme
-set background=dark         " required by gruvbox for dark mode
-colorscheme gruvbox
-
 " Plugin Specific Settings
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
