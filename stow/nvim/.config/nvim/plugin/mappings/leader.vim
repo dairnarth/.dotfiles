@@ -70,6 +70,8 @@ map <leader>gp :G push<CR>
 map <leader>gl :G log<CR>
 
 " NERDTree
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 map <silent> <leader>n :NERDTreeToggle<CR>
 
 "UndoTree
