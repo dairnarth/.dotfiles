@@ -9,7 +9,7 @@ command! Prose inoremap <buffer> . .<C-G>u|
              \ inoremap <buffer> ? ?<C-G>u|
              \ inoremap <buffer> : :<C-G>u|
              \ inoremap <buffer> ; ;<C-G>u|
-             \ setlocal spell spelllang=en nolist wrap linebreak fo=t1 fdm=manual
+             \ setlocal spell spelllang=en wrap linebreak fdm=manual
 
 command! Code silent! iunmap <buffer> .|
             \ silent! iunmap <buffer> ,|
@@ -17,7 +17,7 @@ command! Code silent! iunmap <buffer> .|
             \ silent! iunmap <buffer> ?|
             \ silent! iunmap <buffer> :|
             \ silent! iunmap <buffer> ;|
-            \ setlocal nospell nolist nowrap tw=0 fo=tcq fo-=a fdm=indent
+            \ setlocal nospell nowrap tw=0 fdm=indent
 
 map <silent> <leader>p :Prose<CR>
 map <silent> <leader>c :Code<CR>
