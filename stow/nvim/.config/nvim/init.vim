@@ -13,14 +13,11 @@ set undofile                " saves undo history to a file
 set noswapfile              " doesn't create a swap file when switching buffers
 set colorcolumn=80          " sets colour colomn width
 set scl=no                  " turns off sign column
-set nospell
-set nolist
-set nowrap
-set tw=0
-set fo=tcq
-set fo-=a
-set fdm=indent
-set termguicolors
+set nospell                 " turns off spell checking
+set nowrap                  " turns off text wrapping
+set tw=0                    " sets textwidth to 0
+set fdm=indent fml=5        " folds by indent and prevents small folds
+set termguicolors           " turns on gui colours
 
 let $BASH_ENV = "~/.config/bash/aliases"
 
