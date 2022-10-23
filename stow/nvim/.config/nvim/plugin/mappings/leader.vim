@@ -1,21 +1,43 @@
 " Leader Mappings
 
-let mapleader =" "
+let mapleader = " "
 
-" ../commands.vim
-map <leader>c :Code<CR>
-map <leader>p :Prose<CR>
+" Prose/Code mappings
+command! Prose inoremap <buffer> . .<C-G>u|
+             \ inoremap <buffer> , ,<C-G>u|
+             \ inoremap <buffer> ! !<C-G>u|
+             \ inoremap <buffer> ? ?<C-G>u|
+             \ inoremap <buffer> : :<C-G>u|
+             \ inoremap <buffer> ; ;<C-G>u|
+             \ setlocal spell spelllang=en nolist wrap linebreak fo=t1 fdm=manual
+
+command! Code silent! iunmap <buffer> .|
+            \ silent! iunmap <buffer> ,|
+            \ silent! iunmap <buffer> !|
+            \ silent! iunmap <buffer> ?|
+            \ silent! iunmap <buffer> :|
+            \ silent! iunmap <buffer> ;|
+            \ setlocal nospell nolist nowrap tw=0 fo=tcq fo-=a fdm=indent
+
+map <silent> <leader>p :Prose<CR>
+map <silent> <leader>c :Code<CR>
 
 " Unhighlight search
-map <leader>/ :nohlsearch<CR>
+map <silent> <leader>/ :nohlsearch<CR>
 
 " Telescope
-map <leader>ff :lua require('telescope.builtin').find_files({hidden = true})<CR>
-map <leader>fb :lua require('telescope.builtin').file_browser({hidden = true})<CR>
+function! mappings#leader#telescope()
+    let l:isgit = system('git')
+    exec v:shell_error ?
+      \ "lua require('telescope.builtin').find_files({hidden = true})" :
+      \ "lua require('telescope.builtin').git_files({hidden = true})"
+endfunction
+
+map <silent> <leader>f :call mappings#leader#telescope()<CR>
 
 " Focus
 let g:zenOn=0
-function! leader#focustoggle()
+function! mappings#leader#focustoggle()
     if g:zenOn==1
         lua require('zen-mode').close()
         lua vim.fn.system([[tmux set status on]])
@@ -40,7 +62,7 @@ function! leader#focustoggle()
         endif
 endfunction
 
-map <silent> <leader>z :call leader#focustoggle()<CR>
+map <silent> <leader>z :call mappings#leader#focustoggle()<CR>
 
 " vim-fugitive
 map <leader>gs :G<CR>
@@ -48,7 +70,7 @@ map <leader>gp :G push<CR>
 map <leader>gl :G log<CR>
 
 " NERDTree
-map <leader>n :NERDTreeToggle<CR>
+map <silent> <leader>n :NERDTreeToggle<CR>
 
 "UndoTree
-map <leader>u :UndotreeToggle<CR>
+map <silent> <leader>u :UndotreeToggle<CR>
