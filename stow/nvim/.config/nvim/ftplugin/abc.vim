@@ -1,5 +1,9 @@
 " ftplugin/abc.vim
 
+" Defaults "
+let g:abc#audiodevice  = 'pulseaudio'
+let g:abc#defaultSpeed = '1.8'
+
 " FUNCTIONS "
 function! abc#all(chord=0) abort
     let l:perror = str2nr(system('abcm2ps -O  /dev/null "' . expand("%") . '" 2>&1 | wc -l'))
@@ -13,11 +17,14 @@ function! abc#all(chord=0) abort
     call jobstop(l:viewjob)
 endfunction
 
-function! abc#play(chord=0) abort
+function! abc#play(chord=0, speed=g:abc#defaultSpeed) abort
     let l:charg = a:chord ? '' : '-NGUI'
     let l:fn    = '"' . expand("%:p:r") . '.mid"'
     exec '!abc2midi "' . expand("%") . '" ' . l:charg . ' -silent -o ' . l:fn
-    exec 'silent !while true; do echo "player_tempo_int 1.8player_loop -1"; sleep 10; done | fluidsynth ' . l:fn . ' &>/dev/null'
+    exec 'silent !while true; do echo "player_tempo_int ' .
+      \ a:speed .
+      \ 'player_loop -1"; sleep 10; done | fluidsynth -a ' .
+      \ g:abc#audiodevice . ' ' . l:fn . ' &>/dev/null'
     exec '!rm ' . l:fn
 endfunction
 
@@ -27,8 +34,10 @@ function! abc#view() abort
     echo l:perror . l:lerror
     exec l:perror <= l:lerror ?
       \ '!abcm2ps -O - "'  . expand("%") . '" | ps2pdf - | zathura -' :
-      \ '!abcm2ps -lO - "' .  expand("%") . '" | ps2pdf - | zathura -'
+      \ '!abcm2ps -lO - "' . expand("%") . '" | ps2pdf - | zathura -'
 endfunction
+
+command -nargs=? ABCPlay call abc#play(0,<args>)
 
 " MAPPINGS "
 map <buffer> <silent> <localleader>v :call abc#view()<CR><CR>
