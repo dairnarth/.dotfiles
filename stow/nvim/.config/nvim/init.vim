@@ -27,3 +27,14 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'norcalli/nvim-colorizer.lua'
     Plug 'godlygeek/tabular'
 call plug#end()
+
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_compiler_latexmk = {
+    \ 'options' : [
+    \   '-shell-escape',
+    \   '-verbose',
+    \   '-file-line-error',
+    \   '-synctex=1',
+    \   '-interaction=nonstopmode',
+    \ ],
+    \}
