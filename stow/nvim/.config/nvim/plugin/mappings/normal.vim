@@ -25,8 +25,11 @@ nnoremap } }zz
 nnoremap [[ [[zz
 nnoremap ]] ]]zz
 
-" wincmd bindings
-nnoremap <silent> <C-h> :wincmd h<CR>
-nnoremap <silent> <C-j> :wincmd j<CR>
-nnoremap <silent> <C-k> :wincmd k<CR>
-nnoremap <silent> <C-l> :wincmd l<CR>
+" window movement bindings
+lua require("nvim-tmux-navigation").setup {}
+
+nnoremap <silent> <C-h>     :NvimTmuxNavigateLeft<CR>
+nnoremap <silent> <C-j>     :NvimTmuxNavigateDown<CR>
+nnoremap <silent> <C-k>     :NvimTmuxNavigateUp<CR>
+nnoremap <silent> <C-l>     :NvimTmuxNavigateRight<CR>
+nnoremap <silent> <C-\>     :NvimTmuxNavigateLastActive<CR>

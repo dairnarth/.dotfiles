@@ -19,6 +19,7 @@ call plug#begin('~/.config/nvim/plugged')
     " Git
     Plug 'tpope/vim-fugitive'
     " Navigation
+    Plug 'alexghergh/nvim-tmux-navigation'
     Plug 'mbbill/undotree'
     Plug 'preservim/nerdtree'
     Plug 'nvim-lua/plenary.nvim'
