@@ -40,7 +40,7 @@ let g:zenOn=0
 function! mappings#leader#focustoggle()
     if g:zenOn==1
         lua require('zen-mode').close()
-        lua vim.fn.system([[tmux set status on]])
+        call system('tmux set status on')
         let g:zenOn=0
     else
         let l:zenWidth=max([strlen(line('$')) + 1, &numberwidth]) + 80
@@ -57,7 +57,7 @@ function! mappings#leader#focustoggle()
                     \ .     "colorcolumn = '' "
                     \ . "} }, "
                     \ . "})"
-        lua vim.fn.system([[tmux set status off]])
+        call system('tmux set status off')
         let g:zenOn=1
         endif
 endfunction
