@@ -1,7 +1,10 @@
 " syntax/abc.vim
 
-if b:current_syntax == 'abc'
-    syntax clear
+"if b:current_syntax == 'abc'
+"    syntax clear
+"endif
+if exists("b:current_syntax")
+  finish
 endif
 
 syn match  abcNote      "[_=\^]\{,2}[A-G],*[1-9]*\d*"                                       contained
@@ -55,3 +58,5 @@ hi def link abcNote		 Constant
 hi def link abcRest		 Normal
 hi def link abcSpacer 	 Comment
 hi def link abcOrnament  Structure
+
+let b:current_syntax = "abc"
