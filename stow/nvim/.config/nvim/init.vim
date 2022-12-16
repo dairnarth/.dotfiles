@@ -1,5 +1,7 @@
 " init.vim
 
+let g:dairnarth = 1
+
 call plug#begin('~/.config/nvim/plugged')
     " Colourscheme
     Plug 'morhetz/gruvbox'
