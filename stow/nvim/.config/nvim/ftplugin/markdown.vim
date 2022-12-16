@@ -13,9 +13,13 @@ function! markdown#autoList() abort
 endfunction
 
 function! markdown#fixTable() range
-    execute (a:firstline + 1) . 's/-/ /g'
-    execute a:firstline . ',' . a:lastline . 'Tabularize /|'
-    execute (a:firstline + 1) . 's/ /-/g'
+    if exists(":Tabularize")
+        execute (a:firstline + 1) . 's/-/ /g'
+        execute a:firstline . ',' . a:lastline . 'Tabularize /|'
+        execute (a:firstline + 1) . 's/ /-/g'
+    else
+        echoerr "godlygeek/tabular not installed."
+    endif
 endfunction
 
 function! markdown#autoRef()
@@ -51,6 +55,6 @@ iabbrev <expr> - markdown#autoList()
 iabbrev [^] <esc>o<C-r>=markdown#autoRef()<CR><esc>kJ$mrGo<C-r>=markdown#autoRef()<CR>:
 
 " Mappings
-vnoremap t :'<,'>call markdown#fixTable()<CR>
-map <buffer> <silent> <leader>vv :!md2pdf -o - "%" \| zathura -<CR><CR>
-map <buffer> <silent> <leader>va :!nr<CR><CR>
+vnoremap <buffer> <localleader>t :'<,'>call markdown#fixTable()<CR>
+map <buffer> <silent> <localleader>vv :!md2pdf -o - "%" \| zathura -<CR><CR>
+map <buffer> <silent> <localleader>va :!nr<CR><CR>

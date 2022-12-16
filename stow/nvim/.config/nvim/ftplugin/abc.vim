@@ -1,6 +1,6 @@
 " ftplugin/abc.vim
 
-" Defaults "
+" DEFAULTS "
 let g:abc#audiodevice  = 'pulseaudio'
 let g:abc#defaultSpeed = '1.8'
 
