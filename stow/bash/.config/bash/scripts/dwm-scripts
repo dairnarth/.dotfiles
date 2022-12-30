@@ -24,6 +24,17 @@ dwm::brightness()
     "$HOME/.config/bash/wrappers/light" "$@"
 }
 
+dwm::copypaste()
+{
+    local currwin=$(xdotool getactivewindow)
+    local termwin=$(xdotool search --class st)
+    [[ "${termwin[@]}" =~ "$termwin" ]] && \
+         local mod='ctrl+shift+' || \
+         local mod='ctrl+'
+
+    xdotool key --delay 0 --clearmodifiers "$mod$1"
+}
+
 dwm::shutdown()
 {
     local Selection=$(echo -e "Shutdown\nRestart" | dmenu -i -p "Power off:")
