@@ -8,11 +8,10 @@ shopt -s expand_aliases
 
 # Wrappers
 for file in ~/.config/bash/wrappers/*; do
-    name="${file##*/}"
     [[ -f "$file" ]] &&                \
-        alias "$name"="$file"
-    unset name
+        alias "${file##*/}"="$file"
 done
+unset file
 
 # System
 type -P doas &>/dev/null && \
@@ -41,9 +40,7 @@ alias v='nvim'
 alias cv='aliases::capp "$HOME/.dotfiles/stow/nvim/.config/nvim/"'
 
 # Bash
-alias ca='nvim $HOME/.dotfiles/stow/bash/.config/bash/aliases'
-alias cbrc='nvim $HOME/.dotfiles/stow/bash/.bashrc'
-alias cbp='nvim $HOME/.dotfiles/stow/bash/.bash_profile'
+alias cb='aliases::capp "$HOME/.dotfiles/stow/bash/"'
 
 # Suckless
 alias mci='doas make clean install'
@@ -51,7 +48,8 @@ alias cdmenu='config_menu dmenu'
 alias cdwm='config_menu dwm'
 alias cst='config_menu st'
 
-alias g="git"
+alias g='git'
+alias z='zathura'
 
 # Translation
 if type -P dictd &>/dev/null; then
