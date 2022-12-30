@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# Functions
+prompt::elements::getBranch()
+{
+    if git &>/dev/null; then
+        printf "%s" "$(git branch 2>/dev/null | awk '{printf "%s",$2}')"
+    fi
+}
+
+prompt::surroundElements()
+{
+    [[ -z "$1" ]] && return
+    if [[ $TERM -eq "linux" ]]; then
+        printf "< %s%s%s >" "$2" "$1" "\[\e[0m\]"
+    else
+        printf "╼ %s%s%s ╾" "$2" "$1" "\[\e[0m\]"
+    fi
+}
+
+prompt::lhs()
+{
+    local userhost="$(prompt::surroundElements "\u\[\e[37m\]@\[\e[35m\]\h" "\[\e[34m\]" 2>/dev/null)"
+    local pwd="$(prompt::surroundElements "\w" "\[\e[36m\]" 2>/dev/null)"
+    local gbranch="$(prompt::surroundElements "$(prompt::elements::getBranch)" "\[\e[32m\]" 2>/dev/null)"
+    local cmd="╼ \\$"
+
+    local lhs1="╭$userhost$pwd$gbranch─◈"
+    local lhs2="╰$cmd"
+    local lhsf="╶$cmd"
+
+    case "$1" in
+        ps1)
+            echo "$lhs1\\n$lhs2 "
+            ;;
+        final)
+            echo "$lhsf "
+            ;;
+    esac
+}
+
+prompt::rhs()
+{
+    local date="$(prompt::surroundElements "\D{%y%m%d %H%M%S}" "\[\e[33m\]" 2>/dev/null)"
+    local cmd="\\$ ╾"
+
+    local rhs1="◈─$date╮"
+    local rhs2="◈─$userhost╯"
+
+    echo "$rhs1\\n$rhs2"
+}
+
+prompt::setPrompt()
+{
+    PS1="$(prompt::lhs ps1)"
+    bleopt prompt_ps1_final="$(prompt::lhs final)"
+    bleopt prompt_ps1_transient=trim
+
+    #bleopt prompt_rps1="$(prompt::rhs)"
+    #bleopt prompt_rps1_final=
+    #bleopt prompt_rps1_transient='1'
+}
+
+PROMPT_COMMAND=prompt::setPrompt

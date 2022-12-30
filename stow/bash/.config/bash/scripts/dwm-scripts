@@ -1,0 +1,71 @@
+#!/bin/bash
+
+[[ -z "$@" ]] && exit 1
+
+dwm::bar()
+{
+    if [ -e /sys/class/power_supply/BAT0/capacity ]; then
+        while true; do
+            printf -v barformat '%(%y%m%d %H%M%S)T %03d ' -1 "$(< /sys/class/power_supply/BAT0/capacity)"
+            xsetroot -name "$barformat"
+            sleep 1s
+        done
+    else
+        while true; do
+            printf -v barformat '%(%y%m%d %H%M%S)T ' -1
+            xsetroot -name "$barformat"
+            sleep 1s
+        done
+    fi
+}
+
+dwm::brightness()
+{
+    "$HOME/.config/bash/wrappers/light" "$@"
+}
+
+dwm::shutdown()
+{
+    local Selection=$(echo -e "Shutdown\nRestart" | dmenu -i -p "Power off:")
+    case "$Selection" in
+        Shutdown)
+            local sYN="$(echo -e "Yes\nNo" | dmenu -i -n 1 -nf red -sb red -sf black -p "[S] Are you sure?")"
+            [ "$sYN" == "Yes" ] && shutdown now ;;
+        Restart)
+            local rYN="$(echo -e "Yes\nNo" | dmenu -i -n 1 -p "[R] Are you sure?")"
+            [ "$rYN" == "Yes" ] && reboot ;;
+    esac
+}
+
+dwm::volume()
+{
+    "$HOME/.config/bash/wrappers/pamixer" "$@"
+}
+
+dwm::websearch()
+{
+    local db=$HOME/.local/share/qutebrowser/history.sqlite
+
+    local query=$(printf 'History\n' | dmenu -i -p Search:)
+
+    [[ "$query" == 'History' ]] && \
+        local query=$(sqlite3 "$db" "select url, title, atime from History" \
+            | tac \
+            | awk -F '|' '!/duckgo\./{sub(".*://",""); print substr($1, 0, 100)}' \
+            | dmenu -i -l 15 -p Search:)
+
+    [[ -z "$query" ]] && exit
+
+    exec $BROWSER "$query"
+}
+
+dwm::youtube()
+{
+    firefox -url http://youtube.com &
+    xdotool search --sync --onlyvisible --class "Firefox" windowactivate key F11
+}
+
+cmd="$1"
+shift
+
+dwm::"$cmd" "$@"

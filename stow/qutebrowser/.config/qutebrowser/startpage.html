@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Start</title>
+        <style>
+body {
+    font-family:    Fixed, "Anonymous Pro", monospace !important;
+    color:          #ebdbb2;
+    background:     #282828;
+    margin:         30vh auto auto auto;
+    display:        grid;
+}
+
+p {
+    font-size:      30px;
+    line-height:    100%;
+}
+
+input {
+    width:          100%;
+    outline:        none;
+}
+
+div {
+    width:          auto;
+    margin:         auto;
+}
+
+.search_bar {
+    width:          505px;
+    font-family:    "Anonymous Pro";
+    font-size:      20px;
+    padding:        10px;
+    color:          #ebdbb2;
+    background:     #303030;
+    border:         0;
+}
+
+        </style>
+    </head>
+    <body>
+        <div class="title">
+            <p>┌─┐ ┬ ┬┌┬┐┌─┐┌┐ ┬─┐┌─┐┬ ┬┌─┐┌─┐┬─┐<br/>
+               │─┼┐│ │ │ ├┤ ├┴┐├┬┘│ ││││└─┐├┤ ├┬┘<br/>
+               └─┘└└─┘ ┴ └─┘└─┘┴└─└─┘└┴┘└─┘└─┘┴└─</p>
+        </div>
+        <div class="search">
+            <form method="get" id="search" action="http://duckduckgo.com/">
+                <input type="hidden"    name="kl"   value="uk-en"/>
+                <input type="hidden"    name="kp"   value="-2"/>
+                <input type="hidden"    name="kz"   value="1"/>
+                <input type="hidden"    name="kn"   value="-1"/>
+                <input type="hidden"    name="kae"  value="d"/>
+                <input type="hidden"    name="kj"   value="#1D2021"/>
+                <input type="hidden"    name="k7"   value="#282828"/>
+                <input type="hidden"    name="k8"   value="#928374"/>
+                <input type="hidden"    name="k9"   value="#ebdbb2"/>
+                <input type="text"      name="q"    maxlength="255" class="search_bar"/><br/>
+                <input type="submit"    value="DuckDuckGo Search"   style="visibility: hidden;" />
+            </form>
+        </div>
+    </body>
+</html>

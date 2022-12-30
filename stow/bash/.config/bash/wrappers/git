@@ -1,0 +1,44 @@
+#!/bin/bash
+
+if [ "$1" == "-d" ]; then
+    gitcmd="git --git-dir=$HOME/dotfiles --work-tree=$HOME"
+    gitarg="$2"
+    shift 2
+else
+    gitcmd="git"
+    gitarg="$1"
+    shift
+fi
+
+case "$gitarg" in
+    ps)
+        $gitcmd push "$@"
+        ;;
+    pl)
+        $gitcmd pull "$@"
+        ;;
+    st)
+        $gitcmd status "$@"
+        ;;
+    cm)
+        $gitcmd commit "$@"
+        ;;
+    a)
+        $gitcmd add "$@"
+        ;;
+    co)
+        $gitcmd checkout "$@"
+        ;;
+    l)
+        $gitcmd log "$@"
+        ;;
+    lg)
+        $gitcmd log --branches --oneline --graph --decorate "$@"
+        ;;
+    '')
+        $gitcmd status
+        ;;
+    *)
+        $gitcmd "$gitarg" "$@"
+        ;;
+esac

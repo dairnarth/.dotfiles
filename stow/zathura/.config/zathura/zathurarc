@@ -1,0 +1,10 @@
+set guioptions ""
+
+set font "Anonymous Pro normal 11"
+
+# Colours
+set default-bg "#282828"
+set default-fg "#ebdbb2"
+
+set highlight-color "#458588"
+set highlight-active-color "#b16286"

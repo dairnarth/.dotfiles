@@ -1,0 +1,186 @@
+#!/bin/bash
+
+shopt -s expand_aliases
+
+# # # # # #
+# ALIASES #
+# # # # # #
+
+# Wrappers
+for file in ~/.config/bash/wrappers/*; do
+    name="${file##*/}"
+    [[ -f "$file" ]] &&                \
+        alias "$name"="$file"
+    unset name
+done
+
+# System
+type -P doas &>/dev/null && \
+    alias d="doas" ||       \
+    alias d="sudo"
+type -P exa &>/dev/null &&                                           \
+    alias ls='exa -aagl --color-scale --group-directories-first'  && \
+    alias lt='exa -glT --color-scale --group-directories-first'   && \
+    alias lta='exa -aglT --color-scale --group-directories-first' || \
+    alias ls='ls -lah --color=auto --group-directories-first'
+type -P paru &>/dev/null && \
+    alias p='paru' ||       \
+    alias p='d pacman'
+alias mkd='mkdir -pv'
+alias mcd='aliases::mcd'
+alias cls='aliases::cls'
+alias ss='setsid'
+
+# Directories
+alias gsrc='cd /usr/local/src'
+alias gtfmp='cd $HOME/Dropbox/Dylan\ Cairns-Howarth/Documents/TFMP'
+alias gv='cd $HOME/.config/nvim/'
+
+# Vim
+alias v='nvim'
+alias cv='aliases::capp "$HOME/.dotfiles/stow/nvim/.config/nvim/"'
+
+# Bash
+alias ca='nvim $HOME/.dotfiles/stow/bash/.config/bash/aliases'
+alias cbrc='nvim $HOME/.dotfiles/stow/bash/.bashrc'
+alias cbp='nvim $HOME/.dotfiles/stow/bash/.bash_profile'
+
+# Suckless
+alias mci='doas make clean install'
+alias cdmenu='config_menu dmenu'
+alias cdwm='config_menu dwm'
+alias cst='config_menu st'
+
+alias g="git"
+
+# Translation
+if type -P dictd &>/dev/null; then
+    alias enfr='aliases::dictd::enfr'
+    alias fren='aliases::dictd::fren'
+fi
+
+# abc
+alias abcpdf='aliases::abcpdf'
+
+# markdown
+alias nr='aliases::noteReader'
+
+# ranger
+alias r='ranger'
+
+# cloud remotes
+alias cloud='aliases::remotes'
+
+# Qsynth
+alias qsynth='qsynth -a pulseaudio /usr/share/sounds/sf2/FluidR3_GM.sf2'
+
+# Xephyr
+alias Xe='setsid Xephyr -ac -br -screen 1680x1050 :1'
+alias D1='DISPLAY=:1'
+
+# # # # # # #
+# FUNCTIONS #
+# # # # # # #
+
+aliases::mcd () { mkdir -p "$1" && cd "$1"; }
+aliases::cls () { cd "$1" && ls; }
+aliases::dictd::enfr ()
+{
+    [[ -z $* ]] && return 1
+    printf '\e[1mEN -> FR\e[0m\n'
+    for arg in $@; do
+        dict -d fd-eng-fra $arg | sed '1,4d;s/^\ \ //'
+    done
+}
+aliases::dictd::fren ()
+{
+    [[ -z $* ]] && return 1
+    printf '\e[1mFR -> EN\e[0m\n'
+    for arg in $@; do
+        dict -d fd-fra-eng $arg | sed '1,4d;s/^\ \ //'
+    done
+}
+aliases::abcpdf ()
+{
+    local abcm2psArgs="-O -"
+    local f=0
+    local OPTARG
+    local OPTIND
+    while getopts "fl" arg; do
+        case $arg in
+            f)  f=1
+                ;;
+            l)  abcm2psArgs="-lO -"
+                ;;
+        esac
+    done
+
+    for file in "$@"; do
+        if [[ "$file" =~ .abc ]]; then
+            if [[ $f == 1 ]]; then
+                [[ -e "${file%.abc}".pdf ]] && \
+                    printf 'File %s already exists.\n' "${file%abc}".pdf && \
+                    return 1
+                abcm2ps $abcm2psArgs "$file" | ps2pdf - > "${file%.abc}".pdf
+            else
+                abcm2ps $abcm2psArgs "$file" | ps2pdf - | zathura -
+            fi
+        fi
+    done
+}
+aliases::noteReader ()
+{
+    local readme=''
+    local hline=''
+    if [[ -e "./Readme.md" ]]; then
+        readme='./Readme.md'
+        hline='./.tmp.noteReader.hline.md'
+        printf '\n---\n' > "$hline"
+    fi
+    cat "$readme" "$hline" ./notes/*.md > ./.tmp.noteReader.md
+    md2pdf -o - ./.tmp.noteReader.md | zathura -
+    rm ./.tmp.noteReader.md "$hline"
+}
+aliases::remotes ()
+{
+    local x=0
+    local remotes=()
+    local OPTARG
+    local OPTIND
+    while getopts "dox" arg; do
+        case $arg in
+            d)  remotes+=('dropbox')
+                ;;
+            o)  remotes+=('onedrive')
+                ;;
+            x)  local x=1
+        esac
+    done
+
+    [[ -z $remotes ]] && return 1
+
+    if [[ $x == 1 ]]; then
+        for remote in ${remotes[@]}; do
+            $(fusermount -u ~/mnt/$remote) && \
+                printf '%s unmounted.\n' "${remote^}"
+        done
+        return
+    fi
+
+    for remote in ${remotes[@]}; do
+        if $(rclone listremotes | grep $remote &>/dev/null); then
+            rclone mount --daemon "$remote": ~/mnt/$remote
+            printf '%s mounted to "~/mnt/%s".\n' "${remote^}" "$remote"
+        else
+            printf '%s is not configured in rclone.\n' "${remote^}" >&2
+        fi
+    done
+}
+aliases::capp ()
+{
+    [[ -z $* ]] && return 1
+    local dir="$(pwd)"
+    cd "$1"
+    nvim -c 'exec exists("g:dairnarth") ? "call mappings#leader#telescope()" : "e ."'
+    cd "$dir"
+}
