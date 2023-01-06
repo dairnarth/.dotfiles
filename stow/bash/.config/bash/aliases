@@ -33,14 +33,13 @@ alias ss='setsid'
 # Directories
 alias gsrc='cd /usr/local/src'
 alias gtfmp='cd $HOME/Dropbox/Dylan\ Cairns-Howarth/Documents/TFMP'
-alias gv='cd $HOME/.config/nvim/'
+alias gv='cd $HOME/.dotfiles/stow/nvim/.config/nvim/'
 
 # Vim
 alias v='nvim'
 alias cv='aliases::capp "$HOME/.dotfiles/stow/nvim/.config/nvim/"'
 
-# Bash
-alias cb='aliases::capp "$HOME/.dotfiles/stow/bash/"'
+alias cdot='aliases::capp "$HOME/.dotfiles/"'
 
 # Suckless
 alias mci='doas make clean install'
