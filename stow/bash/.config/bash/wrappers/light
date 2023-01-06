@@ -1,6 +1,6 @@
 #!/bin/bash
 
-light "$@"
+\light "$@"
 
-printf -v brt '%3d' "$(light -G)"
+printf -v brt '%3d' "$(\light -G)"
 dunstify -h string:x-dunst-stack-tag:brt -h "int:value:$brt" "Volume: $brt%"

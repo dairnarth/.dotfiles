@@ -4,15 +4,15 @@ gitarg="$1"
 shift
 
 case "$gitarg" in
-    ps) git push "$@";;
-    pl) git pull "$@";;
-    st) git status "$@";;
-    cm) git commit "$@";;
-    a)  git add "$@";;
-    co) git checkout "$@";;
-    l)  git log "$@";;
-    lg) git log --branches --oneline --graph --decorate "$@";;
-    sm) git submodule "$@";;
-    '') git status;;
-    *)  git "$gitarg" "$@";;
+    ps) \git push "$@";;
+    pl) \git pull "$@";;
+    st) \git status "$@";;
+    cm) \git commit "$@";;
+    a)  \git add "$@";;
+    co) \git checkout "$@";;
+    l)  \git log "$@";;
+    lg) \git log --branches --oneline --graph --decorate "$@";;
+    sm) \git submodule "$@";;
+    '') \git status;;
+    *)  \git "$gitarg" "$@";;
 esac
