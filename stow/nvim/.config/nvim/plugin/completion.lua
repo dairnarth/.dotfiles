@@ -12,11 +12,9 @@ for _, lsp in ipairs(servers) do
     capabilities= capabilities,
   }
 end
+
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
-
--- luasnip setup
-local luasnip = require 'luasnip'
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
@@ -58,7 +56,6 @@ cmp.setup {
   },
   sources = {
     { name = 'nvim_lsp' },
-    { name = 'luasnip' },
     { name = 'buffer' },
     { name = 'path' },
     { name = "dictionary",
