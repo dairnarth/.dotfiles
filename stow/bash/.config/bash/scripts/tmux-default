@@ -18,10 +18,7 @@ tmux-default::createSession ()
     tmux rename-window -t $SESSION sys-mon
     tmux send-keys -t $SESSION 'htop' Enter
     tmux split-window -v -t $SESSION
-    tmux send-keys -t $SESSION \
-        'clear; tput civis; while true; do sensors | grep "Pack\|Core\|Exha"; tput cup 0 0; sleep 2; done' \
-        Enter
-    tmux resize-pane -t $SESSION -y 5
+    tmux send-keys -t $SESSION 'watch -t sensors' Enter
     tmux select-pane -U
     tmux new-window -t $SESSION
 }
