@@ -75,6 +75,10 @@ alias qsynth='qsynth -a pulseaudio /usr/share/sounds/sf2/FluidR3_GM.sf2'
 alias Xe='setsid Xephyr -ac -br -screen 1680x1050 :1'
 alias D1='DISPLAY=:1'
 
+alias diff='aliases::diff'
+
+alias webupdate='rsync -vrP --delete-after ~/projects/website/ cs@plex.lan:/var/www/html/dylancairns.co.uk/'
+
 # # # # # # #
 # FUNCTIONS #
 # # # # # # #
@@ -180,4 +184,8 @@ aliases::capp ()
     cd "$1"
     nvim -c 'exec exists("g:dairnarth") ? "call mappings#leader#telescope()" : "e ."'
     cd "$dir"
+}
+aliases::diff ()
+{
+    command diff -u "$@" | diff-so-fancy | bat
 }
