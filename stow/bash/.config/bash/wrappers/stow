@@ -1,0 +1,16 @@
+#!/bin/bash
+
+stowdir="$HOME/.dotfiles/stow/"
+targetdir="$HOME"
+
+case "$1" in
+    install)   cmd='-S' && shift;;
+    uninstall) cmd='-D' && shift;;
+    refresh)   cmd='-R' && shift;;
+    list)      printf 'Stow packages:\n\n%s' "$(command ls "$stowdir")"
+               exit;;
+    *)         command stow "$@"
+               exit;;
+esac
+
+command stow "$cmd" -vd "$stowdir" -t "$targetdir" "$@"
