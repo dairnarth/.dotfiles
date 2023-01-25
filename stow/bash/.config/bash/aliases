@@ -2,106 +2,61 @@
 
 shopt -s expand_aliases
 
-# # # # # #
-# ALIASES #
-# # # # # #
+alias()
+{
+    [ -z "$2" ] && return
+    if type "${2%% *}" &>/dev/null; then
+        command alias "$1"="$2"
+    elif [ -n "$3" ] && type "${3%% *}" &>/dev/null; then
+        command alias "$1"="$3"
+    fi
+}
 
 # Wrappers
 for file in ~/.config/bash/wrappers/*; do
     [[ -f "$file" ]] &&                \
-        alias "${file##*/}"="$file"
+        alias "${file##*/}" "$file"
 done
 unset file
 
-# System
-type -P doas &>/dev/null && \
-    alias d="doas" ||       \
-    alias d="sudo"
-type -P exa &>/dev/null &&                                           \
-    alias ls='exa -aagl --color-scale --group-directories-first'  && \
-    alias lt='exa -glT --color-scale --group-directories-first'   && \
-    alias lta='exa -aglT --color-scale --group-directories-first' || \
-    alias ls='ls -lah --color=auto --group-directories-first'
-type -P paru &>/dev/null && \
-    alias p='paru' ||       \
-    alias p='d pacman'
-alias mkd='mkdir -pv'
-alias mcd='aliases::mcd'
-alias cls='aliases::cls'
-alias ss='setsid'
+# Aliases
+alias d         doas \
+                sudo
+alias g         git
+alias gv        'cd $HOME/.dotfiles/stow/nvim/.config/nvim/'
+alias ls        'exa -aagl --color-scale --group-directories-first' \
+                'ls -lah --color=auto --group-directories-first'
+alias lt        'exa -glT --color-scale --group-directories-first' \
+                tree
+alias lta       'exa -aglT --color-scale --group-directories-first' \
+                'tree -a'
+alias mci       'd make clean install'
+alias mkd       'mkdir -pv'
+alias nr        notereader
+alias p         paru \
+                'd pacman'
+alias qsynth    'qsynth -a pulseaudio /usr/share/sounds/sf2/FluidR3_GM.sf2'
+alias r         ranger
+alias ss        setsid
+alias v         nvim \
+                vim
+alias webupdate 'rsync -vrP --delete-after ~/projects/website/ cs@plex.lan:/var/www/html/dylancairns.co.uk/'
+alias z         zathura
 
-# Directories
-alias gsrc='cd /usr/local/src'
-alias gtfmp='cd $HOME/Dropbox/Dylan\ Cairns-Howarth/Documents/TFMP'
-alias gv='cd $HOME/.dotfiles/stow/nvim/.config/nvim/'
-
-# Vim
-alias v='nvim'
-alias cv='aliases::capp "$HOME/.dotfiles/stow/nvim/.config/nvim/"'
-
-alias cdot='aliases::capp "$HOME/.dotfiles/"'
-
-# Suckless
-alias mci='doas make clean install'
-alias cdmenu='config_menu dmenu'
-alias cdwm='config_menu dwm'
-alias cst='config_menu st'
-
-alias g='git'
-alias z='zathura'
-
-# Translation
-if type -P dictd &>/dev/null; then
-    alias enfr='aliases::dictd::enfr'
-    alias fren='aliases::dictd::fren'
-fi
-
-# abc
-alias abcpdf='aliases::abcpdf'
-
-# markdown
-alias nr='aliases::noteReader'
-
-# ranger
-alias r='ranger'
-
-# cloud remotes
-alias cloud='aliases::remotes'
-
-# Qsynth
-alias qsynth='qsynth -a pulseaudio /usr/share/sounds/sf2/FluidR3_GM.sf2'
-
-# Xephyr
-alias Xe='setsid Xephyr -ac -br -screen 1680x1050 :1'
-alias D1='DISPLAY=:1'
-
-alias diff='aliases::diff'
-
-alias webupdate='rsync -vrP --delete-after ~/projects/website/ cs@plex.lan:/var/www/html/dylancairns.co.uk/'
-
-# # # # # # #
-# FUNCTIONS #
-# # # # # # #
-
-aliases::mcd () { mkdir -p "$1" && cd "$1"; }
-aliases::cls () { cd "$1" && ls; }
-aliases::dictd::enfr ()
+# Configuration
+appconfig()
 {
     [[ -z $* ]] && return 1
-    printf '\e[1mEN -> FR\e[0m\n'
-    for arg in $@; do
-        dict -d fd-eng-fra $arg | sed '1,4d;s/^\ \ //'
-    done
+    local dir="$(pwd)"
+    cd "$1"
+    nvim -c 'exec exists("g:dairnarth") ? "TelescopeFindGitFiles" : "e ."'
+    cd "$dir"
 }
-aliases::dictd::fren ()
-{
-    [[ -z $* ]] && return 1
-    printf '\e[1mFR -> EN\e[0m\n'
-    for arg in $@; do
-        dict -d fd-fra-eng $arg | sed '1,4d;s/^\ \ //'
-    done
-}
-aliases::abcpdf ()
+alias cdot 'appconfig "$HOME/.dotfiles/"'
+alias cv   'appconfig "$HOME/.dotfiles/stow/nvim/.config/nvim/"'
+
+# Functions
+abc2pdf()
 {
     local abcm2psArgs="-O -"
     local f=0
@@ -129,20 +84,7 @@ aliases::abcpdf ()
         fi
     done
 }
-aliases::noteReader ()
-{
-    local readme=''
-    local hline=''
-    if [[ -e "./Readme.md" ]]; then
-        readme='./Readme.md'
-        hline='./.tmp.noteReader.hline.md'
-        printf '\n---\n' > "$hline"
-    fi
-    cat "$readme" "$hline" ./notes/*.md > ./.tmp.noteReader.md
-    md2pdf -o - ./.tmp.noteReader.md | zathura -
-    rm ./.tmp.noteReader.md "$hline"
-}
-aliases::remotes ()
+cloud()
 {
     local x=0
     local remotes=()
@@ -177,15 +119,38 @@ aliases::remotes ()
         fi
     done
 }
-aliases::capp ()
+diff() { command diff -u "$@" | diff-so-fancy | bat; }
+mcd() { mkdir -p "$1" && cd "$1"; }
+notereader()
 {
-    [[ -z $* ]] && return 1
-    local dir="$(pwd)"
-    cd "$1"
-    nvim -c 'exec exists("g:dairnarth") ? "call mappings#leader#telescope()" : "e ."'
-    cd "$dir"
+    local readme=''
+    local hline=''
+    if [[ -e "./Readme.md" ]]; then
+        readme='./Readme.md'
+        hline='./.tmp.noteReader.hline.md'
+        printf '\n---\n' > "$hline"
+    fi
+    cat "$readme" "$hline" ./notes/*.md > ./.tmp.noteReader.md
+    md2pdf -o - ./.tmp.noteReader.md | zathura -
+    rm ./.tmp.noteReader.md "$hline"
 }
-aliases::diff ()
-{
-    command diff -u "$@" | diff-so-fancy | bat
-}
+
+# Translation
+if type -P dictd &>/dev/null; then
+    enfr()
+    {
+        [[ -z $* ]] && return 1
+        printf '\e[1mEN -> FR\e[0m\n'
+        for arg in $@; do
+            dict -d fd-eng-fra $arg | sed '1,4d;s/^\ \ //'
+        done
+    }
+    fren()
+    {
+        [[ -z $* ]] && return 1
+        printf '\e[1mFR -> EN\e[0m\n'
+        for arg in $@; do
+            dict -d fd-fra-eng $arg | sed '1,4d;s/^\ \ //'
+        done
+    }
+fi
