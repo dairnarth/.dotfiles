@@ -2,14 +2,16 @@ return {
   {
     'nvim-telescope/telescope.nvim',
     init = function()
-      vim.keymap.set('n', '<leader>ff', function()
+      local telescope_files = function()
         vim.fn.system('git rev-parse --is-inside-work-tree')
         if vim.v.shell_error == 0 then
           require'telescope.builtin'.git_files({hidden = true})
         else
           require'telescope.builtin'.find_files({hidden = true})
         end
-      end, {desc = 'Telescope Find/Git Files'})
+      end
+      vim.keymap.set('n', '<leader>ff', telescope_files, {desc = 'Telescope Find/Git Files'})
+      vim.api.nvim_create_user_command('TelescopeFindGitFiles', telescope_files, {desc = 'Telescope Find/Git Files'})
     end,
     dependencies = {
       'nvim-lua/plenary.nvim'
