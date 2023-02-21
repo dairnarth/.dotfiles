@@ -39,17 +39,17 @@ return {
           },
           modified = {
               symbol = '●',
-          }
-        }
+          },
+        },
       })
     end
   },
   {
     'mbbill/undotree',
     init = function()
-      vim.keymap.set('n', '<leader>fu', ':UndoTreeToggle<CR>',  {silent = true})
+      vim.keymap.set('n', '<leader>fu', ':UndotreeToggle<CR>',  {silent = true})
     end,
-    cmd = 'UndoTreeToggle'
+    cmd = 'UndotreeToggle'
   },
   {
     'alexghergh/nvim-tmux-navigation',
