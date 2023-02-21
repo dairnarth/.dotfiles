@@ -5,6 +5,7 @@ return {
     dependencies = {
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
+      'folke/neodev.nvim',
       {
         'hrsh7th/nvim-cmp',
         dependencies = {
@@ -17,6 +18,8 @@ return {
       },
     },
     config = function()
+      require('neodev').setup()
+
       require('mason').setup()
       require('mason-lspconfig').setup({
         ensure_installed = {
@@ -63,6 +66,20 @@ return {
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
           ['<C-e>'] = cmp.mapping.close(),
+          ['<Tab>'] = function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item()
+            else
+              fallback()
+            end
+          end,
+          ['<S-Tab>'] = function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            else
+              fallback()
+            end
+          end,
         },
         sources = {
           {name = 'nvim_lsp'},
