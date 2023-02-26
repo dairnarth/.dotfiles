@@ -20,38 +20,6 @@ augroup autocmd#trailing
     autocmd BufWritePre * call autocmds#trailfunc()
 augroup END
 
-" adds formatting headers
-        " TODO: Fix this...
-augroup autocmds#groff
-    au!
-    autocmd BufNewFile *.mom 0put =\".PAPER A4\<nl>
-        \.PRINTSTYLE TYPESET\<nl>
-        \.L_MARGIN 2.5cm\<nl>
-        \.R_MARGIN 2.5cm\<nl>
-        \.DOCTYPE ___
-        \\\#\<nl>
-        \.FAMILY T\<nl>
-        \.PT_SIZE 11\<nl>
-        \.AUTOLEAD 1\<nl>
-        \\\#\<nl>
-        \.START\<nl>
-        \\<nl>
-        \\"|$
-    autocmd BufWritePost *.mom silent! !pdfmom % > %:r.pdf
-augroup END
-
-augroup autocmds#latex
-    au!
-    autocmd BufNewFile *.tex 0put =\"\\documentclass{}\<nl>\<nl>
-        \\\author{}\<nl>
-        \\\title{}\<nl>
-        \\<nl>
-        \\\begin{document}\<nl>\<nl>\<nl>\<nl>
-        \\\end{document}\"
-        \| 1 | normal f}
-    " autocmd BufWritePost *.tex !pdflatex "%"
-augroup END
-
 " Focus autocmds
 augroup autocmds#focus
     au!
