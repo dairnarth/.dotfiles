@@ -1,5 +1,9 @@
 local statusline = {}
 
+statusline.enclose = function(input)
+  return "%{%v:lua.require('dairnarth.statusline')." .. input .. '%}'
+end
+
 statusline.gutterpadding = function()
   local wins = {}
   for _, win in ipairs(vim.api.nvim_list_wins()) do
@@ -14,7 +18,7 @@ statusline.gutterpadding = function()
   local numberwidth = vim.wo.numberwidth
   local row = vim.api.nvim_buf_line_count(vim.api.nvim_win_get_buf(wins[1][1]))
   local gutterwidth = math.max((#tostring(row) + 1), minwidth, numberwidth)
-  local padding = (' '):rep(gutterwidth - 2)
+  local padding = (' '):rep(gutterwidth - 1)
   return padding
 end
 
@@ -57,38 +61,84 @@ statusline.modecolour = function()
     ['!']     = '%#SLModeT#',
     ['t']     = '%#SLModeT#',
   }
-  return modes[vim.api.nvim_get_mode().mode]
-end
-
-statusline.language = function()
-  local lsp = vim.lsp.get_active_clients({bufnr = 0})
-  if next(lsp) == nil  then
-    return '%y'
+  local mode = modes[vim.api.nvim_get_mode().mode]
+  if mode == '%#SLModeN#' and vim.bo.modified then
+    return '%#SLModeMod#'
   else
-    return '[' .. vim.inspect(lsp[1].config.cmd[1]):gsub('"', '')  .. ']'
+    return mode
   end
 end
 
-statusline.set = function()
-  vim.o.statusline = statusline.modecolour()
-                  .. statusline.gutterpadding()
-                  .. '■ '
-                  .. '%#Statusline#'
-                  .. '%t %<'
-                  .. '%#SLDimIt#'
-                  .. '%F'
-                  .. '%='
-                  .. '%#SLDim#'
-                  .. statusline.language()
-                  .. '%#SLIt#'
-                  .. ' %2l'
-                  .. '%#Statusline#'
-                  .. 'ℓ '
-                  .. '%#SLIt#'
-                  .. '%2v'
-                  .. '%#Statusline#'
-                  .. '𝒸 '
-                  .. '%3.3p%%'
+statusline.language = function(hide)
+  local lang = string.upper(vim.bo.filetype)
+  local lsp  = vim.lsp.get_active_clients()
+
+  hide = hide == nil and false or hide
+  if next(lsp) == nil or hide then
+    return lang
+  end
+
+  local lsps = ''
+  for i = 1, #lsp do
+    lsps = lsps .. '[' .. lsp[i].config.cmd[1] .. ']'
+  end
+
+  if #lsp > 1 then
+    return '%#SLDim#[' .. lsps .. '] %#Statusline#' .. lang
+  else
+    return '%#SLDim#' .. lsps .. ' %#Statusline#' .. lang
+  end
+end
+
+statusline.normal = function()
+  return ''
+    .. statusline.enclose('gutterpadding()')
+    .. statusline.enclose('modecolour()')
+    .. '■ '
+    .. '%#Statusline#'
+    .. '%t %<'
+    .. '%#SLDimIt#'
+    .. '%F'
+    .. '%='
+    .. statusline.enclose('language()')
+    .. '%#SLIt#'
+    .. ' %2l'
+    .. '%#Statusline#'
+    .. 'ℓ '
+    .. '%#SLIt#'
+    .. '%2v'
+    .. '%#Statusline#'
+    .. '𝒸 '
+    .. '%3.3p%%'
+end
+
+statusline.special = function()
+  return ''
+    .. statusline.enclose('gutterpadding()')
+    .. statusline.enclose('modecolour()')
+    .. '■ '
+    .. '%#Statusline#'
+    .. '%t %<'
+    .. '%='
+    .. statusline.enclose('language("true")')
+    .. '%#SLIt#'
+    .. ' %2l'
+    .. '%#Statusline#'
+    .. 'ℓ '
+    .. '%#SLIt#'
+    .. '%2v'
+    .. '%#Statusline#'
+    .. '𝒸 '
+    .. '%3.3p%%'
+end
+
+
+statusline.print = function()
+  if vim.bo.buftype == '' then
+    return statusline.normal()
+  else
+    return statusline.special()
+  end
 end
 
 return statusline
