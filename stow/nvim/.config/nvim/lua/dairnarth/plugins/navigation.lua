@@ -11,7 +11,15 @@ return {
         end
       end
       vim.keymap.set('n', '<leader>ff', telescope_files, {desc = 'Telescope Find/Git Files'})
-      vim.api.nvim_create_user_command('TelescopeFindGitFiles', telescope_files, {desc = 'Telescope Find/Git Files'})
+      vim.api.nvim_create_augroup('telescope', {clear = true})
+      vim.api.nvim_create_autocmd('VimEnter', {
+        callback = function()
+          if vim.fn.argc() == 0 then
+            telescope_files()
+          end
+        end,
+        group = 'telescope'
+      })
     end,
     dependencies = {
       'nvim-lua/plenary.nvim'
