@@ -17,14 +17,10 @@ return {
     'dairnarth/gruvbox-dim.nvim',
     lazy = false,
     priority = 1000,
-    config = function()
-      require('gruvbox-dim').setup({
-        italic = false
-      })
-    end
+    opts = {italic = false}
   },
   {
       'folke/styler.nvim',
-      config = function() require'styler'.setup({themes = {}}) end
+      opts = {themes = {}}
   },
 }

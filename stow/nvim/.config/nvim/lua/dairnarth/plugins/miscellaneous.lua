@@ -5,31 +5,28 @@ return {
       vim.keymap.set('n', '<leader>z', ':ZenMode<cr>', {silent = true})
     end,
     cmd = 'ZenMode',
-    config = function()
-      require'zen-mode'.setup({
-        window = {
-          backdrop = 1,
-          width = math.max(#tostring(vim.api.nvim_buf_line_count(0)) + 1, 2, vim.wo.numberwidth) + 80,
-          height = 0.95,
-          options = {
-              number = true,
-              relativenumber = false,
-              spell = true,
-              wrap = true,
-              linebreak = true,
-              colorcolumn = ''
-          }
-        },
-        plugins = {
-          tmux = {enabled = true}
+    opts = {
+      window = {
+        backdrop = 1,
+        width = math.max(#tostring(vim.api.nvim_buf_line_count(0)) + 1, 2, vim.wo.numberwidth) + 80,
+        height = 0.95,
+        options = {
+            number = true,
+            relativenumber = false,
+            spell = true,
+            wrap = true,
+            linebreak = true,
+            colorcolumn = ''
         }
-      })
-    end
+      },
+      plugins = {
+        tmux = {enabled = true}
+      }
+    }
   },
   {
     'norcalli/nvim-colorizer.lua',
-    cmd = 'ColorizerToggle',
-    config = true
+    cmd = 'ColorizerToggle'
   },
   'godlygeek/tabular'
 }
