@@ -84,10 +84,26 @@ statusline.language = function(hide)
   end
 
   if #lsp > 1 then
-    return '%#SLDim#[' .. lsps .. '] %#Statusline#' .. lang
+    return '%#SLDim#[' .. lsps .. '] %#SL#' .. lang
   else
-    return '%#SLDim#' .. lsps .. ' %#Statusline#' .. lang
+    return '%#SLDim#' .. lsps .. ' %#SL#' .. lang
   end
+end
+
+statusline.highlight = function()
+  vim.cmd.highlight({'Statusline', 'guifg=#ebdbb2', 'guibg=#282828', 'gui=none'})
+  vim.cmd.highlight({'SL',         'guifg=#ebdbb2', 'guibg=#282828', 'gui=none'})
+  vim.cmd.highlight({'SLIt',       'guifg=#ebdbb2', 'guibg=#282828', 'gui=italic'})
+  vim.cmd.highlight({'SLDim',      'guifg=#a89984', 'guibg=#282828', 'gui=none'})
+  vim.cmd.highlight({'SLDimIt',    'guifg=#a89984', 'guibg=#282828', 'gui=italic'})
+  vim.cmd.highlight({'SLModeN',    'guifg=#ebdbb2', 'guibg=#282828', 'gui=none'})
+  vim.cmd.highlight({'SLModeI',    'guifg=#d79921', 'guibg=#282828', 'gui=none'})
+  vim.cmd.highlight({'SLModeR',    'guifg=#d75f00', 'guibg=#282828', 'gui=none'})
+  vim.cmd.highlight({'SLModeV',    'guifg=#458588', 'guibg=#282828', 'gui=none'})
+  vim.cmd.highlight({'SLModeC',    'guifg=#282828', 'guibg=#282828', 'gui=none'})
+  vim.cmd.highlight({'SLModeT',    'guifg=#ebdbb2', 'guibg=#282828', 'gui=none'})
+  vim.cmd.highlight({'SLModeM',    'guifg=#cc241d', 'guibg=#282828', 'gui=none'})
+  vim.cmd.highlight({'SLModeMod',  'guifg=#cc241d', 'guibg=#282828', 'gui=none'})
 end
 
 statusline.normal = function()
@@ -95,7 +111,7 @@ statusline.normal = function()
     .. statusline.enclose('gutterpadding()')
     .. statusline.enclose('modecolour()')
     .. '■ '
-    .. '%#Statusline#'
+    .. '%#SL#'
     .. '%t %<'
     .. '%#SLDimIt#'
     .. '%F'
@@ -103,11 +119,11 @@ statusline.normal = function()
     .. statusline.enclose('language()')
     .. '%#SLIt#'
     .. ' %2l'
-    .. '%#Statusline#'
+    .. '%#SL#'
     .. 'ℓ '
     .. '%#SLIt#'
     .. '%2v'
-    .. '%#Statusline#'
+    .. '%#SL#'
     .. '𝒸 '
     .. '%3.3p%%'
 end
@@ -115,19 +131,18 @@ end
 statusline.special = function()
   return ''
     .. statusline.enclose('gutterpadding()')
-    .. statusline.enclose('modecolour()')
     .. '■ '
-    .. '%#Statusline#'
+    .. '%#SL#'
     .. '%t %<'
     .. '%='
     .. statusline.enclose('language("true")')
     .. '%#SLIt#'
     .. ' %2l'
-    .. '%#Statusline#'
+    .. '%#SL#'
     .. 'ℓ '
     .. '%#SLIt#'
     .. '%2v'
-    .. '%#Statusline#'
+    .. '%#SL#'
     .. '𝒸 '
     .. '%3.3p%%'
 end
