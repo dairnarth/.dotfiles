@@ -25,7 +25,7 @@ return {
         ensure_installed = {
           'bashls',
           'clangd',
-          'sumneko_lua',
+          'lua_ls',
           'pyright',
         }
       })
