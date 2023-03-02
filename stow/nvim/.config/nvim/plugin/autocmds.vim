@@ -20,19 +20,6 @@ augroup autocmd#trailing
     autocmd BufWritePre * call autocmds#trailfunc()
 augroup END
 
-" Focus autocmds
-augroup autocmds#focus
-    au!
-    autocmd BufEnter,FocusGained,VimEnter,WinEnter * call focus#focus()
-    autocmd FocusLost,WinLeave * call focus#dim()
-augroup END
-
-augroup autocmds#insert
-    au!
-    autocmd InsertEnter * set cursorline
-    autocmd InsertLeave * set nocursorline
-augroup END
-
 " Exit autocmds
 augroup autocmds#exit
     au!
