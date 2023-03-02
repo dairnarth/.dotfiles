@@ -107,7 +107,7 @@ statusline.highlight = function()
 end
 
 statusline.normal = function()
-  return ''
+  return '%#SL#'
     .. statusline.enclose('gutterpadding()')
     .. statusline.enclose('modecolour()')
     .. '■ '
@@ -129,7 +129,7 @@ statusline.normal = function()
 end
 
 statusline.special = function()
-  return ''
+  return '%#SL#'
     .. statusline.enclose('gutterpadding()')
     .. '■ '
     .. '%#SL#'
