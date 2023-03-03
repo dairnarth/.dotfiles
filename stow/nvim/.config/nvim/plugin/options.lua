@@ -9,7 +9,6 @@ vim.o.splitbelow     = true     -- split more intuitively
 vim.o.splitright     = true
 vim.o.undofile       = true     -- saves undo history to a file
 vim.o.swapfile       = false    -- doesn't create a swap file when switching buffers
-vim.o.colorcolumn    = '80'     -- sets colour column location
 vim.o.scl            = 'no'     -- turns off sign column
 vim.o.wrap           = false    -- turns off text wrapping
 vim.o.foldtext       = 'v:lua.require("dairnarth.foldtext")()'

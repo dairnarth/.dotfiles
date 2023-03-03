@@ -11,12 +11,12 @@ return {
         width = math.max(#tostring(vim.api.nvim_buf_line_count(0)) + 1, 2, vim.wo.numberwidth) + 80,
         height = 0.95,
         options = {
-            number = true,
-            relativenumber = false,
-            spell = true,
-            wrap = true,
-            linebreak = true,
-            colorcolumn = ''
+          number = true,
+          relativenumber = false,
+          spell = true,
+          wrap = true,
+          linebreak = true,
+          colorcolumn = ''
         }
       },
       plugins = {
@@ -28,5 +28,9 @@ return {
     'norcalli/nvim-colorizer.lua',
     cmd = 'ColorizerToggle'
   },
-  'godlygeek/tabular'
+  'godlygeek/tabular',
+  {
+    'm4xshen/smartcolumn.nvim',
+    opts = {scope = 'window'}
+  }
 }
