@@ -1,0 +1,77 @@
+#| dch-mb.kbd |#
+
+(defcfg
+  input  (device-file "/dev/input/by-id/usb-Razer_Razer_Ornata-event-kbd")
+  output (uinput-sink "dch-pc-kbd")
+
+  fallthrough true
+  allow-cmd   false
+)
+
+(defsrc
+  esc
+  grv   1     2     3     4     5     6     7     8     9     0     -     =     bspc
+  tab   q     w     e     r     t     y     u     i     o     p     [     ]     ret
+  caps  a     s     d     f     g     h     j     k     l     ;     '     bksl
+  lsft  102nd z     x     c     v     b     n     m     ,     .     /     rsft        up
+        lctl  lmet  lalt              spc               ralt  cmps  rctl        left  down  right
+)
+
+(defalias
+  ctes  (tap-hold-next 400 esc   ctl)
+  ctl'  (tap-hold-next 400 '     ctl)
+  cfun  (layer-toggle cfunc)
+  num   (layer-switch numpad)
+  gm    (layer-switch game)
+  csys  (layer-switch csys)
+  nor   (layer-switch norm)
+  lmb   (tap-hold-next 400 bspc  lmet)
+  rme   (tap-hold-next 400 ret   rmet)
+  102f  (tap-hold-next 400 102nd lsft)
+  /rsf  (tap-hold-next 400 /     rsft)
+)
+
+(deflayer norm
+  caps
+  grv   1     2     3     4     5     6     7     8     9     0     -     =     bspc
+  tab   q     w     e     r     t     y     u     i     o     p     [     ]     ret
+  @ctes a     s     d     f     g     h     j     k     l     ;     @ctl' bksl
+  lsft  @102f z     x     c     v     b     n     m     ,     .     @/rsf rsft        up
+        @cfun lalt  @lmb              spc               @rme  ralt  @cfun       left  down  right
+)
+
+(deflayer cfunc
+  XX
+  _     XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX
+  _     XX    XX    XX    XX    XX    XX    XX    @nor  XX    XX    XX    XX    XX
+  _     XX    XX    XX    XX    @gm   left  down  up    right XX    XX    XX
+  _     XX    XX    XX    XX    @csys XX    @num  XX    XX    XX    XX    XX          _
+        _     _     _                 bspc              _     _     _           _     _     _
+)
+
+(deflayer numpad
+  @nor
+  _     XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    bspc
+  _     XX    XX    XX    XX    XX    XX    7     8     9     XX    XX    XX    ret
+  _     XX    XX    XX    XX    XX    XX    4     5     6     XX    XX    XX
+  _     XX    XX    XX    XX    XX    XX    XX    1     2     3     XX    XX          up
+        @cfun _     _                 ret               0     .     XX          left  down  right
+)
+
+(deflayer game
+  @nor
+  _     XX    1     2     3     4     5     XX    XX    XX    XX    XX    XX    bspc
+  XX    tab   q     w     e     r     t     [     up    ]     XX    XX    XX    ret
+  esc   XX    a     s     d     f     g     left  down  right ;     '     bksl
+  XX    lsft  m     z     x     c     v     b     n     ,     .     /     rsft        _
+        @cfun lctl  lalt              ret               _     _     _           _     _     _
+)
+
+(deflayer csys
+  @nor
+  2     1     102nd z     x     c     v     b     n     m     ,     .     /     5
+  3     q     w     e     r     t     y     u     i     o     p     [     ]     6
+  4     a     s     d     f     g     h     j     k     l     ;     '     bksl
+  1     102nd z     x     c     v     b     n     m     ,     .     /     5           up
+        lctl  lmet  lalt              spc               ralt  cmps  rctl        left  down  right
+)

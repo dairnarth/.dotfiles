@@ -1,0 +1,5 @@
+#!/bin/bash
+
+shopt -s autocd
+shopt -s dotglob extglob nullglob
+set -o vi

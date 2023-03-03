@@ -1,0 +1,8 @@
+#!/bin/bash
+
+command pamixer "$@"
+
+printf -v vol '%3d' "$(command pamixer --get-volume)"
+out="$vol%"
+[[ "$(command pamixer --get-mute)" == 'true' ]] && ret='Mute'
+dunstify -h string:x-dunst-stack-tag:vol -h "int:value:$vol" "Volume: $out"

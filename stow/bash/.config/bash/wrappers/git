@@ -1,0 +1,18 @@
+#!/bin/bash
+
+gitarg="$1"
+shift
+
+case "$gitarg" in
+    ps) command git push "$@";;
+    pl) command git pull "$@";;
+    st) command git status "$@";;
+    cm) command git commit "$@";;
+    a)  command git add "$@";;
+    co) command git checkout "$@";;
+    l)  command git log "$@";;
+    lg) command git log --branches --oneline --graph --decorate "$@";;
+    sm) command git submodule "$@";;
+    '') command git status;;
+    *)  command git "$gitarg" "$@";;
+esac
