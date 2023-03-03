@@ -1,46 +1,58 @@
 # dairnarth/nvim
 
-My small but growing neovim configuration as I slowly become more proficient in the editor.
+## Installation
 
-## File Structure
+All plugins should install themselves the first time NeoVim launches, so you should only need to:
 
-I've taken to organising my configuration into smaller files in the plugin directory rather than simply storing it all in my init.vim file.
-This is currently more of a preventative measure, given the size of the files, but I feel that it will become necessary as I inevitably make more tweaks and changes.
-
-## Branches
-
-I live in the unstable branch most of the time.
-It's not necessarily unstable, but I make my changes there, and if they don't break anything they get merged to main.
+```
+git clone https://github.com/dairnarth/nvim ~/.config/nvim
+```
 
 ## Plugins
 
 The plugins that I currently have installed:
 
-### Colourscheme
-  - [morhetz/gruvbox](https://github.com/morhetz/gruvbox)
+### Colourschemes
 
-### Completion
+  - [ellisonleao/gruvbox.nvim](https://github.com/ellisonleao/gruvbox.nvim)
+  - [dairnarth/gruvbox-dim.nvim](https://github.com/dairnarth/gruvbox-dim.nvim)
+  - [folke/styler.nvim](https://github.com/folke/styler.nvim)
+
+### Navigation
+
+  - [nvim-telescope/telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
+  - [nvim-lua/plenary.nvim](https://github.com/nvim-lua/plenary.nvim)
+  - [nvim-neo-tree/neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim)
+  - [MunifTanjim/nui.nvim](https://github.com/MunifTanjim/nui.nvim)
+  - [mbbill/undotree](https://github.com/mbbill/undotree)
+  - [alexghergh/nvim-tmux-navigation](https://github.com/alexghergh/nvim-tmux-navigation)
+
+### LSPConfig
+
   - [neovim/nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)
+  - [williamboman/mason.nvim](https://github.com/williamboman/mason.nvim)
+  - [williamboman/mason-lspconfig.nvim](https://github.com/williamboman/mason-lspconfig.nvim)
+  - [folke/neodev.nvim](https://github.com/folke/neodev.nvim)
+  - [hrsh7th/nvim-cmp](https://github.com/hrsh7th/nvim-cmp)
   - [hrsh7th/cmp-nvim-lsp](https://github.com/hrsh7th/cmp-nvim-lsp)
   - [hrsh7th/cmp-buffer](https://github.com/hrsh7th/cmp-buffer)
   - [hrsh7th/cmp-path](https://github.com/hrsh7th/cmp-path)
   - [hrsh7th/cmp-cmdline](https://github.com/hrsh7th/cmp-cmdline)
-  - [hrsh7th/nvim-cmp](https://github.com/hrsh7th/nvim-cmp)
   - [uga-rosa/cmp-dictionary](https://github.com/uga-rosa/cmp-dictionary)
-  - [saadparawaiz1/cmp\_luasnip](https://github.com/saadparawaiz1/cmp_luasnip)
-  - [L3MON4D3/LuaSnip](https://github.com/L3MON4D3/LuaSnip)
 
-### Focus
-  - [folke/zen-mode.nvim](https://github.com/folke/zen-mode.nvim)
+### Treesitter
 
-### Git
+  - [nvim-treesitter/nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
+  - [nvim-treesitter/playground](https://github.com/nvim-treesitter/playground)
+
+### Filetype
+
+  - [lervag/vimtex](https://github.com/lervag/vimtex)
   - [tpope/vim-fugitive](https://github.com/tpope/vim-fugitive)
 
-### Navigation
-  - [preservim/nerdtree](https://github.com/preservim/nerdtree)
-  - [mbbill/undotree](https://github.com/mbbill/undotree)
-  - [nvim-lua/plenary.nvim](https://github.com/nvim-lua/plenary.nvim)
-  - [nvim-telescope/telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
+### Misc
 
-### Prettyify
+  - [folke/zen-mode.nvim](https://github.com/folke/zen-mode.nvim)
+  - [norcalli/nvim-colorizer.lua](https://github.com/norcalli/nvim-colorizer.lua)
   - [godlygeek/tabular](https://github.com/godlygeek/tabular)
+  - [m4xshen/smartcolumn.nvim](https://github.com/m4xshen/smartcolumn.nvim)

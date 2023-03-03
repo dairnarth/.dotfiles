@@ -20,7 +20,7 @@ return {
     opts = {italic = false}
   },
   {
-      'folke/styler.nvim',
-      opts = {themes = {}}
+    'folke/styler.nvim',
+    opts = {themes = {}}
   },
 }
