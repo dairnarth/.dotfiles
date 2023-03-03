@@ -12,6 +12,5 @@ vim.o.swapfile       = false    -- doesn't create a swap file when switching buf
 vim.o.colorcolumn    = '80'     -- sets colour colomn location
 vim.o.scl            = 'no'     -- turns off sign column
 vim.o.wrap           = false    -- turns off text wrapping
-vim.o.fdm            = 'indent' -- folds by indent and prevents small folds
 
 vim.cmd[[let $BASH_ENV = "~/.config/bash/aliases"]]
