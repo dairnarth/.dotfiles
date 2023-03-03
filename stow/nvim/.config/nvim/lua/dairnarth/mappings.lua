@@ -1,0 +1,59 @@
+local mappings = {}
+
+mappings.keys = {
+  {'n', '<s-tab>',   'za'},
+  {'n', 'K',         '<Nop>'},
+  {'n', 'Q',         '<Nop>'},
+  {'n', 's',         '<Nop>'},
+  {'n', 'S',         '<Nop>'},
+  {'n', 'ss',        ':w<CR>'},
+  {'n', 'sa',        ':w<C-r>%'},
+  {'n', 'so',        function() mappings.so() end},
+  {'n', 'n',         'nzz'},
+  {'n', 'N',         'Nzz'},
+  {'n', '{',         '{zz'},
+  {'n', '}',         '}zz'},
+  {'n', '[[',        '[[zz'},
+  {'n', ']]',        ']]zz'},
+  {'n', '<C-h>',     ':NvimTmuxNavigateLeft<CR>',  {silent = true}},
+  {'n', '<C-j>',     ':NvimTmuxNavigateDown<CR>',  {silent = true}},
+  {'n', '<C-k>',     ':NvimTmuxNavigateUp<CR>',    {silent = true}},
+  {'n', '<C-l>',     ':NvimTmuxNavigateRight<CR>', {silent = true}},
+
+  {'n', '<leader>/', ':nohlsearch<CR>',            {silent = true}},
+  {'n', '<leader>p', ':Prose<CR>',                 {silent = true}},
+  {'n', '<leader>c', ':Code<CR>',                  {silent = true}},
+
+  {'i', '<C-h>',     '<Left>',                     {silent = true}},
+  {'i', '<C-j>',     '<Down>',                     {silent = true}},
+  {'i', '<C-k>',     '<Up>',                       {silent = true}},
+  {'i', '<C-l>',     '<Right>',                    {silent = true}},
+
+  {'t', '<C-w>',     '<C-\\><C-N><C-w>'},
+  {'c', '<C-h>',     '<Left>'},
+  {'c', '<C-j>',     '<C-n>'},
+  {'c', '<C-k>',     '<C-p>'},
+  {'c', '<C-l>',     '<Right>'},
+}
+
+mappings.so = function()
+  vim.cmd.w()
+  if vim.bo.filetype == 'lua' or 'vim' then
+    vim.cmd.source()
+  end
+end
+
+mappings.set = function()
+  vim.g.mapleader = ' '
+  for _, key in ipairs(mappings.keys) do
+    vim.keymap.set(unpack(key))
+  end
+end
+
+mappings.del = function()
+  for _, key in ipairs(mappings.keys) do
+    vim.keymap.del(key[1], key[2])
+  end
+end
+
+return mappings

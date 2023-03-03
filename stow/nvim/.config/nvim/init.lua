@@ -1,8 +1,6 @@
 -- init.lua
 
-vim.g.dairnarth = 1
-
-vim.g.mapleader = ' '
+require('dairnarth.mappings').set()
 
 -- Auto-installs folke/lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
