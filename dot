@@ -1,0 +1,61 @@
+#!/bin/bash
+
+name="${0##*/}"
+dotdir="${0%dot}"
+stowdir="${dotdir}stow"
+stowargs="-vt $HOME -d $stowdir"
+helpfile="$dotdir/README.md"
+
+packagelist=($(command ls "$stowdir"))
+pkgconfig=(nvim qutebrowser)
+badpkgs=()
+
+error() {
+    local errtext
+    case "$1" in
+        noarg)  printf -v errtext '\t%s needs an argument.\n' "${cmd:-$name}";;
+        badarg) printf -v errtext '\t%s is not a valid argument.\n' "$cmd";;
+        badpkg) printf -v errtext "\t%s is not in $stowdir.\n" "${badpkgs[@]}";;
+        nostow) printf -v errtext "\tstow is required for dot to function.\n";;
+    esac
+    printf '%s: %s\nSee `%s --help` for more information.\n' "$name" "$errtext" "$name" 1>&2
+    exit 1
+}
+
+help() {
+    tail -n 11 "$helpfile"
+}
+
+runstow() {
+    local arg="$1" && shift
+    [ -z "$1" ] && error noarg
+    [[ "$1" == "all" ]] \
+        && local packages=(${packagelist[@]}) \
+        || local packages=($@)
+    for package in "${packages[@]}"; do
+        [[ " ${packagelist[*]} " == *" $package "* ]] \
+            || badpkgs+=($package)
+    done
+    [ ! -z $badpkgs ] && error badpkg
+    if [[ $arg == "-S" ]]; then
+        mkdir -pv "$HOME/.config"
+        for package in "${packages[@]}"; do
+            [[ " ${pkgconfig[*]} " == *" $package "* ]] \
+                && mkdir -pv "$HOME/.config/$package"
+        done
+    fi
+    stow $stowargs "$arg" "${packages[@]}"
+}
+
+type -P stow &>/dev/null || error nostow
+
+cmd="$1" && shift
+case "$cmd" in
+    -i|--install)   runstow -S "$@";;
+    -u|--uninstall) runstow -D "$@";;
+    -r|--refresh)   runstow -R "$@";;
+    -l|--list)      printf '%s\n' "${packagelist[@]}";;
+    -h|--help)      help;;
+    '')             error noarg;;
+    *)              error badarg;;
+esac
