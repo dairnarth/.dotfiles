@@ -24,8 +24,7 @@ end
 
 statusline.modecolour = function()
   local modes = {
-    ['n']     = '%#SLModeN#',
-    ['no']    = '%#SLModeN#',
+    ['n']     = '%#SLModeN#', ['no']    = '%#SLModeN#',
     ['nov']   = '%#SLModeN#',
     ['noV']   = '%#SLModeN#',
     ['no\22'] = '%#SLModeN#',
@@ -75,7 +74,7 @@ statusline.language = function(hide)
 
   hide = hide == nil and false or hide
   if next(lsp) == nil or hide then
-    return lang
+    return '%#SL#' .. lang
   end
 
   local lsps = ''
