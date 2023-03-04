@@ -1,5 +1,7 @@
 # dairnarth/.dotfiles/nvim
 
+![nvim](https://user-images.githubusercontent.com/68388203/222884719-30583444-d6fc-4242-9f65-2c345cab10d9.png)
+
 ## Installation
 
 ```
