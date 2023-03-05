@@ -5,6 +5,10 @@ shopt -s expand_aliases
 alias()
 {
     [ -z "$2" ] && return
+    [[ "$1" == "-f" ]] \
+        && command alias "$2"="$3" \
+        && return
+
     if type "${2%% *}" &>/dev/null; then
         command alias "$1"="$2"
     elif [ -n "$3" ] && type "${3%% *}" &>/dev/null; then
@@ -20,40 +24,30 @@ done
 unset file
 
 # Aliases
-alias d         doas \
-                sudo
-alias g         git
-alias gv        'cd $HOME/.dotfiles/stow/nvim/.config/nvim/'
-alias ls        'exa -aagl --color-scale --group-directories-first' \
-                'ls -lah --color=auto --group-directories-first'
-alias lt        'exa -glT --color-scale --group-directories-first' \
-                tree
-alias lta       'exa -aglT --color-scale --group-directories-first' \
-                'tree -a'
-alias mci       'd make clean install'
-alias mkd       'mkdir -pv'
-alias nr        notereader
-alias p         paru \
-                'd pacman'
-alias qsynth    'qsynth -a pulseaudio /usr/share/sounds/sf2/FluidR3_GM.sf2'
-alias r         ranger
-alias ss        setsid
-alias v         nvim \
-                vim
-alias webupdate 'rsync -vrP --delete-after ~/projects/website/ cs@plex.lan:/var/www/html/dylancairns.co.uk/'
-alias z         zathura
+alias -f cdot      "(cd "$HOME/.dotfiles" && v)"
+alias    d         doas \
+                   sudo
+alias    g         git
+alias    gv        'cd $HOME/.dotfiles/stow/nvim/.config/nvim/'
+alias    ls        'exa -aagl --color-scale --group-directories-first' \
+                   'ls -lah --color=auto --group-directories-first'
+alias    lt        'exa -glT --color-scale --group-directories-first' \
+                   tree
+alias    lta       'exa -aglT --color-scale --group-directories-first' \
+                   'tree -a'
+alias    mci       'd make clean install'
+alias    mkd       'mkdir -pv'
+alias    nr        notereader
+alias    p         paru \
+                   'd pacman'
+alias    qsynth    'qsynth -a pulseaudio /usr/share/sounds/sf2/FluidR3_GM.sf2'
+alias    r         ranger
+alias    ss        setsid
+alias    v         nvim \
+                   vim
+alias    webupdate 'rsync -vrP --delete-after ~/projects/website/ cs@plex.lan:/var/www/html/dylancairns.co.uk/'
+alias    z         zathura
 
-# Configuration
-appconfig()
-{
-    [[ -z $* ]] && return 1
-    local dir="$(pwd)"
-    cd "$1"
-    nvim -c 'exec exists("g:dairnarth") ? "TelescopeFindGitFiles" : "e ."'
-    cd "$dir"
-}
-alias cdot 'appconfig "$HOME/.dotfiles/"'
-alias cv   'appconfig "$HOME/.dotfiles/stow/nvim/.config/nvim/"'
 
 # Functions
 abc2pdf()
