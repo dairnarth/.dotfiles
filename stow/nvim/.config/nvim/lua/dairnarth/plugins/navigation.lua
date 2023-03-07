@@ -11,9 +11,12 @@ return {
         end
       end
       vim.keymap.set('n', '<leader>ff', telescope_files, {desc = 'Telescope Find/Git Files'})
+      vim.keymap.set('n', '<leader>fb', function() require'telescope.builtin'.buffers() end, {desc = 'Telescope List Buffers'})
+      vim.keymap.set('n', '<leader>fh', function() require'telescope.builtin'.help_tags() end, {desc = 'Telescope Find/Git Files'})
+      vim.keymap.set('n', '<leader>fs', function() require'telescope.builtin'.spell_suggest() end, {desc = 'Telescope Spell Suggest'})
+      vim.keymap.set('n', '<leader>gc', function() require'telescope.builtin'.git_commits() end, {desc = 'Telescope Git Commits'})
       vim.api.nvim_create_augroup('telescope', {clear = true})
-      vim.api.nvim_create_autocmd('VimEnter', {
-        callback = function()
+      vim.api.nvim_create_autocmd('VimEnter', { callback = function()
           if vim.fn.argc() == 0 then
             telescope_files()
           end
