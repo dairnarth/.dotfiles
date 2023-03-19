@@ -673,7 +673,7 @@ c.colors.webpage.bg = gruvbox.normal.fg
 # `colors.webpage.darkmode.threshold.background` to 205.  - "With
 # selective inversion of everything": Combines the two variants   above.
 # Type: Bool
-c.colors.webpage.darkmode.enabled = False
+c.colors.webpage.darkmode.enabled = True
 
 # Which pages to apply dark mode to. The underlying Chromium setting has
 # been removed in QtWebEngine 5.15.3, thus this setting is ignored
