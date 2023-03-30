@@ -32,5 +32,9 @@ return {
   {
     'm4xshen/smartcolumn.nvim',
     opts = {scope = 'window'}
-  }
+  },
+  {
+    'folke/styler.nvim',
+    opts = {themes = {}}
+  },
 }
