@@ -11,24 +11,21 @@ vim.api.nvim_create_autocmd('InsertLeave', {
 
 vim.api.nvim_create_autocmd({'WinEnter', 'FocusGained'}, {
   callback = function()
-    if vim.bo.buftype == '' then
+    if vim.wo.number == true then
         vim.wo.relativenumber = true
     end
     require('styler').clear(0)
-    require('dairnarth.colours').highlight()
+    require('colorizer').attach_to_buffer()
   end,
   group = 'focus'
 })
 vim.api.nvim_create_autocmd({'WinLeave', 'FocusLost'}, {
   callback = function()
-    if vim.bo.buftype == '' then
+    if vim.wo.number == true then
         vim.wo.relativenumber = false
     end
-    require('styler').set_theme(0, {
-      colorscheme = 'gruvbox-dim',
-      background = 'dark'
-    })
-    require('dairnarth.colours').highlight()
+    require('styler').set_theme(0, {colorscheme = 'colours-dim'})
+    require('colorizer').detach_from_buffer()
   end,
   group = 'focus'
 })
