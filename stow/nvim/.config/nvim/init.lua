@@ -2,6 +2,7 @@
 
 require('dairnarth.mappings').set()
 require('dairnarth.commands').set()
+vim.cmd.colorscheme('colours')
 
 -- Auto-installs folke/lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
