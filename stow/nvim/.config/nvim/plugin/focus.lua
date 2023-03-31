@@ -9,7 +9,7 @@ vim.api.nvim_create_autocmd('InsertLeave', {
   group = 'focus'
 })
 
-vim.api.nvim_create_autocmd({'WinEnter', 'FocusGained'}, {
+vim.api.nvim_create_autocmd({'WinEnter'}, {
   callback = function()
     if vim.wo.number == true then
         vim.wo.relativenumber = true
@@ -19,7 +19,7 @@ vim.api.nvim_create_autocmd({'WinEnter', 'FocusGained'}, {
   end,
   group = 'focus'
 })
-vim.api.nvim_create_autocmd({'WinLeave', 'FocusLost'}, {
+vim.api.nvim_create_autocmd({'WinLeave'}, {
   callback = function()
     if vim.wo.number == true then
         vim.wo.relativenumber = false

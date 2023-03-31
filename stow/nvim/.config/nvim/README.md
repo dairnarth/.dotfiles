@@ -1,10 +1,10 @@
 # dairnarth/.dotfiles/nvim
 
-![nvim](https://user-images.githubusercontent.com/68388203/222884719-30583444-d6fc-4242-9f65-2c345cab10d9.png)
+![nvim](https://user-images.githubusercontent.com/68388203/229055349-50b3165c-cb46-42db-ae79-129636d1f0a1.gif)
 
 ## Installation
 
-```
+```bash
 git clone https://github.com/dairnarth/.dotfiles
 
 # With `stow` installed
@@ -19,17 +19,25 @@ All plugins should install themselves the first time NeoVim launches.
 ## Features
 
   - Subtle global statusbar with `mode` and `modified` indicator;
-  - Focus on the current window by dimming all others (see [gruvbox-dim](https://github.com/dairnarth/gruvbox-dim.nvim));
+  - Focus on the current window by dimming all others (using [styler](https://github.com/folke/styler.nvim));
   - Opening vim with no arguments opens Telescope find/git files;
   - LSP auto-install ([mason](https://github.com/williamboman/mason.nvim) and treesitter highlighting/indenting/folding.
 
+### Colourscheme
+
+| Colour  | Normal    | Dimmed    |
+|---------|-----------|-----------|
+| Black   | `#2d2525` | `#2d2525` |
+| Red     | `#eb5b4b` | `#a65249` |
+| Orange  | `#dd855b` | `#a26d64` |
+| Yellow  | `#d0a63f` | `#97762e` |
+| Green   | `#b0bb39` | `#838650` |
+| Cyan    | `#86b78e` | `#68876a` |
+| Blue    | `#8fa9ba` | `#6d7e8c` |
+| Magenta | `#c180a7` | `#846275` |
+| White   | `#f4c3b1` | `#be988b` |
+
 ### Plugins
-
-#### Colourschemes
-
-  - [ellisonleao/gruvbox.nvim](https://github.com/ellisonleao/gruvbox.nvim)
-  - [dairnarth/gruvbox-dim.nvim](https://github.com/dairnarth/gruvbox-dim.nvim)
-  - [folke/styler.nvim](https://github.com/folke/styler.nvim)
 
 #### Navigation
 
@@ -69,3 +77,4 @@ All plugins should install themselves the first time NeoVim launches.
   - [norcalli/nvim-colorizer.lua](https://github.com/norcalli/nvim-colorizer.lua)
   - [godlygeek/tabular](https://github.com/godlygeek/tabular)
   - [m4xshen/smartcolumn.nvim](https://github.com/m4xshen/smartcolumn.nvim)
+  - [folke/styler.nvim](https://github.com/folke/styler.nvim)
