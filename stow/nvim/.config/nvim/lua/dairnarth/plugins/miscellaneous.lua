@@ -19,9 +19,6 @@ return {
           colorcolumn = ''
         }
       },
-      plugins = {
-        tmux = {enabled = true}
-      }
     }
   },
   {
