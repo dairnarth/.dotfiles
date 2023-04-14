@@ -27,6 +27,7 @@ unset file
 alias -f cdot      "(cd "$HOME/.dotfiles" && v)"
 alias    d         doas \
                    sudo
+alias -f dot       '$HOME/.dotfiles/dot'
 alias    g         git
 alias    gv        'cd $HOME/.dotfiles/stow/nvim/.config/nvim/'
 alias    ls        'exa -aagl --color-scale --group-directories-first' \
