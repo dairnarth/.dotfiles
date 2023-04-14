@@ -3,11 +3,10 @@
 name="${0##*/}"
 dotdir="${0%dot}"
 stowdir="${dotdir}stow"
-stowargs="-vt $HOME -d $stowdir"
+stowargs="-vt $HOME -d $stowdir --no-folding"
 helpfile="$dotdir/README.md"
 
 packagelist=($(command ls "$stowdir"))
-pkgconfig=(nvim qutebrowser)
 badpkgs=()
 
 error() {
@@ -27,6 +26,7 @@ help() {
 }
 
 runstow() {
+    local fold=""
     local arg="$1" && shift
     [ -z "$1" ] && error noarg
     [[ "$1" == "all" ]] \
@@ -37,13 +37,7 @@ runstow() {
             || badpkgs+=($package)
     done
     [ ! -z $badpkgs ] && error badpkg
-    if [[ $arg == "-S" ]]; then
-        mkdir -pv "$HOME/.config"
-        for package in "${packages[@]}"; do
-            [[ " ${pkgconfig[*]} " == *" $package "* ]] \
-                && mkdir -pv "$HOME/.config/$package"
-        done
-    fi
+    mkdir -pv "$HOME/.config"
     stow $stowargs "$arg" "${packages[@]}"
 }
 

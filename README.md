@@ -19,7 +19,7 @@ The easiest way to interact with this repository is the `dot` script, but you ca
 
 ## dot
 
-`dot` is a wrapper around `stow` that performs some argument checks and creates some directories before `stow` is called.
+`dot` is a wrapper around `stow` that performs some argument checks before `stow` is called.
 
 | -f | --flag      | values              | desc.                                                         |
 |----|-------------|---------------------|---------------------------------------------------------------|
