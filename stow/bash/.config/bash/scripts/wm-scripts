@@ -2,6 +2,8 @@
 
 [[ -z "$@" ]] && exit 1
 
+dmenu="rofi -dmenu"
+
 wm::bar()
 {
     if [ -e /sys/class/power_supply/BAT0/capacity ]; then
@@ -37,13 +39,13 @@ wm::copypaste()
 
 wm::shutdown()
 {
-    local Selection=$(echo -e "Shutdown\nRestart" | dmenu -i -p "Power off:")
+    local Selection=$(echo -e "Shutdown\nRestart" | $dmenu -i -p "Power off:")
     case "$Selection" in
         Shutdown)
-            local sYN="$(echo -e "Yes\nNo" | dmenu -i -n 1 -nf red -sb red -sf black -p "[S] Are you sure?")"
+            local sYN="$(echo -e "Yes\nNo" | $dmenu -i -l 2 -n 1 -nf red -sb red -sf black -p "[S] Are you sure?")"
             [ "$sYN" == "Yes" ] && shutdown now ;;
         Restart)
-            local rYN="$(echo -e "Yes\nNo" | dmenu -i -n 1 -p "[R] Are you sure?")"
+            local rYN="$(echo -e "Yes\nNo" | $dmenu -i -l 2 -n 1 -p "[R] Are you sure?")"
             [ "$rYN" == "Yes" ] && reboot ;;
     esac
 }
@@ -57,13 +59,13 @@ wm::websearch()
 {
     local db=$HOME/.local/share/qutebrowser/history.sqlite
 
-    local query=$(printf 'History\n' | dmenu -i -p Search:)
+    local query=$(printf 'History\n' | $dmenu -i -p Search:)
 
     [[ "$query" == 'History' ]] && \
         local query=$(sqlite3 "$db" "select url, title, atime from History" \
             | tac \
             | awk -F '|' '!/duckgo\./{sub(".*://",""); print substr($1, 0, 100)}' \
-            | dmenu -i -l 15 -p Search:)
+            | $dmenu -i -l 15 -p Search:)
 
     [[ -z "$query" ]] && exit
 

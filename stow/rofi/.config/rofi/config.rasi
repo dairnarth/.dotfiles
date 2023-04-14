@@ -1,0 +1,41 @@
+configuration {
+    display-run: "";
+    display-drun: "";
+    display-window: "";
+    display-combi: " ";
+    drun-display-format: "{name}";
+    font: "Anonymous Pro 11";
+    modes: [combi];
+    combi-modes: [window, drun, run];
+    show-icons: false;
+}
+
+@theme "/dev/null"
+
+* {
+    bg: #2d2525;
+    fg: #fdd6c9;
+
+    width: 33%;
+
+    background-color: @bg;
+    text-color: @fg;
+}
+
+window {
+    border: 1;
+    border-color: @fg;
+}
+
+element-text {
+    padding: 0 2 0 2;
+}
+
+element-text selected {
+    background-color: @fg;
+    text-color: @bg;
+}
+
+inputbar {
+    padding: 5 2 5 2;
+}

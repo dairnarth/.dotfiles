@@ -45,7 +45,7 @@ def spawn_maps():
             K([],           "j",      l.spawn("firefox --kiosk jellyfin.dylancairns.co.uk")),
             K([],           "n",      l.spawn("firefox --kiosk netflix.com")),
         ], name = "WebChord"),
-        K([mod],            "space",  l.spawn("dmenu_run")),
+        K([mod],            "space",  l.spawn("rofi -show")),
 
         K([],               volu,     l.spawn("wm-scripts volume -i 5")),
         K([],               vold,     l.spawn("wm-scripts volume -d 5")),
