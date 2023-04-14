@@ -24,7 +24,8 @@ end
 
 statusline.modecolour = function()
   local modes = {
-    ['n']     = '%#SLModeN#', ['no']    = '%#SLModeN#',
+    ['n']     = '%#SLModeN#',
+    ['no']    = '%#SLModeN#',
     ['nov']   = '%#SLModeN#',
     ['noV']   = '%#SLModeN#',
     ['no\22'] = '%#SLModeN#',
@@ -90,7 +91,7 @@ statusline.language = function(hide)
 end
 
 statusline.highlight = function()
-  vim.cmd.highlight({'Statusline', 'guifg=#fdd6c9', 'guibg=#2d2525', 'gui=none'})
+  vim.cmd.highlight({'Statusline', 'guifg=#cccccc', 'guibg=#2d2525', 'gui=none'})
   vim.cmd.highlight({'SL',         'guifg=#fdd6c9', 'guibg=#2d2525', 'gui=none'})
   vim.cmd.highlight({'SLIt',       'guifg=#fdd6c9', 'guibg=#2d2525', 'gui=italic'})
   vim.cmd.highlight({'SLDim',      'guifg=#ab897e', 'guibg=#2d2525', 'gui=none'})
