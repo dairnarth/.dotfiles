@@ -35,7 +35,7 @@ All plugins should install themselves the first time NeoVim launches.
 | Cyan    | `#86b78e` | `#68876a` |
 | Blue    | `#8fa9ba` | `#6d7e8c` |
 | Magenta | `#c180a7` | `#846275` |
-| White   | `#f4c3b1` | `#be988b` |
+| White   | `#fdd6c9` | `#c09d91` |
 
 ### Plugins
 
