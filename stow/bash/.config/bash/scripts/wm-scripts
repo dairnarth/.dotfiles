@@ -2,7 +2,7 @@
 
 [[ -z "$@" ]] && exit 1
 
-dwm::bar()
+wm::bar()
 {
     if [ -e /sys/class/power_supply/BAT0/capacity ]; then
         while true; do
@@ -19,15 +19,15 @@ dwm::bar()
     fi
 }
 
-dwm::brightness()
+wm::brightness()
 {
     "$HOME/.config/bash/wrappers/light" "$@"
 }
 
-dwm::copypaste()
+wm::copypaste()
 {
     local currwin=$(xdotool getactivewindow)
-    local termwin=$(xdotool search --class st)
+    local termwin=$(xdotool search --class kitty)
     [[ "${termwin[@]}" =~ "$termwin" ]] && \
          local mod='ctrl+shift+' || \
          local mod='ctrl+'
@@ -35,7 +35,7 @@ dwm::copypaste()
     xdotool key --delay 0 --clearmodifiers "$mod$1"
 }
 
-dwm::shutdown()
+wm::shutdown()
 {
     local Selection=$(echo -e "Shutdown\nRestart" | dmenu -i -p "Power off:")
     case "$Selection" in
@@ -48,12 +48,12 @@ dwm::shutdown()
     esac
 }
 
-dwm::volume()
+wm::volume()
 {
     "$HOME/.config/bash/wrappers/pamixer" "$@"
 }
 
-dwm::websearch()
+wm::websearch()
 {
     local db=$HOME/.local/share/qutebrowser/history.sqlite
 
@@ -70,7 +70,7 @@ dwm::websearch()
     exec $BROWSER "$query"
 }
 
-dwm::youtube()
+wm::youtube()
 {
     firefox -url http://youtube.com &
     xdotool search --sync --onlyvisible --class "Firefox" windowactivate key F11
@@ -79,4 +79,4 @@ dwm::youtube()
 cmd="$1"
 shift
 
-dwm::"$cmd" "$@"
+wm::"$cmd" "$@"
