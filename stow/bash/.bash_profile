@@ -30,14 +30,16 @@ if [ "$TERM" = "linux" ]; then
 
     if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -le 3 ]; then
         mkdir -p "$HOME/.local/share/X"
+        logfile="$HOME/.local/share/X/current.log"
         while true; do
             clear
             read -sn 1 -t 1 sel
             case ${sel,} in
-                'd'|'') startx ~/.xinitrc dwm &> ~/.local/share/X/current.log;;
+                '')     startx ~/.xinitrc qtile start &> "$logfile";;
+                'd')    startx ~/.xinitrc dwm &> "$logfile";;
                 'o')    clear
                         read wm
-                        startx ~/.xinitrc "$wm" &> ~/.local/share/X/current.log;;
+                        startx ~/.xinitrc "$wm" &> "$logfile";;
                 't')    tmux-default ;;
                 'q')    exit ;;
                 *)      ;;

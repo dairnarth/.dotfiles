@@ -18,5 +18,4 @@ xinput set-prop 'bcm5974' 'libinput Tapping Enabled' 1
 nitrogen --restore &
 picom &
 unclutter --timeout 1 &
-wm-scripts bar &
 exec "$@" > "$wmdir/stdout.log" 2> "$wmdir/stderr.log"
