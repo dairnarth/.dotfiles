@@ -2,10 +2,6 @@ from libqtile.config import Click, Drag, Key as K, KeyChord as KC
 from libqtile.lazy import lazy as l
 from modules import mapfunctions as m
 
-volu = "XF86AudioRaiseVolume"
-vold = "XF86AudioLowerVolume"
-brtu = "XF86MonBrightnessUp"
-brtd = "XF86MonBrightnessDown"
 mod = "mod4"
 
 def group_maps(groups):
@@ -33,6 +29,12 @@ def movement_maps():
     return keys
 
 def spawn_maps():
+    volu = "XF86AudioRaiseVolume"
+    vold = "XF86AudioLowerVolume"
+    volm = "XF86AudioMute"
+    brtu = "XF86MonBrightnessUp"
+    brtd = "XF86MonBrightnessDown"
+
     return [
         K([mod],            "t",      l.function(m.raise_or_spawn(["kitty", "tmux-default"]))),
         K([mod],            "w",      l.function(m.raise_or_spawn(["qutebrowser"]))),
@@ -51,10 +53,9 @@ def spawn_maps():
         K([],               vold,     l.spawn("wm-scripts volume -d 5")),
         K(["shift"],        volu,     l.spawn("wm-scripts volume -i 1")),
         K(["shift"],        vold,     l.spawn("wm-scripts volume -d 1")),
-        K([],               brtu,     l.spawn("wm-scripts brightness -A 5")),
-	    K([],               brtd,     l.spawn("wm-scripts brightness -U 5")),
-	    K(["shift"],        brtu,     l.spawn("wm-scripts brightness -A 1")),
-	    K(["shift"],        brtd,     l.spawn("wm-scripts brightness -U 1")),
+        K([],               volm,     l.spawn("wm-scripts volume -t")),
+        K([],               brtu,     l.spawn("wm-scripts brightness s 1+")),
+        K([],               brtd,     l.spawn("wm-scripts brightness s 1-")),
     ]
 
 def window_maps():

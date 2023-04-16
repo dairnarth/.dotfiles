@@ -1,0 +1,9 @@
+#!/bin/bash
+
+command brightnessctl "$@"
+
+current="$(command brightnessctl g)"
+max="$(command brightnessctl m)"
+brt="$(echo "scale=2;$current/$max" | bc)"
+printf -v brt '%3d' "${brt/./}"
+dunstify -h string:x-dunst-stack-tag:brt -h "int:value:$brt" "Brightness: $brt%"

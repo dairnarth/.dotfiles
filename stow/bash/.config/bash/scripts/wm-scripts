@@ -23,7 +23,7 @@ wm::bar()
 
 wm::brightness()
 {
-    "$HOME/.config/bash/wrappers/light" "$@"
+    "$HOME/.config/bash/wrappers/brightnessctl" -q "$@"
 }
 
 wm::copypaste()

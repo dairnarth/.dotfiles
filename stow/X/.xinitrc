@@ -10,7 +10,6 @@ fi
 wmdir="$HOME/.local/share/$1"
 mkdir -p "$wmdir"
 
-light -S 10
 setxkbmap gb #-option "caps:swapescape"
 xrandr --output HDMI-0 --auto --output DP-0 --auto --left-of HDMI-0 --output DP-2 --auto --right-of HDMI-0
 xinput set-prop 'bcm5974' 'libinput Natural Scrolling Enabled' 1
