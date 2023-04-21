@@ -7,7 +7,7 @@ mappings.keys = {
   {'n', 's',         '<Nop>'},
   {'n', 'S',         '<Nop>'},
   {'n', 'ss',        ':w<CR>'},
-  {'n', 'sa',        ':w<C-r>%'},
+  {'n', 'sa',        ':w <C-r>%'},
   {'n', 'so',        function() mappings.so() end},
   {'n', 'n',         'nzz'},
   {'n', 'N',         'Nzz'},
