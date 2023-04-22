@@ -28,17 +28,15 @@ from libqtile import layout
 from libqtile.config import Group, Match, Screen
 from mappings import init_map
 from barconfig import init_bar
-from modules.saneratiotile import SaneRatioTile
-
+from modules.autotile import AutoTile
 
 groups = [Group(i) for i in "123456789"]
 
 keys, mouse = init_map(groups)
 
 layouts = [
-    SaneRatioTile(
+    AutoTile(
         border_width = 0,
-        fancy = True,
     ),
     layout.Max(),
 ]
