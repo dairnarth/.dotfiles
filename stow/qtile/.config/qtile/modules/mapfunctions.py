@@ -1,19 +1,15 @@
 from libqtile import bar
-from libqtile.lazy import lazy
-from libqtile.log_utils import logger
-from pprint import pprint
-
-def get_win(q, program):
-    for win in q.cmd_windows():
-        for name in win['wm_class']:
-            if name == program:
-                return win
-    return False
 
 def raise_or_spawn(command):
+    def get_win(q, program):
+        for win in q.cmd_windows():
+            for name in win['wm_class']:
+                if name == program:
+                    return win
+        return False
+
     def _inner(q):
-        program = command[0]
-        win = get_win(q, program)
+        win = get_win(q, command[0])
         if not win:
             q.cmd_spawn(command)
             return
