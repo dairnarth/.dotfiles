@@ -60,7 +60,8 @@ def spawn_maps():
 
 def window_maps():
     return [
-        K([mod],            "b",      l.hide_show_bar()),
+        K([mod],            "b",      l.function(m.toggle_all_bars())),
+        K([mod, "shift"],   "b",      l.hide_show_bar()),
         K([mod],            "f",      l.window.function(m.makefloat())),
         K([mod],            "q",      l.window.kill()),
         K([mod],            "return", l.next_layout()),
