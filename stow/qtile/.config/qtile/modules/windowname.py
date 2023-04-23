@@ -1,4 +1,4 @@
-from libqtile import bar, hook
+from libqtile import bar, hook, pangocffi
 from libqtile.widget import base
 
 class WindowName(base._TextBox):
@@ -18,7 +18,7 @@ class WindowName(base._TextBox):
         hook.unsubscribe.focus_change(self.hook_response)
         hook.unsubscribe.float_change(self.hook_response)
 
-    def hook_response(self):
+    def hook_response(self, *args):
         w = self.bar.screen.group.current_window
         state = ""
         if w:
@@ -26,14 +26,10 @@ class WindowName(base._TextBox):
                 state = "▪ "
             var = {}
             var["state"] = state
-            var["name"] = self.name_sub(w.name)
+            var["name"] = pangocffi.markup_escape_text(self.name_sub(w.name))
             wm_class = w.get_wm_class()
-            var["class"] = wm_class[0].upper() if wm_class else ""
-            #if var["class"].upper() == var["name"].upper():
-            #    self.format = "{classcolour}{class}</span> {state}"
-            #elif var["class"] == "":
-            #    self.format = "{namecolour}{name}</span> {state}"
-            #else:
+            var["class"] = pangocffi.markup_escape_text(
+                wm_class[0].upper() if wm_class else "")
             self.format = "{classcolour}{class}</span> {namecolour}{name}</span> {state}"
             if self.bar.screen == self.qtile.current_screen:
                 var["classcolour"] = "<span color='#d0a63f'>"
