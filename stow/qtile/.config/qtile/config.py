@@ -54,6 +54,9 @@ programs = {
 }
 
 groups = [Group(i) for i in "123456789"]
+groups[0].spawn = " ".join(programs['term']['default'])
+groups[1].spawn = " ".join(programs['browser']['default'])
+groups[2].spawn = " ".join(programs['music']['default'])
 
 keys, mouse = init_map(groups, programs)
 
