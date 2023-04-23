@@ -30,9 +30,32 @@ from mappings import init_map
 from barconfig import init_bar
 from modules.autotile import AutoTile
 
+programs = {
+    'term': {
+        'default':   ["kitty", "tmux-default"],
+        'kitty':     ["kitty"],
+        'alacritty': ["alacritty"],
+        'st':        ["st"],
+    },
+    'browser': {
+        'default':  ["qutebrowser"],
+        'private':  ["qutebrowser", "--target", "private-window"],
+        'firefox':  ["firefox"],
+        'youtube':  ["firefox", "--kiosk", "youtube.com"],
+        'jellyfin': ["firefox", "--kiosk", "jellyfin.dylancairns.co.uk"],
+        'netflix':  ["firefox", "--kiosk", "netflix.com"],
+    },
+    'music': {
+        'default':   ["cider"],
+        'playpause': ["playerctl", "--player=cider,%any", "play-pause"],
+        'next':      ["playerctl", "--player=cider,%any", "next"],
+        'previous':  ["playerctl", "--player=cider,%any", "previous"],
+    },
+}
+
 groups = [Group(i) for i in "123456789"]
 
-keys, mouse = init_map(groups)
+keys, mouse = init_map(groups, programs)
 
 layouts = [
     AutoTile(

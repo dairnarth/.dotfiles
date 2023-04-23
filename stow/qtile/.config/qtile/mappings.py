@@ -28,25 +28,34 @@ def movement_maps():
     ]
     return keys
 
-def spawn_maps():
+def spawn_maps(p):
     volu = "XF86AudioRaiseVolume"
     vold = "XF86AudioLowerVolume"
     volm = "XF86AudioMute"
     brtu = "XF86MonBrightnessUp"
     brtd = "XF86MonBrightnessDown"
+    play = "XF86AudioPlay"
+    next = "XF86AudioNext"
+    prev = "XF86AudioPrev"
 
     return [
-        K([mod],            "t",      l.function(m.raise_or_spawn(["kitty", "tmux-default"]))),
-        K([mod],            "w",      l.function(m.raise_or_spawn(["qutebrowser"]))),
+        K([mod],            "t",      l.function(m.raise_or_spawn(p['term']['default']))),
+        KC([mod, "shift"],  "t",      [
+            K([],           "k",      l.spawn(p['term']['kitty'])),
+            K([],           "a",      l.spawn(p['term']['alacritty'])),
+            K([],           "s",      l.spawn(p['term']['st'])),
+        ], name = "TermChord"),
+        K([mod],            "w",      l.function(m.raise_or_spawn(p['browser']['default']))),
         KC([mod, "shift"],  "w",      [
-            K([],           "w",      l.spawn("qutebrowser")),
+            K([],           "w",      l.spawn(p['browser']['default'])),
             K([],           "s",      l.spawn("wm-scripts websearch")),
-            K([],           "p",      l.spawn("qutebrowser --target private-window")),
-            K([],           "f",      l.spawn("firefox")),
-            K([],           "y",      l.spawn("firefox --kiosk youtube.com")),
-            K([],           "j",      l.spawn("firefox --kiosk jellyfin.dylancairns.co.uk")),
-            K([],           "n",      l.spawn("firefox --kiosk netflix.com")),
+            K([],           "p",      l.spawn(p['browser']['private'])),
+            K([],           "f",      l.spawn(p['browser']['firefox'])),
+            K([],           "y",      l.spawn(p['browser']['youtube'])),
+            K([],           "j",      l.spawn(p['browser']['jellyfin'])),
+            K([],           "n",      l.spawn(p['browser']['netflix'])),
         ], name = "WebChord"),
+        K([mod],            "m",      l.function(m.raise_or_spawn(p['music']['default']))),
         K([mod],            "space",  l.spawn("rofi -show")),
 
         K([],               volu,     l.spawn("wm-scripts volume -i 5")),
@@ -56,6 +65,9 @@ def spawn_maps():
         K([],               volm,     l.spawn("wm-scripts volume -t")),
         K([],               brtu,     l.spawn("wm-scripts brightness s 1+")),
         K([],               brtd,     l.spawn("wm-scripts brightness s 1-")),
+        K([],               play,     l.spawn(p['music']['playpause'])),
+        K([],               next,     l.spawn(p['music']['next'])),
+        K([],               prev,     l.spawn(p['music']['previous'])),
     ]
 
 def window_maps():
@@ -72,10 +84,10 @@ def window_maps():
         K([mod, "control"], "r",      l.reload_config()),
     ]
 
-def init_map(groups):
+def init_map(groups, programs):
     keys = group_maps(groups)
     keys.extend(movement_maps())
-    keys.extend(spawn_maps())
+    keys.extend(spawn_maps(programs))
     keys.extend(window_maps())
 
     mouse = [
