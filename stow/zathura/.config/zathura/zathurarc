@@ -3,8 +3,11 @@ set guioptions ""
 set font "Anonymous Pro normal 11"
 
 # Colours
-set default-bg "#282828"
-set default-fg "#ebdbb2"
+set default-bg "#2d2525"
+set default-fg "#fdd6c7"
+set inputbar-bg "#2d2525"
+set inputbar-fg "#fdd6c7"
 
-set highlight-color "#458588"
-set highlight-active-color "#b16286"
+set incremental-search true
+set highlight-color "#8fa9ba"
+set highlight-active-color "#c180a7"
