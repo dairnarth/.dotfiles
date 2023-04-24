@@ -16,40 +16,35 @@ config.load_autoconfig(False)
 from os import environ
 
 # Colours
-class gruvbox:
-    class dim:
-        red    = '#9d0006'
-        green  = '#79740e'
-        yellow = '#b57614'
-        blue   = '#076678'
-        purple = '#8f3f71'
-        aqua   = '#427b58'
-        orange = '#af3a03'
-        grey   = '#7c6f64'
-        bg     = '#1d2021'
-        fg     = '#d5c4a1'
+class colours:
+    class greys:
+        dark0  = '#2d2525'
+        dark1  = '#3d3231'
+        dark2  = '#4d3e3c'
+        dark3  = '#6c5752'
+        dark4  = '#8c7068'
+        grey   = '#ab897e'
+        light4 = '#c09d91'
+        light3 = '#d4b0a4'
+        light2 = '#e9c3b7'
+        light1 = '#fdd6c9'
+        light0 = '#fdded3'
+    class dark:
+        red    = "#a65249"
+        orange = "#a26d64"
+        yellow = "#97762e"
+        green  = "#838650"
+        cyan   = "#68876a"
+        blue   = "#6d7e8c"
+        purple = "#846275"
     class normal:
-        red    = '#cc241d'
-        green  = '#98971a'
-        yellow = '#d79921'
-        blue   = '#458588'
-        purple = '#b16286'
-        aqua   = '#689d6a'
-        orange = '#d65d0e'
-        grey   = '#928374'
-        bg     = '#282828'
-        fg     = '#ebdbb2'
-    class bright:
-        red    = '#fb4934'
-        green  = '#b8bb26'
-        yellow = '#fabd2f'
-        blue   = '#83a598'
-        purple = '#d3869b'
-        aqua   = '#8ec07c'
-        orange = '#fe9019'
-        grey   = '#a89984'
-        bg     = '#3c3836'
-        fg     = '#fbf1c7'
+        red    = '#eb5b4b'
+        orange = '#dd855b'
+        yellow = '#d0a63f'
+        green  = '#b0bb39'
+        cyan   = '#86b78e'
+        blue   = '#8fa9ba'
+        purple = '#c180a7'
 
 # Aliases for commands. The keys of the given dictionary are the
 # aliases, while the values are the commands they map to.
@@ -87,29 +82,6 @@ c.qt.highdpi = False
 #   - no-unknown-3rdparty: Accept cookies from the same origin only, unless a cookie is already set for the domain. On QtWebEngine, this is the same as no-3rdparty.
 #   - never: Don't accept cookies at all.
 config.set('content.cookies.accept', 'all', 'chrome-devtools://*')
-
-# Which cookies to accept. With QtWebEngine, this setting also controls
-# other features with tracking capabilities similar to those of cookies;
-# including IndexedDB, DOM storage, filesystem API, service workers, and
-# AppCache. Note that with QtWebKit, only `all` and `never` are
-# supported as per-domain values. Setting `no-3rdparty` or `no-
-# unknown-3rdparty` per-domain on QtWebKit will have the same effect as
-# `all`. If this setting is used with URL patterns, the pattern gets
-# applied to the origin/first party URL of the page making the request,
-# not the request URL. With QtWebEngine 5.15.0+, paths will be stripped
-# from URLs, so URL patterns using paths will not match. With
-# QtWebEngine 5.15.2+, subdomains are additionally stripped as well, so
-# you will typically need to set this setting for `example.com` when the
-# cookie is set on `somesubdomain.example.com` for it to work properly.
-# To debug issues with this setting, start qutebrowser with `--debug
-# --logfilter network --debug-flag log-cookies` which will show all
-# cookies being set.
-# Type: String
-# Valid values:
-#   - all: Accept all cookies.
-#   - no-3rdparty: Accept cookies from the same origin only. This is known to break some sites, such as GMail.
-#   - no-unknown-3rdparty: Accept cookies from the same origin only, unless a cookie is already set for the domain. On QtWebEngine, this is the same as no-3rdparty.
-#   - never: Don't accept cookies at all.
 config.set('content.cookies.accept', 'all', 'devtools://*')
 
 # Value to send in the `Accept-Language` header. Note that the value
@@ -399,7 +371,23 @@ c.url.default_page = environ["HOME"] + '/.config/qutebrowser/startpage.html'
 # the search engine name to the search term, e.g. `:open google
 # qutebrowser`.
 # Type: Dict
-c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?kl=uk-en&kp=-2&kz=1&kn=-1&kae=d&kj=%231D2021&k7=%23282828&k8=%23928374&k9=%23ebdbb2&k1=-1&q={}'}
+c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?' +
+    '&ka=Anonymous+Pro' +
+    '&kaa=' + colours.greys.light4.replace('#', '') +
+    '&kj=' + colours.greys.dark0.replace('#', '') +
+    '&kl=uk-en' +
+    '&kn=-1' +
+    '&ko=1' +
+    '&kp=-2' +
+    '&kt=Anonymous+Pro' +
+    '&kx=' + colours.greys.grey.replace('#', '') +
+    '&kz=1' +
+    '&k1=-1' +
+    '&k2=-1' +
+    '&k7=' + colours.greys.dark0.replace('#', '') +
+    '&k8=' + colours.greys.light3.replace('#', '') +
+    '&k9=' + colours.greys.light1.replace('#', '') +
+    '&q={}'}
 
 # Page(s) to open at the start.
 # Type: List of FuzzyUrl, or FuzzyUrl
@@ -430,67 +418,67 @@ c.zoom.levels = ['25%', '33%', '50%', '67%', '75%', '90%', '100%', '110%', '130%
 # Text color of the completion widget. May be a single color to use for
 # all columns or a list of three colors, one for each column.
 # Type: List of QtColor, or QtColor
-c.colors.completion.fg = [gruvbox.normal.fg, gruvbox.normal.yellow, gruvbox.normal.fg]
+c.colors.completion.fg = [colours.greys.light1, colours.normal.yellow, colours.greys.light1]
 
 # Background color of the completion widget for odd rows.
 # Type: QssColor
-c.colors.completion.odd.bg = gruvbox.bright.bg
+c.colors.completion.odd.bg = colours.greys.dark1
 
 # Background color of the completion widget for even rows.
 # Type: QssColor
-c.colors.completion.even.bg = gruvbox.normal.bg
+c.colors.completion.even.bg = colours.greys.dark0
 
 # Foreground color of completion widget category headers.
 # Type: QtColor
-c.colors.completion.category.fg = gruvbox.normal.bg
+c.colors.completion.category.fg = colours.greys.dark0
 
 # Background color of the completion widget category headers.
 # Type: QssColor
-c.colors.completion.category.bg = 'qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 ' + gruvbox.bright.fg + ', stop:1 ' + gruvbox.normal.grey + ')'
+c.colors.completion.category.bg = 'qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 ' + colours.greys.light0 + ', stop:1 ' + colours.greys.grey + ')'
 
 # Top border color of the completion widget category headers.
 # Type: QssColor
-c.colors.completion.category.border.top = gruvbox.normal.bg
+c.colors.completion.category.border.top = colours.greys.dark0
 
 # Bottom border color of the completion widget category headers.
 # Type: QssColor
-c.colors.completion.category.border.bottom = gruvbox.normal.grey
+c.colors.completion.category.border.bottom = colours.greys.grey
 
 # Foreground color of the selected completion item.
 # Type: QtColor
-c.colors.completion.item.selected.fg = gruvbox.normal.bg
+c.colors.completion.item.selected.fg = colours.greys.dark0
 
 # Background color of the selected completion item.
 # Type: QssColor
-c.colors.completion.item.selected.bg = gruvbox.normal.fg
+c.colors.completion.item.selected.bg = colours.greys.light1
 
 # Top border color of the selected completion item.
 # Type: QssColor
-c.colors.completion.item.selected.border.top = gruvbox.normal.bg
+c.colors.completion.item.selected.border.top = colours.greys.dark0
 
 # Bottom border color of the selected completion item.
 # Type: QssColor
-c.colors.completion.item.selected.border.bottom = gruvbox.normal.bg
+c.colors.completion.item.selected.border.bottom = colours.greys.dark0
 
 # Background color for the download bar.
 # Type: QssColor
-c.colors.downloads.bar.bg = gruvbox.normal.bg
+c.colors.downloads.bar.bg = colours.greys.dark0
 
 # Color gradient start for download text.
 # Type: QtColor
-c.colors.downloads.start.fg = gruvbox.normal.bg
+c.colors.downloads.start.fg = colours.greys.dark0
 
 # Color gradient start for download backgrounds.
 # Type: QtColor
-c.colors.downloads.start.bg = gruvbox.normal.blue
+c.colors.downloads.start.bg = colours.normal.blue
 
 # Color gradient end for download text.
 # Type: QtColor
-c.colors.downloads.stop.fg = gruvbox.normal.bg
+c.colors.downloads.stop.fg = colours.greys.dark0
 
 # Color gradient stop for download backgrounds.
 # Type: QtColor
-c.colors.downloads.stop.bg = gruvbox.normal.green
+c.colors.downloads.stop.bg = colours.normal.green
 
 # Color gradient interpolation system for download backgrounds.
 # Type: ColorSystem
@@ -503,7 +491,7 @@ c.colors.downloads.system.bg = 'rgb'
 
 # Foreground color for downloads with errors.
 # Type: QtColor
-c.colors.downloads.error.fg = gruvbox.normal.bg
+c.colors.downloads.error.fg = colours.greys.dark0
 
 # Background color for downloads with errors.
 # Type: QtColor
@@ -511,7 +499,7 @@ c.colors.downloads.error.bg = '#cc241d'
 
 # Font color for hints.
 # Type: QssColor
-c.colors.hints.fg = gruvbox.normal.bg
+c.colors.hints.fg = colours.greys.dark0
 
 # Background color for hints. Note that you can use a `rgba(...)` value
 # for transparency.
@@ -528,7 +516,7 @@ c.colors.keyhint.suffix.fg = '#FFFF00'
 
 # Foreground color for prompts.
 # Type: QssColor
-c.colors.prompts.fg = gruvbox.normal.fg
+c.colors.prompts.fg = colours.greys.light1
 
 # Border used around UI elements in prompts.
 # Type: String
@@ -536,27 +524,27 @@ c.colors.prompts.border = '1px solid #665c54'
 
 # Background color for prompts.
 # Type: QssColor
-c.colors.prompts.bg = gruvbox.normal.bg
+c.colors.prompts.bg = colours.greys.dark0
 
 # Foreground color for the selected item in filename prompts.
 # Type: QssColor
-c.colors.prompts.selected.fg = gruvbox.normal.bg
+c.colors.prompts.selected.fg = colours.greys.dark0
 
 # Background color for the selected item in filename prompts.
 # Type: QssColor
-c.colors.prompts.selected.bg = gruvbox.normal.fg
+c.colors.prompts.selected.bg = colours.greys.light1
 
 # Foreground color of the statusbar.
 # Type: QssColor
-c.colors.statusbar.normal.fg = gruvbox.normal.fg
+c.colors.statusbar.normal.fg = colours.greys.light1
 
 # Background color of the statusbar.
 # Type: QssColor
-c.colors.statusbar.normal.bg = gruvbox.normal.bg
+c.colors.statusbar.normal.bg = colours.greys.dark0
 
 # Foreground color of the statusbar in insert mode.
 # Type: QssColor
-c.colors.statusbar.insert.fg = gruvbox.normal.bg
+c.colors.statusbar.insert.fg = colours.greys.dark0
 
 # Background color of the statusbar in insert mode.
 # Type: QssColor
@@ -564,7 +552,7 @@ c.colors.statusbar.insert.bg = '#d79921'
 
 # Foreground color of the statusbar in passthrough mode.
 # Type: QssColor
-c.colors.statusbar.passthrough.fg = gruvbox.normal.bg
+c.colors.statusbar.passthrough.fg = colours.greys.dark0
 
 # Background color of the statusbar in passthrough mode.
 # Type: QssColor
@@ -580,15 +568,15 @@ c.colors.statusbar.private.bg = '#666666'
 
 # Foreground color of the statusbar in command mode.
 # Type: QssColor
-c.colors.statusbar.command.fg = gruvbox.normal.fg
+c.colors.statusbar.command.fg = colours.greys.light1
 
 # Background color of the statusbar in command mode.
 # Type: QssColor
-c.colors.statusbar.command.bg = gruvbox.normal.bg
+c.colors.statusbar.command.bg = colours.greys.dark0
 
 # Foreground color of the statusbar in private browsing + command mode.
 # Type: QssColor
-c.colors.statusbar.command.private.fg = gruvbox.normal.fg
+c.colors.statusbar.command.private.fg = colours.greys.light1
 
 # Background color of the statusbar in private browsing + command mode.
 # Type: QssColor
@@ -596,7 +584,7 @@ c.colors.statusbar.command.private.bg = '#9d0006'
 
 # Foreground color of the statusbar in caret mode.
 # Type: QssColor
-c.colors.statusbar.caret.fg = gruvbox.normal.bg
+c.colors.statusbar.caret.fg = colours.greys.dark0
 
 # Background color of the statusbar in caret mode.
 # Type: QssColor
@@ -604,7 +592,7 @@ c.colors.statusbar.caret.bg = '#b16286'
 
 # Background color of the statusbar in caret mode with a selection.
 # Type: QssColor
-c.colors.statusbar.caret.selection.bg = gruvbox.normal.fg
+c.colors.statusbar.caret.selection.bg = colours.greys.light1
 
 # Background color of the progress bar.
 # Type: QssColor
@@ -628,40 +616,40 @@ c.colors.tabs.indicator.error = '#cc241d'
 
 # Foreground color of unselected odd tabs.
 # Type: QtColor
-c.colors.tabs.odd.fg = gruvbox.normal.fg
+c.colors.tabs.odd.fg = colours.greys.light1
 
 # Background color of unselected odd tabs.
 # Type: QtColor
-c.colors.tabs.odd.bg = gruvbox.normal.bg
+c.colors.tabs.odd.bg = colours.greys.dark0
 
 # Foreground color of unselected even tabs.
 # Type: QtColor
-c.colors.tabs.even.fg = gruvbox.normal.fg
+c.colors.tabs.even.fg = colours.greys.light1
 
 # Background color of unselected even tabs.
 # Type: QtColor
-c.colors.tabs.even.bg = gruvbox.normal.bg
+c.colors.tabs.even.bg = colours.greys.dark0
 
 # Foreground color of selected odd tabs.
 # Type: QtColor
-c.colors.tabs.selected.odd.fg = gruvbox.normal.bg
+c.colors.tabs.selected.odd.fg = colours.greys.dark0
 
 # Background color of selected odd tabs.
 # Type: QtColor
-c.colors.tabs.selected.odd.bg = gruvbox.normal.fg
+c.colors.tabs.selected.odd.bg = colours.greys.light1
 
 # Foreground color of selected even tabs.
 # Type: QtColor
-c.colors.tabs.selected.even.fg = gruvbox.normal.bg
+c.colors.tabs.selected.even.fg = colours.greys.dark0
 
 # Background color of selected even tabs.
 # Type: QtColor
-c.colors.tabs.selected.even.bg = gruvbox.normal.fg
+c.colors.tabs.selected.even.bg = colours.greys.light1
 
 # Background color for webpages if unset (or empty to use the theme's
 # color).
 # Type: QtColor
-c.colors.webpage.bg = gruvbox.normal.fg
+c.colors.webpage.bg = colours.greys.light1
 
 # Render all web contents using a dark theme. Example configurations
 # from Chromium's `chrome://flags`:  - "With simple HSL/CIELAB/RGB-based
