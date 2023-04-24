@@ -39,23 +39,23 @@ def spawn_maps(p):
     prev = "XF86AudioPrev"
 
     return [
-        K([mod],            "t",      l.function(m.raise_or_spawn(p['term']['default']))),
+        K([mod],            "t",      l.function(m.raise_or_spawn(p.term.default))),
         KC([mod, "shift"],  "t",      [
-            K([],           "k",      l.spawn(p['term']['kitty'])),
-            K([],           "a",      l.spawn(p['term']['alacritty'])),
-            K([],           "s",      l.spawn(p['term']['st'])),
+            K([],           "k",      l.spawn(p.term.kitty)),
+            K([],           "a",      l.spawn(p.term.alacritty)),
+            K([],           "s",      l.spawn(p.term.st)),
         ], name = "TermChord"),
-        K([mod],            "w",      l.function(m.raise_or_spawn(p['browser']['default']))),
+        K([mod],            "w",      l.function(m.raise_or_spawn(p.browser.default))),
         KC([mod, "shift"],  "w",      [
-            K([],           "w",      l.spawn(p['browser']['default'])),
+            K([],           "w",      l.spawn(p.browser.default)),
             K([],           "s",      l.spawn("wm-scripts websearch")),
-            K([],           "p",      l.spawn(p['browser']['private'])),
-            K([],           "f",      l.spawn(p['browser']['firefox'])),
-            K([],           "y",      l.spawn(p['browser']['youtube'])),
-            K([],           "j",      l.spawn(p['browser']['jellyfin'])),
-            K([],           "n",      l.spawn(p['browser']['netflix'])),
+            K([],           "p",      l.spawn(p.browser.private)),
+            K([],           "f",      l.spawn(p.browser.firefox)),
+            K([],           "y",      l.spawn(p.browser.youtube)),
+            K([],           "j",      l.spawn(p.browser.jellyfin)),
+            K([],           "n",      l.spawn(p.browser.netflix)),
         ], name = "WebChord"),
-        K([mod],            "m",      l.function(m.raise_or_spawn(p['music']['default']))),
+        K([mod],            "m",      l.function(m.raise_or_spawn(p.music.default))),
         K([mod],            "space",  l.spawn("rofi -show")),
 
         K([],               volu,     l.spawn("wm-scripts volume -i 5")),
@@ -65,9 +65,9 @@ def spawn_maps(p):
         K([],               volm,     l.spawn("wm-scripts volume -t")),
         K([],               brtu,     l.spawn("wm-scripts brightness s 1+")),
         K([],               brtd,     l.spawn("wm-scripts brightness s 1-")),
-        K([],               play,     l.spawn(p['music']['playpause'])),
-        K([],               next,     l.spawn(p['music']['next'])),
-        K([],               prev,     l.spawn(p['music']['previous'])),
+        K([],               play,     l.spawn(p.music.playpause)),
+        K([],               next,     l.spawn(p.music.next)),
+        K([],               prev,     l.spawn(p.music.previous)),
     ]
 
 def window_maps():

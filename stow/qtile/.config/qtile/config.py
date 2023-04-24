@@ -30,33 +30,29 @@ from mappings import init_map
 from barconfig import init_bar
 from modules.autotile import AutoTile
 
-programs = {
-    'term': {
-        'default':   ["kitty", "tmux-default"],
-        'kitty':     ["kitty"],
-        'alacritty': ["alacritty"],
-        'st':        ["st"],
-    },
-    'browser': {
-        'default':  ["qutebrowser"],
-        'private':  ["qutebrowser", "--target", "private-window"],
-        'firefox':  ["firefox"],
-        'youtube':  ["firefox", "--kiosk", "youtube.com"],
-        'jellyfin': ["firefox", "--kiosk", "jellyfin.dylancairns.co.uk"],
-        'netflix':  ["firefox", "--kiosk", "netflix.com"],
-    },
-    'music': {
-        'default':   ["cider"],
-        'playpause': ["playerctl", "--player=cider,%any", "play-pause"],
-        'next':      ["playerctl", "--player=cider,%any", "next"],
-        'previous':  ["playerctl", "--player=cider,%any", "previous"],
-    },
-}
+class programs:
+    class term:
+        default   = ["kitty", "tmux-default"]
+        kitty     = ["kitty"]
+        alacritty = ["alacritty"]
+        st        = ["st"]
+    class browser:
+        default   = ["qutebrowser"]
+        private   = ["qutebrowser", "--target", "private-window"]
+        firefox   = ["firefox"]
+        youtube   = ["firefox", "--kiosk", "youtube.com"]
+        jellyfin  = ["firefox", "--kiosk", "jellyfin.dylancairns.co.uk"]
+        netflix   = ["firefox", "--kiosk", "netflix.com"]
+    class music:
+        default   = ["cider"]
+        playpause = ["playerctl", "--player=cider,%any", "play-pause"]
+        next      = ["playerctl", "--player=cider,%any", "next"]
+        previous  = ["playerctl", "--player=cider,%any", "previous"]
 
 groups = [Group(i) for i in "123456789"]
-groups[0].spawn = " ".join(programs['term']['default'])
-groups[1].spawn = " ".join(programs['browser']['default'])
-groups[2].spawn = " ".join(programs['music']['default'])
+groups[0].spawn = " ".join(programs.term.default)
+groups[1].spawn = " ".join(programs.browser.default)
+groups[2].spawn = " ".join(programs.music.default)
 
 keys, mouse = init_map(groups, programs)
 
