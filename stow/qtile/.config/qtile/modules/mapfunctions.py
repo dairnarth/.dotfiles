@@ -60,6 +60,21 @@ def toggle_all_bars():
                 if isinstance(b, bar.Bar):
                     b.show(is_show)
 
-        q.groups.layout_all()
+    return _inner
+
+def rotate_to_screen(d, warp):
+    def _inner(q):
+        s = len(q.screens) - 1
+        i = q.current_screen.index
+        if i == 0 and d == -1:
+            i = s
+        elif i == s and d == +1:
+            i = 0
+        else:
+            i += d
+        w = q.current_window
+        w.cmd_toscreen(i)
+        if warp:
+            w.cmd_focus()
 
     return _inner
