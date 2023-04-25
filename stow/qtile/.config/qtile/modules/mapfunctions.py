@@ -1,4 +1,5 @@
 from libqtile import bar
+from libqtile.log_utils import logger as l
 
 def raise_or_spawn(command):
     def get_win(q, program):
@@ -25,7 +26,7 @@ def raise_or_spawn(command):
 def reset():
     def _inner(q):
         for screen in q.screens:
-            if screen.index + 1 != screen.group.name:
+            if screen.index + 1 != int(screen.group.name):
                 screen.cmd_toggle_group(screen.index + 1)
 
     return _inner
