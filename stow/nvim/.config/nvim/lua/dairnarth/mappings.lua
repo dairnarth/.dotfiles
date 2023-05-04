@@ -1,6 +1,6 @@
-local mappings = {}
+local M = {}
 
-mappings.keys = {
+M.keys = {
   {'n', '<s-tab>',   'za'},
   {'n', 'K',         '<Nop>'},
   {'n', 'Q',         '<Nop>'},
@@ -8,7 +8,7 @@ mappings.keys = {
   {'n', 'S',         '<Nop>'},
   {'n', 'ss',        ':w<CR>'},
   {'n', 'sa',        ':w <C-r>%'},
-  {'n', 'so',        function() mappings.so() end},
+  {'n', 'so',        function() M.so() end},
   {'n', 'n',         'nzz'},
   {'n', 'N',         'Nzz'},
   {'n', '{',         '{zz'},
@@ -36,24 +36,24 @@ mappings.keys = {
   {'c', '<C-l>',     '<Right>'},
 }
 
-mappings.so = function()
+M.so = function()
   vim.cmd.w()
   if vim.bo.filetype == 'lua' or 'vim' then
     vim.cmd.source()
   end
 end
 
-mappings.set = function()
+M.set = function()
   vim.g.mapleader = ' '
-  for _, key in ipairs(mappings.keys) do
+  for _, key in ipairs(M.keys) do
     vim.keymap.set(unpack(key))
   end
 end
 
-mappings.del = function()
-  for _, key in ipairs(mappings.keys) do
+M.del = function()
+  for _, key in ipairs(M.keys) do
     vim.keymap.del(key[1], key[2])
   end
 end
 
-return mappings
+return M

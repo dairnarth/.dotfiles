@@ -1,10 +1,10 @@
-local statusline = {}
+local M = {}
 
-statusline.enclose = function(input)
+M.enclose = function(input)
   return "%{%v:lua.require('dairnarth.statusline')." .. input .. '%}'
 end
 
-statusline.gutterpadding = function()
+M.gutterpadding = function()
   local wins = {}
   for _, win in ipairs(vim.api.nvim_list_wins()) do
     local pos = vim.api.nvim_win_get_position(win)
@@ -22,7 +22,7 @@ statusline.gutterpadding = function()
   return padding
 end
 
-statusline.modecolour = function()
+M.modecolour = function()
   local modes = {
     ['n']     = '%#SLModeN#',
     ['no']    = '%#SLModeN#',
@@ -69,7 +69,7 @@ statusline.modecolour = function()
   end
 end
 
-statusline.language = function(hide)
+M.language = function(hide)
   local lang = string.upper(vim.bo.filetype)
   local lsp  = vim.lsp.get_active_clients()
 
@@ -90,7 +90,7 @@ statusline.language = function(hide)
   end
 end
 
-statusline.highlight = function()
+M.highlight = function()
   vim.cmd.highlight({'Statusline', 'guifg=#cccccc', 'guibg=#2d2525', 'gui=none'})
   vim.cmd.highlight({'SL',         'guifg=#fdd6c9', 'guibg=#2d2525', 'gui=none'})
   vim.cmd.highlight({'SLIt',       'guifg=#fdd6c9', 'guibg=#2d2525', 'gui=italic'})
@@ -106,17 +106,17 @@ statusline.highlight = function()
   vim.cmd.highlight({'SLModeMod',  'guifg=#eb5b4b', 'guibg=#2d2525', 'gui=none'})
 end
 
-statusline.normal = function()
+M.normal = function()
   return '%#SL#'
-    .. statusline.enclose('gutterpadding()')
-    .. statusline.enclose('modecolour()')
+    .. M.enclose('gutterpadding()')
+    .. M.enclose('modecolour()')
     .. '■ '
     .. '%#SL#'
     .. '%t %<'
     .. '%#SLDimIt#'
     .. '%F'
     .. '%='
-    .. statusline.enclose('language()')
+    .. M.enclose('language()')
     .. '%#SLIt#'
     .. ' %2l'
     .. '%#SL#'
@@ -128,14 +128,14 @@ statusline.normal = function()
     .. '%3.3p%%'
 end
 
-statusline.special = function()
+M.special = function()
   return '%#SL#'
-    .. statusline.enclose('gutterpadding()')
+    .. M.enclose('gutterpadding()')
     .. '■ '
     .. '%#SL#'
     .. '%t %<'
     .. '%='
-    .. statusline.enclose('language("true")')
+    .. M.enclose('language("true")')
     .. '%#SLIt#'
     .. ' %2l'
     .. '%#SL#'
@@ -148,12 +148,12 @@ statusline.special = function()
 end
 
 
-statusline.print = function()
+M.print = function()
   if vim.bo.buftype == '' then
-    return statusline.normal()
+    return M.normal()
   else
-    return statusline.special()
+    return M.special()
   end
 end
 
-return statusline
+return M
