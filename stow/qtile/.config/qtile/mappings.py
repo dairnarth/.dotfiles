@@ -23,10 +23,10 @@ def movement_maps():
 
         K([mod, "shift"],   "j", l.layout.shuffle_down()),
         K([mod, "shift"],   "k", l.layout.shuffle_up()),
-        K([mod, "shift"],   "h", l.function(m.rotate_to_screen(+1, True))),
-        K([mod, "shift"],   "l", l.function(m.rotate_to_screen(-1, True))),
-        K([mod, "control"], "h", l.function(m.rotate_to_screen(+1, False))),
-        K([mod, "control"], "l", l.function(m.rotate_to_screen(-1, False))),
+        K([mod, "shift"],   "h", l.function(m.rotate_to_screen(+1, False))),
+        K([mod, "shift"],   "l", l.function(m.rotate_to_screen(-1, False))),
+        K([mod, "control"], "h", l.function(m.rotate_to_screen(+1, True))),
+        K([mod, "control"], "l", l.function(m.rotate_to_screen(-1, True))),
     ]
     return keys
 
