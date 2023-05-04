@@ -1,7 +1,7 @@
 #!/bin/bash
 
 name="${0##*/}"
-dotdir="${0%dot}"
+dotdir="${0%$name}"
 stowdir="${dotdir}stow"
 stowargs="-vt $HOME -d $stowdir --no-folding"
 helpfile="$dotdir/README.md"
