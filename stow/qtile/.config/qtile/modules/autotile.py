@@ -1,7 +1,5 @@
 from libqtile.layout.base import _SimpleLayoutBase
 from libqtile.log_utils import logger
-from libqtile.config import Group, Match, Screen
-from pprint import pprint
 from math import sqrt, floor, ceil
 from itertools import repeat
 
@@ -13,7 +11,7 @@ overrides = {
 }
 
 class AutoTile(_SimpleLayoutBase):
-    """Tiles windows using set layouts for each number of windows"""
+    """Tiles windows using a simple autotiling function, but can be overriden by set layouts for each number of windows"""
 
     defaults = [
         ("border_focus",  "#ff0000", "Border colour(s) for the focused window."),
@@ -21,7 +19,7 @@ class AutoTile(_SimpleLayoutBase):
         ("border_width",  1,         "Border width."),
         ("margin",        0,         "Margin of the layout (int or list of ints [N E S W])"),
         ("overrides",     overrides, "default: Overrides layout for 3 and 8 windows;\n" +
-                                     "False: Does not override layout for 3 and 8 windows;\n" +
+                                     "{}: Does not override layout for 3 and 8 windows;\n" +
                                      "{dict}: Pass in custom overrides in the form `{n: [(x, y, w, h),...],...}`"),
     ]
 
@@ -29,6 +27,8 @@ class AutoTile(_SimpleLayoutBase):
         _SimpleLayoutBase.__init__(self, **config)
         self.add_defaults(AutoTile.defaults)
         self.recalc = True
+        self.edit = False
+        self.old = {}
         self.layout_info = []
         self.last_size = None
         self.last_screen = None
@@ -57,8 +57,7 @@ class AutoTile(_SimpleLayoutBase):
             wins = self.overrides[n]
         except KeyError:
             r  = sqrt(n)
-            rl, rh = floor(r), ceil(r)
-            rows = list(repeat(rh, rl))
+            rows = list(repeat(ceil(r), floor(r)))
 
             i, j = 0, -1
             while sum(rows) > n:
@@ -136,13 +135,31 @@ class AutoTile(_SimpleLayoutBase):
             self.clients.rotate_up()
             self.group.layout_all()
 
-    def cmd_decrease_ratio(self):
-        new_ratio = self.ratio - self.ratio_increment
-        if new_ratio < 0:
-            return
-        self.ratio = new_ratio
+    def cmd_settings_new(self, **config):
+        for item in config:
+            try:
+                self.old[item] = getattr(self, item)
+                setattr(self, item, config[item])
+            except AttributeError:
+                pass
+        self.recalc = True
         self.group.layout_all()
 
-    def cmd_increase_ratio(self):
-        self.ratio += self.ratio_increment
+    def cmd_settings_revert(self, **config):
+        for item in config:
+            setattr(self, item, self.old[item])
+            self.old.pop(item, None)
+        self.recalc = True
         self.group.layout_all()
+
+    def cmd_settings_toggle(self, **config):
+        edit = False
+        for item in config:
+            if config[item] != getattr(self, item):
+                edit = True
+                break
+
+        if edit:
+            self.cmd_settings_new(**config)
+        else:
+            self.cmd_settings_revert(**config)
