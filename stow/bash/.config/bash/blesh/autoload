@@ -1,0 +1,24 @@
+#!/bin/bash
+
+location=("$HOME/.local/share/blesh/ble.sh" '/usr/share/blesh/ble.sh')
+if [[ -e "${location[0]}" ]]; then
+    printf '%s' "${location[0]}"
+    exit
+elif [[ -e "${location[1]}" ]]; then
+    printf '%s' "${location[1]}"
+    exit
+fi
+
+printf 'Could not find ble.sh.\nAttempting install.\n' 1>&2
+if type -P paru &>/dev/null && sudo -l paru &>/dev/null; then
+    paru -S blesh-git --noconfirm 1>&2
+    printf '%s' "${location[1]}"
+elif type -P git &>/dev/null; then
+    src="$HOME/.local/src"
+    mkdir -pv "$src" 1>&2
+    git clone https://github.com/akinomyoga/ble.sh "$src"/blesh 1>&2
+    (cd "$src"/blesh && make install 1>&2)
+    printf '%s' "${location[0]}"
+else
+    printf 'Could not install ble.sh.\n' 1>&2
+fi
