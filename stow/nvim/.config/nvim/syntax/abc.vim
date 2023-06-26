@@ -16,6 +16,9 @@ syn match  abcRest      "z[1-9]*\d*"                                            
 syn match  abcRest      "z[1-9]*\d*/[248]\="                                                contained
 syn match  abcRest      "Z[1-9]*\d*"                                                        contained
 
+syn match  abcEmpty     "x[1-9]*\d*"                                                        contained
+syn match  abcEmpty     "x[1-9]*\d*/[248]\="                                                contained
+
 syn match  abcSpacer    "y[1-9]*\d*"                                                        contained
 
 syn match  abcBar       "|\(\d*,*-*\)*"                                                     contained
@@ -25,7 +28,10 @@ syn match  abcBar       "[:|][:|]\(\d*,*-*\)*"                                  
 syn match  abcBar       "\[\d\(\d*,*-*\)*"                                                  contained
 
 syn match  abcOrnament  "[\.~HLMOPSTuv]"                                                    contained
-syn match  abcOrnament  "!.*!"                                                              contained
+syn match  abcOrnament  "!\(\a\|\.\)*!"                                                     contained
+syn match  abcOrnament  "![0-5]!"                                                           contained
+syn match  abcOrnament  "![+^>]!"                                                           contained
+syn match  abcOrnament  "![<>][()]!"                                                        contained
 
 syn match  abcTuple     "([1-9]\+:\=[0-9]*:\=[0-9]*"                                        contained
 syn match  abcBroken    "<\|<<\|<<<\|>\|>>\|>>>"                                            contained
@@ -42,21 +48,23 @@ syn match  abcBodyField "\[[IK-NP-RUVmrw]:[A-Za-z0-9!\"#£$%&'()*+, -./:;<=>?@[\
 syn region abcHeader    start="^X:"       end="^K:.*$"                                      contained
   \ contains=abcHeadField,abcComment keepend
 syn region abcTune      start="^X:"       end="^ *$"
-  \ contains=abcHeader,abcComment,abcBar,abcNote,abcRest,abcSpacer,abcBodyField,abcChord,abcOrnament,abcTuple,abcBroken,abcTie
+  \ contains=abcHeader,abcComment,abcBar,abcNote,abcRest,abcEmpty,abcSpacer,abcBodyField,abcChord,abcOrnament,abcTuple,abcBroken,abcTie,abcText
 
 syn match  abcComment   "%.*$"
 
-hi def link abcComment	 Comment
+hi def link abcComment   Comment
 hi def link abcHeadField Type
 hi def link abcBodyField Special
-hi def link abcBar		 Statement
-hi def link abcTuple	 Statement
-hi def link abcBroken	 Statement
-hi def link abcTie		 Statement
-hi def link abcChord	 Identifier
-hi def link abcNote		 Constant
-hi def link abcRest		 Normal
-hi def link abcSpacer 	 Comment
+hi def link abcBar       Statement
+hi def link abcTuple     Statement
+hi def link abcBroken    Statement
+hi def link abcTie       Statement
+hi def link abcChord     Identifier
+hi def link abcText      Normal
+hi def link abcNote      Constant
+hi def link abcRest      Comment
+hi def link abcEmpty     Comment
+hi def link abcSpacer    Comment
 hi def link abcOrnament  Structure
 
 let b:current_syntax = "abc"
