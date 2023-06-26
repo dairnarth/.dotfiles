@@ -90,6 +90,15 @@ M.language = function(hide)
   end
 end
 
+M.register = function()
+  local reg = vim.fn.reg_recording()
+  if reg ~= '' then
+    return reg
+  else
+    return '■'
+  end
+end
+
 M.highlight = function()
   vim.cmd.highlight({'Statusline', 'guifg=#cccccc', 'guibg=#2d2525', 'gui=none'})
   vim.cmd.highlight({'SL',         'guifg=#fdd6c9', 'guibg=#2d2525', 'gui=none'})
@@ -110,7 +119,8 @@ M.normal = function()
   return '%#SL#'
     .. M.enclose('gutterpadding()')
     .. M.enclose('modecolour()')
-    .. '■ '
+    .. M.enclose('register()')
+    .. ' '
     .. '%#SL#'
     .. '%t %<'
     .. '%#SLDimIt#'
@@ -131,7 +141,8 @@ end
 M.special = function()
   return '%#SL#'
     .. M.enclose('gutterpadding()')
-    .. '■ '
+    .. M.enclose('register()')
+    .. ' '
     .. '%#SL#'
     .. '%t %<'
     .. '%='
