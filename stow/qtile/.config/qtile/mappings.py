@@ -12,6 +12,8 @@ def group_maps(groups):
             K([mod, "shift"],   g.name, l.window.togroup(g.name)),
             K([mod, "control"], g.name, l.window.togroup(g.name, switch_group=True)),
         ])
+
+    keys.append(K([mod],        "tab", l.screen.toggle_group()))
     return keys
 
 def movement_maps():
