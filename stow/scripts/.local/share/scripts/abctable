@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+name="${0##*/}"
+dir="${0%$name}"
+
+python3 -- "${dir}python/abctable/main.py" "$@"
