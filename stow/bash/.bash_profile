@@ -1,7 +1,7 @@
 #
 # ~/.bash_profile
 #
-export PATH="$HOME/.config/bash/scripts:$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/share/scripts:$HOME/.local/bin:$PATH"
 export EDITOR="nvim"
 export TERMINAL="st"
 export BROWSER="qutebrowser"
