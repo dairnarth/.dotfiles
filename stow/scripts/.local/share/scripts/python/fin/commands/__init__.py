@@ -1,1 +1,1 @@
-import commands.add, commands.list, commands.sum, commands.gen
+import commands.add, commands.table, commands.sum, commands.gen

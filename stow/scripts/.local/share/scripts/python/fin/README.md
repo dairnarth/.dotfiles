@@ -6,10 +6,10 @@ Simple tool for interacting with an income/expenditure database.
 
 ```bash
 # Using wrapper (../../fin)
-fin [-h] [-d DIR] {add,list,sum,gen} ...
+fin [-h] [-d DIR] {add,table,sum,gen} ...
 
 # Using just main.py
-python -- main.py [-h] [-d DIR] {add,list,sum,gen} ...
+python -- main.py [-h] [-d DIR] {add,table,sum,gen} ...
 ```
 
 ### Commands
@@ -20,21 +20,22 @@ python -- main.py [-h] [-d DIR] {add,list,sum,gen} ...
 fin add [-h] {income,expense}
 ```
 
-| Subcommand | Description                           |
-|------------|---------------------------------------|
-| `income`   | Adds a row to the 'income' table      |
-| `expense`  | Adds a row to the 'expenditure' table |
+| Subcommand | Description                                                             |
+|------------|-------------------------------------------------------------------------|
+| `income`   | Adds a row to the 'income' table and returns the id of the new row      |
+| `expense`  | Adds a row to the 'expenditure' table and returns the id of the new row |
 
-#### List
+#### Table
 
 ```bash
-fin list [-h] {income,expense} [daterange]
+fin table [-h] {income,expense,ledger} [daterange]
 ```
 
 | Subcommand | Description                                                              |
 |------------|--------------------------------------------------------------------------|
 | `income`   | Lists all rows (or just those in `datarange`) in the 'income' table      |
 | `expense`  | Lists all rows (or just those in `datarange`) in the 'expenditure' table |
+| `ledger`   | Lists all rows (or just those in `daterange`) in both tables             |
 
 #### Sum
 
@@ -52,7 +53,7 @@ fin sum [-h] {income,expense,total,taxable} [daterange]
 #### Gen
 
 ```bash
-fin gen [-h] {invoice,report} id
+fin gen [-h] {invoice [id],report [daterange]}
 ```
 
 | Subcommand | Description                                                                                                                  |
