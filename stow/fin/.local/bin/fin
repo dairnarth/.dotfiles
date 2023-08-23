@@ -3,4 +3,4 @@
 name="${0##*/}"
 dir="${0%$name}"
 
-python3 -- "${dir}python/abctable/main.py" "$@"
+python3 -- "${dir}../src/fin/main.py" "$@"

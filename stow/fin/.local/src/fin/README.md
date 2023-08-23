@@ -1,11 +1,11 @@
-# dairnarth/.dotfiles/scripts/fin
+# dairnarth/.dotfiles/fin
 
 Simple tool for interacting with an income/expenditure database.
 
 ## Usage
 
 ```bash
-# Using wrapper (../../fin)
+# Using wrapper (../bin/fin)
 fin [-h] [-d DIR] {add,table,sum,gen} ...
 
 # Using just main.py

@@ -1,6 +1,6 @@
 # dairnarth/.dotfiles
 
-Configuration files for programs that I use—mostly [nvim](https://github.com/dairnarth/.dotfiles/tree/main/stow/nvim/.config/nvim), [qtile](https://github.com/dairnarth/.dotfiles/tree/main/stow/qtile/.config/qtile), and [bash](https://github.com/dairnarth/.dotfiles/tree/main/stow/bash/.config/bash)—along with some [scripts](https://github.com/dairnarth/.dotfiles/tree/main/stow/scripts/.local/share/scripts) that I use regularly.
+Configuration files for programs that I use—mostly [nvim](https://github.com/dairnarth/.dotfiles/tree/main/stow/nvim/.config/nvim), [qtile](https://github.com/dairnarth/.dotfiles/tree/main/stow/qtile/.config/qtile), and [bash](https://github.com/dairnarth/.dotfiles/tree/main/stow/bash/.config/bash)—along with some scripts ([abctable](https://github.com/dairnarth/.dotfiles/tree/main/stow/abctable/.local/src/abctable), [fin](https://github.com/dairnarth/.dotfiles/tree/main/stow/fin/.local/src/fin)) that I use regularly.
 
 ## Installation
 
