@@ -1,5 +1,4 @@
 from libqtile.layout.base import _SimpleLayoutBase
-from libqtile.log_utils import logger
 from math import sqrt, floor, ceil
 from itertools import repeat
 
@@ -39,7 +38,7 @@ class AutoTile(_SimpleLayoutBase):
     def clone(self, group):
         return _SimpleLayoutBase.clone(self, group)
 
-    def add(self, w):
+    def add_client(self, w):
         print('add')
         self.recalc = True
         self.clients.append(w)
@@ -122,8 +121,8 @@ class AutoTile(_SimpleLayoutBase):
     cmd_down = _SimpleLayoutBase.next
     cmd_up = _SimpleLayoutBase.previous
 
-    cmd_previous = _SimpleLayoutBase.previous
-    cmd_next = _SimpleLayoutBase.next
+    previous = _SimpleLayoutBase.previous
+    next = _SimpleLayoutBase.next
 
     def cmd_shuffle_down(self):
         if self.clients:
