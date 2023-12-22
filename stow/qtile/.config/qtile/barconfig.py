@@ -5,7 +5,10 @@ from modules.windowname import WindowName
 def battery():
     def _inner():
         b = open('/sys/class/power_supply/BAT0/capacity', 'r').read().replace('\n', '').zfill(3)
-        if int(b) <= 25:
+        c = open('/sys/class/power_supply/BAT0/status', 'r').read().replace('\n', '')
+        if c == 'Charging':
+            return "<span color='#b0bb39'> {}</span>".format(b)
+        elif int(b) <= 25:
             return "<span color='#eb5b4b'> {}</span>".format(b)
         else:
             return " {}".format(b)
