@@ -71,7 +71,7 @@ end
 
 M.language = function(hide)
   local lang = string.upper(vim.bo.filetype)
-  local lsp  = vim.lsp.get_active_clients()
+  local lsp  = vim.lsp.get_clients()
 
   hide = hide == nil and false or hide
   if next(lsp) == nil or hide then
@@ -80,7 +80,7 @@ M.language = function(hide)
 
   local lsps = ''
   for i = 1, #lsp do
-    lsps = lsps .. '[' .. lsp[i].config.cmd[1] .. ']'
+    lsps = lsps .. '[' .. string.gsub(lsp[i].config.cmd[1], '^.*/', '') .. ']'
   end
 
   if #lsp > 1 then
@@ -109,7 +109,7 @@ M.highlight = function()
   vim.cmd.highlight({'SLModeI',    'guifg=#d0a63f', 'guibg=#2d2525', 'gui=none'})
   vim.cmd.highlight({'SLModeR',    'guifg=#dd855b', 'guibg=#2d2525', 'gui=none'})
   vim.cmd.highlight({'SLModeV',    'guifg=#8fa9ba', 'guibg=#2d2525', 'gui=none'})
-  vim.cmd.highlight({'SLModeC',    'guifg=#2d2525', 'guibg=#2d2525', 'gui=none'})
+  vim.cmd.highlight({'SLModeC',    'guifg=#fdd6c9', 'guibg=#2d2525', 'gui=none'})
   vim.cmd.highlight({'SLModeT',    'guifg=#fdd6c9', 'guibg=#2d2525', 'gui=none'})
   vim.cmd.highlight({'SLModeM',    'guifg=#eb5b4b', 'guibg=#2d2525', 'gui=none'})
   vim.cmd.highlight({'SLModeMod',  'guifg=#eb5b4b', 'guibg=#2d2525', 'gui=none'})
