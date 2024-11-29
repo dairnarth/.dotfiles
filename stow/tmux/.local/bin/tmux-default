@@ -1,19 +1,10 @@
 #!/bin/bash
 
-tmux-default::main ()
-{
-    local SESSION="default"
+SESSION="default"
 
-    if tmux attach-session -t $SESSION 2>/dev/null; then
-        exit 0
-    else
-        tmux-default::createSession
-        tmux attach-session -t $SESSION
-    fi
-}
-
-tmux-default::createSession ()
-{
+if tmux attach-session -t $SESSION 2>/dev/null; then
+    exit 0
+else
     tmux new -s $SESSION -d
     tmux rename-window -t $SESSION sys-mon
     tmux send-keys -t $SESSION 'htop' Enter
@@ -21,6 +12,5 @@ tmux-default::createSession ()
     tmux send-keys -t $SESSION 'watch -t sensors' Enter
     tmux select-pane -U
     tmux new-window -t $SESSION
-}
-
-tmux-default::main
+    tmux attach-session -t $SESSION
+fi
