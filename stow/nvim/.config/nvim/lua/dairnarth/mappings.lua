@@ -6,15 +6,23 @@ M.keys = {
   {'n', 'Q',         '<Nop>'},
   {'n', 's',         '<Nop>'},
   {'n', 'S',         '<Nop>'},
+
   {'n', 'ss',        ':w<CR>'},
   {'n', 'sa',        ':w <C-r>%'},
-  {'n', 'so',        function() M.so() end},
+  {'n', 'so',        function()
+                       vim.cmd.w()
+                       if vim.bo.filetype == 'lua' or vim.bo.filetype == 'vim' then
+                         vim.cmd.source()
+                       end
+                     end},
+
   {'n', 'n',         'nzz'},
   {'n', 'N',         'Nzz'},
   {'n', '{',         '{zz'},
   {'n', '}',         '}zz'},
   {'n', '[[',        '[[zz'},
   {'n', ']]',        ']]zz'},
+
   {'n', '<C-h>',     ':NvimTmuxNavigateLeft<CR>',  {silent = true}},
   {'n', '<C-j>',     ':NvimTmuxNavigateDown<CR>',  {silent = true}},
   {'n', '<C-k>',     ':NvimTmuxNavigateUp<CR>',    {silent = true}},
@@ -35,13 +43,6 @@ M.keys = {
   {'c', '<C-k>',     '<C-p>'},
   {'c', '<C-l>',     '<Right>'},
 }
-
-M.so = function()
-  vim.cmd.w()
-  if vim.bo.filetype == 'lua' or 'vim' then
-    vim.cmd.source()
-  end
-end
 
 M.set = function()
   vim.g.mapleader = ' '
