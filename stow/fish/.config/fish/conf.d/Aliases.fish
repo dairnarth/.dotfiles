@@ -5,6 +5,7 @@ else
 end
 
 $abbralias g   'git'
+$abbralias n   'nix'
 $abbralias mkd 'mkdir -pv'
 $abbralias p   'paru'
 $abbralias r   'ranger'

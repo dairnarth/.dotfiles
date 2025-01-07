@@ -11,6 +11,12 @@ function fish_prompt;
     set_color 8fa9ba blue;    printf ' %s' $USER
     set_color c09d91 white;   printf '@'
     set_color c180a7 magenta; printf '%s'  $hostname
+    if set -q IN_NIX_SHELL
+
+        set_color fdd6c9 normal;   printf ' ('
+        set_color b0bb39 green;    printf '%s' nix-shell
+        set_color fdd6c9 normal;   printf ')'
+    end
     set_color 86b78e cyan;    printf ' %s' (prompt_pwd)
     set_color fdd6c9 normal;  printf '%s'  $vcs
     if test $cmd_status -gt 0
