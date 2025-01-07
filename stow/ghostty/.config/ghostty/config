@@ -1,0 +1,39 @@
+# General
+confirm-close-surface = false
+fullscreen
+mouse-hide-while-typing
+window-padding-balance
+
+# Font
+font-family = Anonymous Pro
+font-size = 15
+font-thicken
+adjust-cell-height = 15%
+
+# Colours
+palette = 0=#2d2525
+palette = 1=#eb5b4b
+palette = 2=#b0bb39
+palette = 3=#d0a63f
+palette = 4=#8fa9ba
+palette = 5=#c180a7
+palette = 6=#86b78e
+palette = 7=#c09d91
+palette = 8=#8c7068
+palette = 9=#eb5b4b
+palette = 10=#b0bb39
+palette = 11=#d0a63f
+palette = 12=#8fa9ba
+palette = 13=#c180a7
+palette = 14=#86b78e
+palette = 15=#fdd6c9
+background = #2d2525
+foreground = #fdd6c9
+cursor-invert-fg-bg
+selection-invert-fg-bg
+
+# Icon
+macos-icon = custom-style
+macos-icon-frame = beige
+macos-icon-ghost-color = fdd6c9
+macos-icon-screen-color = 2d2525,fdd6c9,2d2525,fdd6c9
