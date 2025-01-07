@@ -7,7 +7,7 @@ return {
     },
     config = function()
       require'nvim-treesitter.configs'.setup {
-        ensure_installed = { "bash", "c", "lua", "python", "query", "vim", "help" },
+        ensure_installed = { "bash", "c", "lua", "python", "query", "vim" },
         ignore_install   = { "latex" },
 
         sync_install = false,
