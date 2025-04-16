@@ -30,6 +30,35 @@ return {
     }
   },
   {
+    'stevearc/oil.nvim',
+    lazy = false,
+    dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    config = {
+      delete_to_trash = true,
+      skip_confirm_for_simple_edits = true,
+      prompt_save_on_select_new_entry = false,
+      keymaps = {
+        ["<ESC>"] = { "actions.close", mode = "n" },
+      },
+      float = {
+        max_width = 0.8,
+        max_height = 0.8,
+      },
+    },
+    init = function()
+      vim.keymap.set("n", "<leader>fo", require'oil'.open_float)
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "OilEnter",
+        callback = vim.schedule_wrap(function(args)
+          local oil = require("oil")
+          if vim.api.nvim_get_current_buf() == args.data.buf and oil.get_cursor_entry() then
+            oil.open_preview()
+          end
+        end),
+      })
+    end
+  },
+  {
     'mbbill/undotree',
     init = function()
       vim.keymap.set('n', '<leader>fu', ':UndotreeToggle<CR>',  {silent = true})
