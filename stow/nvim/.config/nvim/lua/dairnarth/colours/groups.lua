@@ -7,6 +7,7 @@ M.setup = function(contrast)
   local groups = {
     Normal       = {fg = c.fg1, bg = c.bg0},
     NormalNC     = {link = "Normal"},
+    NormalFloat  = {fg = c.fg1, bg = c.bg0},
     CursorLine   = {link = "ColorColumn"},
     CursorLineNr = {fg = c.yellow, bg = c.bg1},
     CursorColumn = {link = "ColorColumn"},
