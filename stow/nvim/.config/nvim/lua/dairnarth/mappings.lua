@@ -7,7 +7,7 @@ M.keys = {
   {'n', 's',         '<Nop>'},
   {'n', 'S',         '<Nop>'},
 
-  {'n', 'ss',        ':w<CR>'},
+  {'n', 'ss',        ':w<CR><CR>'},
   {'n', 'sa',        ':w <C-r>%'},
   {'n', 'so',        function()
                        vim.cmd.w()
