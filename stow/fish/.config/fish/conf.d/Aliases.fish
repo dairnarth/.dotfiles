@@ -4,6 +4,11 @@ else
     set abbralias alias
 end
 
+$abbralias c   'config'
+$abbralias ce  'config edit'
+$abbralias cg  'config git'
+$abbralias cne 'config nix edit'
+$abbralias cnr 'config nix rebuild'
 $abbralias g   'git'
 $abbralias n   'nix'
 $abbralias mkd 'mkdir -pv'
